@@ -43,6 +43,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:var(--navy);text-underline-offset:3px}
 :focus-visible{outline:3px solid var(--navy);outline-offset:2px;box-shadow:0 0 0 2px var(--ivory)}
+.nowrap{white-space:nowrap} /* keeps a hyphenated word like re-engage on one line */
 
 /* Headings and labels. Pages set their own margins and smaller-screen sizes. */
 h1,h2,h3{font-family:var(--display);font-weight:600}

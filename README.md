@@ -9,6 +9,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 | `index.html` | Home page. Lists the tools. |
 | `tools/` | One folder per tool. Each tool's page is the `index.html` inside its folder. |
 | `tools/eisenhower-matrix/` | The Eisenhower Matrix. `recommendations.js` holds the logic for the guided questions. |
+| `tools/team-development-map/` | The Team Development Map. Places one person and one task by skill and willingness. Built on the Eisenhower Matrix engine. `recommendations.js` holds the logic for the guided questions. |
 | `assets/css/pivot-labs.css` | Shared styles for every page: fonts, colors, the brand header, and buttons. The start of the Pivot Labs design system. |
 | `assets/fonts/` | Playfair Display and Source Sans 3, shared by every page. Both use the SIL Open Font License (license files included). |
 | `.nojekyll` | Tells GitHub Pages to publish the files as they are. |
