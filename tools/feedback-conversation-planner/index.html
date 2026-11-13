@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Prepare one feedback conversation with the Pivot Labs Feedback Conversation Planner. Describe what happened, get a suggested approach, plan what you'll say and ask, and print a plan to bring with you."><title>Feedback Conversation Planner | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, the guided planner layout, and the situation picker come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1200px}
+main{max-width:1200px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* The plan: opening text keeps line breaks, the checklist shows boxes, the starter note has blanks to fill in */
+.brief-text{white-space:pre-wrap}
+.brief .check-list{list-style:none;padding-left:0}
+.check-list li{position:relative;padding-left:32px}
+.check-list li::before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border:2px solid var(--navy);border-radius:4px;box-sizing:border-box}
+.check-list li.is-checked::after{content:"";position:absolute;left:7px;top:5px;width:6px;height:11px;border:solid var(--navy);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.starter-note{margin-top:12px;padding:12px 16px;border:1px dashed var(--card-line);border-radius:var(--radius)}
+.brief .starter-note h4{margin-top:0}
+.blank{display:inline-block;min-width:140px;height:1.1em;border-bottom:1px solid var(--navy);vertical-align:baseline}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .check-list li{padding-left:22pt}
+  .check-list li::before{top:1pt;width:13pt;height:13pt}
+  .check-list li.is-checked::after{left:4.5pt;top:3pt;width:4pt;height:8pt;border-width:0 2pt 2pt 0}
+  .starter-note{border-color:#a8a8a8}
+  .brief-end{break-inside:avoid}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .blank{min-width:96px}
+}
+</style></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Feedback Conversation Planner</p>
+      <h1>How will you have this conversation?</h1>
+      <p>Prepare one feedback conversation. Describe what happened, get a suggested approach, plan what you’ll say and ask, and leave with a plan to bring with you.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Use first names or initials and leave out sensitive details. To keep your plan, print it or save it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>The Feedback Conversation Planner helps you prepare one feedback conversation: what to say, what to ask, and how to follow up. Your answers suggest one of six approaches, and you can choose another. Every approach describes actions and their effect, not a person’s character.</p>
+    <p>Describing when and where something happened, what the person did, and its effect comes from the Situation-Behavior-Impact™ (SBI™) model by the Center for Creative Leadership. Opening with context and closing with an agreed next step come from Anna Carroll’s COIN conversation model. Look ahead draws on feedforward, Marshall Goldsmith’s term for offering ideas for the future instead of reviewing the past. The two approaches for a repeated issue are inspired by Jonathan Raymond’s Accountability Dial®, which raises an issue in gradual steps; their structure and wording are our own. The reminder to separate what you saw from your guess about why draws on Chris Argyris’s ladder of inference. The “Before you talk” checklist is adapted from infographics by Amy Gibson and Cicely Simpson.</p>
+    <p class="small">SBI and Situation-Behavior-Impact are trademarks of the Center for Creative Leadership.</p>
+    <p class="small sources"><strong>Sources:</strong> Argyris, C. (1990). <cite>Overcoming organizational defenses: Facilitating organizational learning.</cite> Allyn and Bacon. · Carroll, A. (2014). <cite>The feedback imperative: How to give everyday feedback to speed up your team’s success.</cite> River Grove Books. · Center for Creative Leadership. Situation-Behavior-Impact™ (SBI™) feedback model. · Goldsmith, M., with Reiter, M. (2007). <cite>What got you here won’t get you there.</cite> Hyperion. · Raymond, J. (2017). <cite>Good authority: How to become the leader your team is waiting for.</cite> Ideapress Publishing.</p>
+  </section>
+</main>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every answer and your plan. You can undo it until you start entering new answers.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear my answers</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="../../assets/js/situation-picker.js"></script><script src="content.js"></script><script>
+'use strict';
+GuidedPlanner.create(FeedbackPlanner);
+</script></body></html>

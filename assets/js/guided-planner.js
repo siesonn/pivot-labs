@@ -11,6 +11,7 @@
     steps            [{ id, title, intro, fields }]
     initialAnswers() the starting answers object (a fresh copy each time)
     resultTitle      label for the last item in the step list, for example "Your brief"
+    finishLabel      text of the last step's button (optional, default "Review my brief")
     renderResult(container, answers, api)  builds the finished brief
     isDirty(answers) true when leaving the page would lose work
 
@@ -75,6 +76,8 @@ const GuidedPlanner = (() => {
     let furthest = 0;  // furthest step reached, so the step list can jump back to it
     let undoState = null;
     let statusTimer;
+    let stepTitles = '';  // the step list as last drawn, so it is redrawn only when a title changes
+    const titles = () => cfg.steps.map(s => resolve(s.title, answers)).concat(cfg.resultTitle);
 
     function announce(message) {
       dom.status.textContent = message;
@@ -107,7 +110,8 @@ const GuidedPlanner = (() => {
     // Step list: finished and reached steps are buttons; later steps are plain text.
     function renderSteps() {
       dom.steps.replaceChildren();
-      const items = cfg.steps.map(s => resolve(s.title, answers)).concat(cfg.resultTitle);
+      const items = titles();
+      stepTitles = items.join('\n');
       items.forEach((title, i) => {
         const li = el('li');
         const reached = i <= furthest;
@@ -205,12 +209,14 @@ const GuidedPlanner = (() => {
         } else dom.fields.append(standardField(f));
       });
       dom.back.hidden = current === 0;
-      dom.next.textContent = current === total - 1 ? 'Review my brief' : 'Continue';
+      dom.next.textContent = current === total - 1 ? (cfg.finishLabel || 'Review my brief') : 'Continue';
       refresh();
     }
 
     // Show or hide conditional fields and update suggestion notes without rebuilding inputs.
+    // Step titles can depend on answers (for example the chosen approach), so the step list follows.
     function refresh() {
+      if (titles().join('\n') !== stepTitles) renderSteps();
       if (current >= total) return;
       cfg.steps[current].fields.forEach(f => {
         const wrap = dom.fields.querySelector('[data-field="' + f.id + '"]');
@@ -286,7 +292,6 @@ const GuidedPlanner = (() => {
     }
 
     function render() {
-      renderSteps();
       const done = current === total;
       dom.head.hidden = done;
       dom.form.hidden = done;
@@ -295,6 +300,8 @@ const GuidedPlanner = (() => {
         dom.result.replaceChildren();
         cfg.renderResult(dom.result, answers, api);
       } else renderStep();
+      // Drawn after the step, so titles reflect answers the step sets as it opens.
+      renderSteps();
     }
 
     // Typing and choosing save answers right away, so Back and the step list keep them.

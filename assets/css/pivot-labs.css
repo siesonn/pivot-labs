@@ -9,7 +9,7 @@
   What lives here: fonts, colors, base page styles, the brand header, buttons,
   and pieces more than one tool uses: form fields, answer choices, the session
   notice, dialogs, status messages, the "About this tool" section, and the
-  guided planner layout. Styles used by one tool stay on that tool's page.
+  guided planner layout, and the situation picker. Styles used by one tool stay on that tool's page.
   This file is the start of the Pivot Labs design system. Palette changes need
   review by the brand owner before release.
 */
@@ -150,6 +150,39 @@ cite{font-style:italic}
 .planner-nav .primary{margin-left:auto}
 .check-option{display:flex;align-items:flex-start;gap:12px;margin:0;font-weight:500;cursor:pointer}
 .check-option input{width:20px;height:20px;min-height:0;flex-shrink:0;margin:2px 0 0;padding:0;accent-color:var(--navy)}
+/* Status and undo float at the bottom of the screen so they stay visible on a long planner page */
+.planner-page #status,.planner-page #undo-bar{position:fixed;left:50%;transform:translateX(-50%);z-index:5;margin:0;box-shadow:0 8px 24px rgba(36,57,92,.25)}
+.planner-page #status{bottom:16px}
+.planner-page #undo-bar{bottom:64px}
+.planner-page #status:empty+#undo-bar{bottom:16px}
+
+/* Tag: a small label such as "Suggested" */
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--teal-tint);font-size:13px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;vertical-align:middle}
+
+/*
+  Situation picker: a suggested option with the reason it fits, and the other options to
+  choose instead. Used by the Feedback Conversation Planner and built for the Coaching
+  Approach Picker, Decision Toolkit, and home page starter cards.
+  The logic is in assets/js/situation-picker.js.
+*/
+.picker-card{max-width:680px;padding:20px 24px;background:var(--ivory);border:1px solid var(--card-line);border-left:6px solid var(--teal);border-radius:var(--radius)}
+.picker-card h3{font-size:24px;line-height:1.25;margin:4px 0 0}
+.picker-card p{margin:8px 0 0}
+.picker-why strong{font-weight:700}
+.planner-field .picker-choice{margin-top:32px}
+.picker-option{display:block}
+.picker-option-title{display:block;font-weight:700}
+.picker-option-detail{display:block;margin-top:2px;font-size:15px;font-weight:400}
+.picker-question{margin-top:32px;max-width:680px}
+.picker-question fieldset{margin:0}
+.picker-question legend{font-size:18px;line-height:1.35;margin-bottom:8px}
+.picker-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.picker-result-title{font-size:28px;margin:0 0 16px}
+.picker-result-title:focus{outline:none}
+.picker-others-title{font-size:20px;margin:32px 0 8px}
+.picker-others{list-style:none;max-width:680px;margin:0 0 24px;padding:0;display:grid;gap:8px}
+.picker-others li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding:12px 16px;border:1px solid var(--card-line);border-radius:var(--radius)}
+.picker-others p{margin:0}
 
 /* The finished brief: on screen and printed */
 .result-head h2{font-size:28px;margin:8px 0}
