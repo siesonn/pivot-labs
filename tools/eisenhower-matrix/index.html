@@ -1,55 +1,15 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Work through your priorities with the Pivot Labs Eisenhower Matrix. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider."><title>Eisenhower Matrix | Pivot Labs</title><style>
-/* Pivot Labs Brand Guide 2.0: Playfair Display (display) and Source Sans 3 (body), self-hosted under the SIL Open Font License */
-@font-face{font-family:"Playfair Display";src:url("../../assets/fonts/playfair-display-latin-wght-normal.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
-@font-face{font-family:"Playfair Display";src:url("../../assets/fonts/playfair-display-latin-wght-italic.woff2") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
-@font-face{font-family:"Source Sans 3";src:url("../../assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2");font-weight:200 900;font-style:normal;font-display:swap}
-@font-face{font-family:"Source Sans 3";src:url("../../assets/fonts/source-sans-3-latin-wght-italic.woff2") format("woff2");font-weight:200 900;font-style:italic;font-display:swap}
-
-:root{
-  /* Shared palette */
-  --navy:#24395C;--slate:#6C849C;--teal:#4F7B8C;--terracotta:#A2705A;--amber:#BB895E;--mocha:#A79083;--espresso:#4A3F3B;--ivory:#FFFDF7;
-  /* Hover shade for navy buttons */
-  --navy-dark:#1A2B47;
-  /* Surface tints: palette color mixed with Ivory. Navy text passes 8:1 or better on each. */
-  --navy-tint:#E5E5E4;--slate-tint:#DCE0E1;--teal-tint:#D8E0DF;--mocha-tint:#ECE5DD;--amber-tint:#F1E6D8;--terracotta-tint:#EEE4DB;
-  --hover-tint:#F0F1EE;--selected-tint:#EAECEA;
-  /* Lines: decorative borders use Mocha tints; form controls use Slate (3.81:1 on Ivory) */
-  --line:#E0D7CE;--card-line:#CABCB1;--control:#6C849C;
-  --display:"Playfair Display",Cambria,Georgia,serif;
-  --body:"Source Sans 3",Calibri,Arial,sans-serif;
-  --radius:8px;
-}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-html{background:var(--ivory)}
-body{margin:0;background:var(--ivory);color:var(--navy);font:16px/1.5 var(--body)}
-button,input,select,textarea{font:inherit;color:inherit}
-button{cursor:pointer}
-:is(button,input,select,textarea,legend,[tabindex]):focus-visible{outline:3px solid var(--navy);outline-offset:2px;box-shadow:0 0 0 2px var(--ivory)}
-
-/* Brand header: live-text name and tagline, per the guide for navigation sizes */
-.site-header{background:var(--ivory);border-top:6px solid var(--navy);border-bottom:1px solid var(--line)}
-.topbar{max-width:1440px;margin:auto;padding:16px 48px;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
-.brand-name{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.2;letter-spacing:-.2px;color:var(--navy);text-decoration:none}
-a.brand-name:hover{text-decoration:underline;text-underline-offset:4px}
-.brand-tagline{font-family:var(--display);font-style:italic;font-size:17px;line-height:1.3;padding-left:16px;border-left:1px solid var(--mocha)}
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Work through your priorities with the Pivot Labs Eisenhower Matrix. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider."><title>Eisenhower Matrix | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, and buttons come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1440px}
 
 main{max-width:1440px;margin:auto;padding:40px 48px 48px}
 .intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
-.eyebrow{margin:0;font-size:14px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal)}
-h1{font-family:var(--display);font-size:40px;font-weight:600;line-height:1.15;letter-spacing:-.5px;margin:8px 0 16px}
+h1{margin:8px 0 16px}
 .intro p{margin:0;max-width:640px;font-size:18px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
-h2{font-family:var(--display);font-size:24px;font-weight:600;line-height:1.25;margin:0}
+h2{margin:0}
 
-/* Buttons: primary is Ivory on Navy; secondary is Navy text and border on Ivory */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border:1px solid var(--navy);border-radius:var(--radius);background:var(--ivory);color:var(--navy);font-size:16px;font-weight:600;line-height:1.2;text-align:center}
-.btn:hover{background:var(--navy-tint)}
-.btn.primary{background:var(--navy);color:var(--ivory)}
-.btn.primary:hover{background:var(--navy-dark)}
-.btn:disabled{opacity:.5;cursor:default}
-.btn:disabled:hover{background:var(--ivory)}
 .btn-block{width:100%;margin-bottom:16px}
 
 .notice{display:flex;gap:16px;align-items:flex-start;background:var(--amber-tint);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:var(--radius);padding:16px 24px;margin-bottom:32px;font-size:16px}
@@ -229,8 +189,7 @@ legend{padding:0;font-weight:600}
   .qhead{padding:16px}
 }
 @media(max-width:740px){
-  .topbar{padding:12px 16px;flex-direction:column;align-items:flex-start;gap:0}
-  .brand-tagline{padding-left:0;border-left:0}
+  .topbar{padding:12px 16px}
   main{padding:24px 16px 32px}
   h1{font-size:32px}
   .intro{gap:16px}

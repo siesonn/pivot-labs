@@ -1,0 +1,72 @@
+/*
+  Pivot Labs shared styles
+  Built to the Pivot Labs Brand Guide 2.0 (November 2026).
+
+  Every page loads this file first, then adds its own styles.
+  From a tool page:  <link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+  From the home page: <link rel="stylesheet" href="assets/css/pivot-labs.css">
+
+  What lives here: fonts, colors, base page styles, the brand header, and buttons.
+  This file is the start of the Pivot Labs design system. Palette changes need
+  review by the brand owner before release.
+*/
+
+/* Fonts: Playfair Display (display) and Source Sans 3 (body), self-hosted under the SIL Open Font License */
+@font-face{font-family:"Playfair Display";src:url("../fonts/playfair-display-latin-wght-normal.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Playfair Display";src:url("../fonts/playfair-display-latin-wght-italic.woff2") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url("../fonts/source-sans-3-latin-wght-normal.woff2") format("woff2");font-weight:200 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url("../fonts/source-sans-3-latin-wght-italic.woff2") format("woff2");font-weight:200 900;font-style:italic;font-display:swap}
+
+:root{
+  /* Shared palette */
+  --navy:#24395C;--slate:#6C849C;--teal:#4F7B8C;--terracotta:#A2705A;--amber:#BB895E;--mocha:#A79083;--espresso:#4A3F3B;--ivory:#FFFDF7;
+  /* Hover shade for navy buttons */
+  --navy-dark:#1A2B47;
+  /* Surface tints: palette color mixed with Ivory. Navy text passes 8:1 or better on each. */
+  --navy-tint:#E5E5E4;--slate-tint:#DCE0E1;--teal-tint:#D8E0DF;--mocha-tint:#ECE5DD;--amber-tint:#F1E6D8;--terracotta-tint:#EEE4DB;
+  --hover-tint:#F0F1EE;--selected-tint:#EAECEA;
+  /* Lines: decorative borders use Mocha tints; form controls use Slate (3.81:1 on Ivory) */
+  --line:#E0D7CE;--card-line:#CABCB1;--control:#6C849C;
+  /* Type */
+  --display:"Playfair Display",Cambria,Georgia,serif;
+  --body:"Source Sans 3",Calibri,Arial,sans-serif;
+  /* Shape */
+  --radius:8px;
+}
+
+/* Base page */
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--ivory)}
+body{margin:0;background:var(--ivory);color:var(--navy);font:16px/1.5 var(--body)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--navy);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--navy);outline-offset:2px;box-shadow:0 0 0 2px var(--ivory)}
+
+/* Headings and labels. Pages set their own margins and smaller-screen sizes. */
+h1,h2,h3{font-family:var(--display);font-weight:600}
+h1{font-size:40px;line-height:1.15;letter-spacing:-.5px}
+h2{font-size:24px;line-height:1.25}
+.eyebrow{margin:0;font-size:14px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal)}
+
+/* Brand header: live-text name and tagline, per the guide for navigation sizes. Pages set the header width. */
+.site-header{background:var(--ivory);border-top:6px solid var(--navy);border-bottom:1px solid var(--line)}
+.topbar{margin:0 auto;padding:16px 48px;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
+.brand-name{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.2;letter-spacing:-.2px;color:var(--navy);text-decoration:none}
+a.brand-name:hover{text-decoration:underline;text-underline-offset:4px}
+.brand-tagline{font-family:var(--display);font-style:italic;font-size:17px;line-height:1.3;padding-left:16px;border-left:1px solid var(--mocha)}
+
+/* Buttons: primary is Ivory on Navy; secondary is Navy text and border on Ivory. Works on <button> and <a>. */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border:1px solid var(--navy);border-radius:var(--radius);background:var(--ivory);color:var(--navy);font-size:16px;font-weight:600;line-height:1.2;text-align:center;text-decoration:none}
+.btn:hover{background:var(--navy-tint)}
+.btn.primary{background:var(--navy);color:var(--ivory)}
+.btn.primary:hover{background:var(--navy-dark)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:disabled:hover{background:var(--ivory)}
+
+/* Smaller screens: stack the brand header */
+@media(max-width:740px){
+  .topbar{flex-direction:column;align-items:flex-start;gap:0}
+  .brand-tagline{padding-left:0;border-left:0}
+}

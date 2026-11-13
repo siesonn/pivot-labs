@@ -9,6 +9,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 | `index.html` | Home page. Lists the tools. |
 | `tools/` | One folder per tool. Each tool's page is the `index.html` inside its folder. |
 | `tools/eisenhower-matrix/` | The Eisenhower Matrix. `recommendations.js` holds the logic for the guided questions. |
+| `assets/css/pivot-labs.css` | Shared styles for every page: fonts, colors, the brand header, and buttons. The start of the Pivot Labs design system. |
 | `assets/fonts/` | Playfair Display and Source Sans 3, shared by every page. Both use the SIL Open Font License (license files included). |
 | `.nojekyll` | Tells GitHub Pages to publish the files as they are. |
 
@@ -16,7 +17,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 
 1. Make a folder in `tools/` named for the tool, for example `tools/learning-solutions-guide/`.
 2. Put the tool's `index.html`, and any script files it needs, in that folder.
-3. Load fonts from `../../assets/fonts/`.
+3. Link the shared stylesheet before the page's own styles: `<link rel="stylesheet" href="../../assets/css/pivot-labs.css">`. It brings in the fonts, colors, header, and buttons.
 4. Add a card for the tool on the home page.
 
 ## How the tools handle entries
