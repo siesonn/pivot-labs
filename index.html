@@ -1,17 +1,19 @@
 <!doctype html>
 <html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Pivot Labs offers interactive tools for everyday leadership."><title>Pivot Labs | Navigating Everyday Leadership</title><link rel="stylesheet" href="assets/css/pivot-labs.css"><style>
-/* Bare-bones home page: brand header and a list of tools. Shared fonts, colors, header, and buttons come from assets/css/pivot-labs.css. */
+/* Bare-bones home page: brand header and tools grouped by the leader's situation. Shared fonts, colors, header, and buttons come from assets/css/pivot-labs.css. */
 body{display:flex;flex-direction:column;min-height:100vh}
 .topbar,main,.site-footer>div{max-width:1120px;margin:0 auto;padding-inline:48px}
 main{flex:1;width:100%;padding-block:48px}
 h1{margin:0 0 16px}
 .lead{font-size:18px;max-width:640px;margin:0 0 48px}
-h2{font-size:26px;margin:0 0 16px}
+h2{font-size:26px;margin:0 0 8px}
+.category{margin-bottom:48px}
+.category:last-child{margin-bottom:0}
+.category-lead{margin:0 0 24px;max-width:640px}
 .tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
 .tool-card{display:flex;flex-direction:column;background:var(--ivory);border:1px solid var(--card-line);border-top:6px solid var(--navy);border-radius:var(--radius);padding:24px}
-.tool-card h3{font-size:24px;line-height:1.25;margin:8px 0}
+.tool-card h3{font-size:24px;line-height:1.25;margin:0 0 8px}
 .tool-card p{margin:0 0 24px}
-.tool-card .eyebrow{margin:0}
 .tool-card .btn{margin-top:auto;align-self:flex-start}
 .site-footer{border-top:1px solid var(--line);font-size:15px}
 .site-footer>div{padding-block:24px}
@@ -26,18 +28,34 @@ h2{font-size:26px;margin:0 0 16px}
 <header class="site-header"><div class="topbar"><span class="brand-name">Pivot Labs</span><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
 <main>
   <h1>What do you need help with?</h1>
-  <p class="lead">Choose a tool to work through a leadership challenge.</p>
-  <section aria-labelledby="tools-title">
-    <h2 id="tools-title">Tools</h2>
+  <p class="lead">Start with what you’re working through, then choose the tool that fits.</p>
+  <section class="category" aria-labelledby="prioritize-title">
+    <h2 id="prioritize-title">Prioritize your time</h2>
+    <p class="category-lead">Decide what gets attention now and what can wait.</p>
     <ul class="tools">
       <li class="tool-card">
-        <p class="eyebrow">Priorities and commitments</p>
         <h3>Eisenhower Matrix</h3>
         <p>Work through your priorities. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider.</p>
         <a class="btn primary" href="tools/eisenhower-matrix/index.html">Open the Eisenhower Matrix</a>
       </li>
+    </ul>
+  </section>
+  <section class="category" aria-labelledby="expectations-title">
+    <h2 id="expectations-title">Set expectations and run the team</h2>
+    <p class="category-lead">Make roles, handoffs, and team routines clear.</p>
+    <ul class="tools">
       <li class="tool-card">
-        <p class="eyebrow">Develop your people</p>
+        <h3>Delegation Planner</h3>
+        <p>Plan one handoff. Agree on what done looks like, who decides what, and when you’ll check in, then print a brief to review together.</p>
+        <a class="btn primary" href="tools/delegation-planner/index.html">Open the Delegation Planner</a>
+      </li>
+    </ul>
+  </section>
+  <section class="category" aria-labelledby="develop-title">
+    <h2 id="develop-title">Develop your people</h2>
+    <p class="category-lead">Choose how to coach, stretch, or support each person.</p>
+    <ul class="tools">
+      <li class="tool-card">
         <h3>Team Development Map</h3>
         <p>Plan how to support someone on a specific task. Add a person and a task, consider their skill and willingness, and decide whether to guide, stretch, <span class="nowrap">re-engage</span>, or direct.</p>
         <a class="btn primary" href="tools/team-development-map/index.html">Open the Team Development Map</a>
