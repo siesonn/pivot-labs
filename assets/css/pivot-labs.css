@@ -6,7 +6,10 @@
   From a tool page:  <link rel="stylesheet" href="../../assets/css/pivot-labs.css">
   From the home page: <link rel="stylesheet" href="assets/css/pivot-labs.css">
 
-  What lives here: fonts, colors, base page styles, the brand header, and buttons.
+  What lives here: fonts, colors, base page styles, the brand header, buttons,
+  and pieces more than one tool uses: form fields, answer choices, the session
+  notice, dialogs, status messages, the "About this tool" section, and the
+  guided planner layout. Styles used by one tool stay on that tool's page.
   This file is the start of the Pivot Labs design system. Palette changes need
   review by the brand owner before release.
 */
@@ -66,8 +69,164 @@ a.brand-name:hover{text-decoration:underline;text-underline-offset:4px}
 .btn:disabled{opacity:.5;cursor:default}
 .btn:disabled:hover{background:var(--ivory)}
 
-/* Smaller screens: stack the brand header */
+/* Small text and screen-reader-only text */
+.small{font-size:15px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Session notice: says how entries are handled on this page */
+.notice{display:flex;gap:16px;align-items:flex-start;background:var(--amber-tint);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:var(--radius);padding:16px 24px;margin-bottom:32px;font-size:16px}
+.notice strong{font-weight:700}
+.notice-icon{flex:0 0 auto;display:grid;place-items:center;width:26px;height:26px;border:2px solid var(--navy);border-radius:50%;font-family:var(--display);font-style:italic;font-weight:700;font-size:15px;line-height:1}
+
+/* Form fields: persistent labels, examples outside the field */
+label{display:block;font-size:16px;font-weight:600;margin-bottom:8px}
+.field{margin-top:16px}
+.field-hint{font-size:15px;margin:-4px 0 8px!important}
+textarea,input,select{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);color:var(--navy)}
+textarea{resize:vertical;min-height:96px;line-height:1.5}
+fieldset{padding:0;border:0;margin:16px 0;min-width:0}
+legend{padding:0;font-weight:600}
+.hint{font-size:15px;margin:0 0 16px}
+
+/* Answer choices: large clickable labels with a Navy border when selected. Works with radio buttons and checkboxes. */
+.guide-options{display:grid;gap:8px}
+.guide-options label{display:flex;align-items:flex-start;gap:12px;margin:0;padding:12px 16px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);font-size:16px;font-weight:500;cursor:pointer}
+.guide-options label:hover{background:var(--hover-tint)}
+.guide-options input{width:20px;height:20px;min-height:0;flex-shrink:0;margin:2px 0 0;padding:0;accent-color:var(--navy)}
+.guide-options label:has(input:checked){border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy);background:var(--selected-tint)}
+
+/* Dialogs */
+dialog{border:1px solid var(--line);border-radius:var(--radius);max-width:560px;width:calc(100% - 32px);padding:32px;background:var(--ivory);color:var(--navy);box-shadow:0 24px 64px rgba(36,57,92,.25)}
+dialog::backdrop{background:rgba(26,43,71,.72)}
+dialog h2{font-size:26px;margin:4px 0 8px}
+dialog p{font-size:16px}
+.close{float:right;min-width:44px;min-height:44px;margin:-12px -12px 0 8px;border:1px solid transparent;border-radius:var(--radius);background:transparent;color:var(--navy);font-size:28px;line-height:1}
+.close:hover{background:var(--hover-tint);border-color:var(--control)}
+.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:24px}
+
+/* Status message and undo bar */
+#status{width:fit-content;max-width:calc(100% - 32px);margin:0 auto 16px;padding:8px 16px;border-radius:var(--radius);background:var(--navy);color:var(--ivory);font-size:15px}
+#status:empty{display:none}
+#undo-bar{display:flex;align-items:center;gap:16px;width:fit-content;max-width:calc(100% - 32px);margin:0 auto 24px;padding:8px 8px 8px 16px;border-radius:var(--radius);background:var(--navy);color:var(--ivory);font-size:15px}
+
+/* About this tool: credits and sources */
+.about{max-width:760px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.about p{margin:8px 0 0}
+.about .sources{margin-top:16px}
+cite{font-style:italic}
+
+/*
+  Guided planner: a step list, one step at a time, and a printable brief at the end.
+  Used by the Delegation Planner and built for later planners (Feedback Conversation
+  Planner, Root Cause Finder). The step logic is in assets/js/guided-planner.js.
+  Pages that use it add class="planner-page" to <body>.
+*/
+.planner-layout{display:grid;grid-template-columns:248px minmax(0,1fr);gap:32px;align-items:start}
+.planner-layout>*{min-width:0}
+.planner-steps{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.planner-steps button,.planner-steps .step-locked{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:8px 12px;border:1px solid transparent;border-radius:var(--radius);background:transparent;color:var(--navy);font-size:16px;font-weight:500;line-height:1.3;text-align:left}
+.planner-steps button:hover{background:var(--hover-tint);border-color:var(--control)}
+.planner-steps .step-locked{cursor:default}
+.step-num{flex:0 0 28px;height:28px;display:grid;place-items:center;border:2px solid var(--navy);border-radius:50%;font-size:14px;font-weight:700}
+.step-locked .step-num{border-style:dashed;border-color:var(--control)}
+.planner-steps .step-done .step-num{background:var(--teal-tint)}
+.planner-steps [aria-current="step"]{background:var(--selected-tint);border-color:var(--navy);font-weight:700}
+.planner-steps [aria-current="step"] .step-num{background:var(--navy);color:var(--ivory)}
+.planner-panel{background:var(--ivory);border:1px solid var(--line);border-top:6px solid var(--navy);border-radius:var(--radius);padding:32px 40px 40px}
+.planner-step-head h2{font-size:28px;margin:8px 0}
+.planner-step-head h2:focus{outline:none}
+.planner-intro{font-size:18px;max-width:680px;margin:0}
+.planner-field{margin-top:32px;max-width:680px}
+.planner-field fieldset{margin:0}
+.planner-field legend,.planner-field>label{font-size:18px;line-height:1.35;margin-bottom:8px}
+.planner-field .guide-options+.field-error{margin-top:12px}
+.planner-note{margin:12px 0 0;padding:12px 16px;background:var(--teal-tint);border-left:4px solid var(--teal);border-radius:var(--radius);font-size:15px}
+.planner-note:empty{display:none}
+.planner-tip{margin:12px 0 0;font-size:15px}
+.field-error{display:flex;gap:8px;align-items:flex-start;margin:8px 0 0;padding:8px 12px;background:var(--terracotta-tint);border-left:4px solid var(--terracotta);border-radius:4px;color:var(--espresso);font-size:15px;font-weight:600}
+.field-error-icon{flex:0 0 auto;display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border:2px solid var(--espresso);border-radius:50%;font-size:12px;line-height:1}
+.planner-page [aria-invalid="true"]{border-color:var(--terracotta);box-shadow:0 0 0 1px var(--terracotta)}
+.planner-nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.planner-nav .primary{margin-left:auto}
+.check-option{display:flex;align-items:flex-start;gap:12px;margin:0;font-weight:500;cursor:pointer}
+.check-option input{width:20px;height:20px;min-height:0;flex-shrink:0;margin:2px 0 0;padding:0;accent-color:var(--navy)}
+
+/* The finished brief: on screen and printed */
+.result-head h2{font-size:28px;margin:8px 0}
+.result-head h2:focus{outline:none}
+.result-head p{margin:0;max-width:680px;font-size:18px}
+.result-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:24px 0 8px}
+.result-actions .check-option{flex-basis:100%}
+.prep-notes{max-width:760px;margin:24px 0;padding:16px 24px;background:var(--amber-tint);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:var(--radius)}
+.prep-notes h3{font-size:20px;margin:0 0 8px}
+.prep-notes ul{margin:0;padding-left:22px}
+.prep-notes li+li{margin-top:4px}
+.prep-notes p{margin:8px 0 0}
+.brief{max-width:760px;margin-top:24px;padding:32px 40px;background:var(--ivory);border:1px solid var(--card-line);border-radius:var(--radius);overflow-wrap:anywhere}
+.brief-brand{padding-bottom:8px;margin-bottom:16px;border-bottom:1px solid var(--line);font-family:var(--display);font-size:16px;font-weight:700}
+.brief-brand span{margin-left:8px;font-style:italic;font-weight:400}
+.brief-top,.brief-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.brief-title{font-size:30px;line-height:1.2;margin:4px 0 8px;white-space:pre-wrap}
+.brief-meta{margin:0}
+.brief-section{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.brief-section h3{font-size:22px;margin:0}
+.brief h4{margin:16px 0 4px;font-family:var(--body);font-size:16px;font-weight:700}
+.brief p{margin:8px 0 0}
+.brief ul{margin:4px 0 0;padding-left:22px}
+.brief li+li{margin-top:4px}
+.brief dl{margin:8px 0 0}
+.brief dt{margin-top:12px;font-weight:700}
+.brief dd{margin:2px 0 0;white-space:pre-wrap}
+.brief-lines{margin-top:8px}
+.brief-lines div{height:36px;border-bottom:1px solid var(--card-line)}
+.brief-foot{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
+.brief-edit{min-height:44px;padding:4px 16px}
+.print-only{display:none}
+
+@media print{
+  .planner-page{background:#fff}
+  .planner-page .site-header,.planner-page .intro,.planner-page .notice,.planner-page .planner-progress,.planner-page .about,.planner-page #status,.planner-page #undo-bar,.planner-page dialog,.planner-page .no-print{display:none!important}
+  .planner-page main{max-width:none;padding:0}
+  .planner-page .planner-layout{display:block}
+  .planner-page .planner-panel{border:0;padding:0;background:#fff}
+  .planner-page .print-only{display:block}
+  .planner-page:not(.include-prep) .prep-print{display:none!important}
+  .planner-page .prep-print{break-before:page;max-width:none;margin:0;background:#fff;border:1px solid #a8a8a8;font-size:11pt}
+  .planner-page .brief{max-width:none;margin:0;padding:0;border:0;background:#fff;font-size:11pt;line-height:1.35}
+  .planner-page .brief-brand{font-size:12pt;border-bottom-color:#a8a8a8}
+  .planner-page .brief .eyebrow{font-size:10pt}
+  .planner-page .brief-title{font-size:20pt}
+  .planner-page .brief-section{margin-top:14pt;padding-top:8pt;border-top-color:#a8a8a8;break-inside:avoid}
+  .planner-page .brief-section h3,.planner-page .prep-print h3{font-size:14pt}
+  .planner-page .brief h4{font-size:11pt;margin-top:8pt}
+  .planner-page .brief dt{margin-top:6pt}
+  .planner-page .brief-lines div{height:26pt;border-bottom-color:#a8a8a8}
+  .planner-page .brief-foot{font-size:10pt;border-top-color:#a8a8a8}
+  .planner-page *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+
+/* Medium screens: the step list sits above the step */
+@media(max-width:900px){
+  .planner-layout{grid-template-columns:minmax(0,1fr);gap:16px}
+  .planner-steps{display:flex;flex-wrap:wrap}
+  .planner-steps li{flex:0 0 auto}
+  .planner-steps .step-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .planner-steps button,.planner-steps .step-locked{width:auto;min-width:44px;padding:8px}
+}
+
+/* Smaller screens: stack the brand header and reflow content in reading order */
 @media(max-width:740px){
   .topbar{flex-direction:column;align-items:flex-start;gap:0}
   .brand-tagline{padding-left:0;border-left:0}
+  .notice{padding:16px;margin-bottom:24px}
+  dialog{padding:24px}
+  .planner-panel{padding:24px 16px 32px}
+  .planner-step-head h2,.result-head h2{font-size:26px}
+  .planner-intro,.result-head p{font-size:17px}
+  .planner-nav .primary{margin-left:0}
+  .planner-nav .btn{flex:1 1 auto}
+  .brief{padding:24px 16px}
+  .brief-title{font-size:26px}
+  .brief-top,.brief-section-head{flex-wrap:wrap}
+  .prep-notes{padding:16px}
 }
