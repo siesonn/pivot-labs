@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Work through your priorities with the Pivot Labs Eisenhower Matrix. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider."><title>Eisenhower Matrix | Pivot Labs</title><style>
+/* Pivot Labs Brand Guide 2.0: Playfair Display (display) and Source Sans 3 (body), self-hosted under the SIL Open Font License */
+@font-face{font-family:"Playfair Display";src:url("../../assets/fonts/playfair-display-latin-wght-normal.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Playfair Display";src:url("../../assets/fonts/playfair-display-latin-wght-italic.woff2") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url("../../assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2");font-weight:200 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url("../../assets/fonts/source-sans-3-latin-wght-italic.woff2") format("woff2");font-weight:200 900;font-style:italic;font-display:swap}
+
+:root{
+  /* Shared palette */
+  --navy:#24395C;--slate:#6C849C;--teal:#4F7B8C;--terracotta:#A2705A;--amber:#BB895E;--mocha:#A79083;--espresso:#4A3F3B;--ivory:#FFFDF7;
+  /* Hover shade for navy buttons */
+  --navy-dark:#1A2B47;
+  /* Surface tints: palette color mixed with Ivory. Navy text passes 8:1 or better on each. */
+  --navy-tint:#E5E5E4;--slate-tint:#DCE0E1;--teal-tint:#D8E0DF;--mocha-tint:#ECE5DD;--amber-tint:#F1E6D8;--terracotta-tint:#EEE4DB;
+  --hover-tint:#F0F1EE;--selected-tint:#EAECEA;
+  /* Lines: decorative borders use Mocha tints; form controls use Slate (3.81:1 on Ivory) */
+  --line:#E0D7CE;--card-line:#CABCB1;--control:#6C849C;
+  --display:"Playfair Display",Cambria,Georgia,serif;
+  --body:"Source Sans 3",Calibri,Arial,sans-serif;
+  --radius:8px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--ivory)}
+body{margin:0;background:var(--ivory);color:var(--navy);font:16px/1.5 var(--body)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:is(button,input,select,textarea,legend,[tabindex]):focus-visible{outline:3px solid var(--navy);outline-offset:2px;box-shadow:0 0 0 2px var(--ivory)}
+
+/* Brand header: live-text name and tagline, per the guide for navigation sizes */
+.site-header{background:var(--ivory);border-top:6px solid var(--navy);border-bottom:1px solid var(--line)}
+.topbar{max-width:1440px;margin:auto;padding:16px 48px;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
+.brand-name{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.2;letter-spacing:-.2px;color:var(--navy);text-decoration:none}
+a.brand-name:hover{text-decoration:underline;text-underline-offset:4px}
+.brand-tagline{font-family:var(--display);font-style:italic;font-size:17px;line-height:1.3;padding-left:16px;border-left:1px solid var(--mocha)}
+
+main{max-width:1440px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+.eyebrow{margin:0;font-size:14px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal)}
+h1{font-family:var(--display);font-size:40px;font-weight:600;line-height:1.15;letter-spacing:-.5px;margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+h2{font-family:var(--display);font-size:24px;font-weight:600;line-height:1.25;margin:0}
+
+/* Buttons: primary is Ivory on Navy; secondary is Navy text and border on Ivory */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border:1px solid var(--navy);border-radius:var(--radius);background:var(--ivory);color:var(--navy);font-size:16px;font-weight:600;line-height:1.2;text-align:center}
+.btn:hover{background:var(--navy-tint)}
+.btn.primary{background:var(--navy);color:var(--ivory)}
+.btn.primary:hover{background:var(--navy-dark)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:disabled:hover{background:var(--ivory)}
+.btn-block{width:100%;margin-bottom:16px}
+
+.notice{display:flex;gap:16px;align-items:flex-start;background:var(--amber-tint);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:var(--radius);padding:16px 24px;margin-bottom:32px;font-size:16px}
+.notice strong{font-weight:700}
+.notice-icon{flex:0 0 auto;display:grid;place-items:center;width:26px;height:26px;border:2px solid var(--navy);border-radius:50%;font-family:var(--display);font-style:italic;font-weight:700;font-size:15px;line-height:1}
+
+.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:32px}
+.layout>*{min-width:0}
+.sidebar{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);padding:24px;align-self:start}
+.small{font-size:15px}
+.sidebar p{margin:8px 0 16px}
+.sidebar .field-help{margin:8px 0 0}
+label{display:block;font-size:16px;font-weight:600;margin-bottom:8px}
+.sub-label{margin-top:16px}
+.field-hint{font-size:15px;margin:-4px 0 8px!important}
+textarea,input,select{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);color:var(--navy)}
+textarea{resize:vertical;min-height:96px;line-height:1.5}
+.period-control{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:24px}
+.field{margin-top:16px}
+.field textarea{min-height:80px}
+.add-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
+.add-actions button{flex:1 1 auto}
+.divider{border-top:1px solid var(--line);padding-top:24px}
+.tray-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.tray-title{font-size:16px;font-weight:700}
+.count{display:inline-block;min-width:28px;text-align:center;background:var(--navy-tint);border-radius:999px;padding:2px 10px;font-size:14px;font-weight:700}
+.task-list{min-height:80px}
+.tray-empty{font-size:15px;border:1px dashed var(--mocha);border-radius:var(--radius);padding:16px;text-align:center}
+.tip{margin-top:24px!important;font-size:15px}
+.guide{border-top:1px solid var(--line);padding-top:24px;margin-top:24px;font-size:15px}
+.guide p{margin:0 0 8px}
+.guide p:last-child{margin:0}
+
+/* Matrix: colors chosen by purpose and every quadrant is labeled. Two accents only (Dusty Teal, Slate Blue), plus Navy and Mocha neutrals. */
+.board-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px}
+.board-head h2{font-size:28px}
+#period-label{margin-top:4px;overflow-wrap:anywhere}
+.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.quadrant{border:1px solid var(--line);border-radius:var(--radius);background:var(--ivory);min-height:240px}
+.quadrant[data-zone="do"]{--tint:var(--navy);--accent:var(--navy)}
+.quadrant[data-zone="schedule"]{--tint:var(--teal-tint);--accent:var(--teal)}
+.quadrant[data-zone="delegate"]{--tint:var(--slate-tint);--accent:var(--slate)}
+.quadrant[data-zone="reconsider"]{--tint:var(--mocha-tint);--accent:var(--mocha)}
+.qhead{padding:16px 20px;background:var(--tint);border-top:6px solid var(--accent);border-bottom:1px solid var(--line);border-radius:7px 7px 0 0}
+.quadrant[data-zone="do"] .qhead{color:var(--ivory)}
+.quadrant[data-zone="do"] .count{background:var(--ivory);color:var(--navy)}
+.qtitle{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qtitle h3{font-family:var(--display);font-size:22px;font-weight:600;line-height:1.25;margin:0}
+.qhead p{font-size:15px;margin:4px 0 0}
+.zone{padding:16px;min-height:120px}
+.empty{font-size:15px;text-align:center;padding:24px 8px;pointer-events:none}
+.quadrant.over,.task-list.over{outline:3px dashed var(--teal);outline-offset:2px}
+
+/* Task cards */
+.task{background:var(--ivory);border:1px solid var(--card-line);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;box-shadow:0 1px 2px rgba(36,57,92,.06);cursor:grab}
+.task:last-child{margin-bottom:0}
+.task.dragging{opacity:.5}
+.task:focus-within{position:relative;z-index:1}
+.task-content{overflow-wrap:anywhere}
+.task-text{font-size:16px;font-weight:600;overflow-wrap:anywhere;white-space:pre-wrap}
+.task-meta,.task-next,.task-plan{font-size:15px;margin-top:4px;overflow-wrap:anywhere}
+.task-plan{padding-left:8px;border-left:2px solid var(--slate)}
+.task-plan>div+div{margin-top:2px}
+.overdue{display:inline-block;background:var(--terracotta-tint);color:var(--espresso);font-weight:700;padding:2px 8px;border-left:4px solid var(--terracotta);border-radius:4px}
+.task-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:12px}
+.move-label{width:100%;margin:0;font-size:15px;font-weight:600}
+.move-label select{display:block;margin-top:4px;font-size:16px}
+.task-controls{display:flex;flex-wrap:wrap;gap:4px}
+.mini{min-width:44px;min-height:44px;padding:8px 12px;border:1px solid transparent;border-radius:var(--radius);background:transparent;color:var(--navy);font-size:16px;font-weight:600}
+.mini:hover{background:var(--hover-tint);border-color:var(--control)}
+.mini[data-control="remove"]{font-size:22px;line-height:1}
+
+.underboard{display:flex;justify-content:space-between;gap:16px;margin:16px 0;font-size:15px}
+.underboard>span:last-child{max-width:400px;text-align:right}
+
+/* Attribution */
+.about{max-width:760px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.about p{margin:8px 0 0}
+.about .sources{margin-top:16px}
+cite{font-style:italic}
+.capture-mode .about{margin-top:24px}
+
+/* Dialogs */
+dialog{border:1px solid var(--line);border-radius:var(--radius);max-width:560px;width:calc(100% - 32px);padding:32px;background:var(--ivory);color:var(--navy);box-shadow:0 24px 64px rgba(36,57,92,.25)}
+dialog::backdrop{background:rgba(26,43,71,.72)}
+dialog h2{font-size:26px;margin:4px 0 8px}
+dialog p{font-size:16px}
+.close{float:right;min-width:44px;min-height:44px;margin:-12px -12px 0 8px;border:1px solid transparent;border-radius:var(--radius);background:transparent;color:var(--navy);font-size:28px;line-height:1}
+.close:hover{background:var(--hover-tint);border-color:var(--control)}
+fieldset{padding:0;border:0;margin:16px 0;min-width:0}
+legend{padding:0;font-weight:600}
+#guide-form legend{font-size:20px;line-height:1.35;margin-bottom:8px}
+.hint{font-size:15px;margin:0 0 16px}
+.guide-options{display:grid;gap:8px}
+.guide-options label{display:flex;align-items:flex-start;gap:12px;margin:0;padding:12px 16px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);font-size:16px;font-weight:500;cursor:pointer}
+.guide-options label:hover{background:var(--hover-tint)}
+.guide-options input{width:20px;height:20px;min-height:0;flex-shrink:0;margin:2px 0 0;padding:0;accent-color:var(--navy)}
+.guide-options label:has(input:checked){border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy);background:var(--selected-tint)}
+#wizard{max-height:90vh;overflow-y:auto}
+#guide-progress{margin:8px 0}
+#wizard-task{margin:8px 0;padding:12px 16px;max-height:7.5rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--mocha-tint);border-radius:var(--radius);font-weight:600}
+#guide-stage{margin:16px 0 0}
+.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:24px}
+.result{background:var(--slate-tint);border-left:4px solid var(--navy);border-radius:var(--radius);padding:16px 20px;margin-top:16px}
+.result strong{display:block;font-family:var(--display);font-size:24px;font-weight:600;line-height:1.25;margin-top:4px}
+#recommendation p{margin:8px 0}
+.recommend-action{font-weight:600}
+#copy-dialog .notice{margin:16px 0 0}
+
+/* Status and undo */
+#status{width:fit-content;max-width:calc(100% - 32px);margin:0 auto 16px;padding:8px 16px;border-radius:var(--radius);background:var(--navy);color:var(--ivory);font-size:15px}
+#status:empty{display:none}
+#undo-bar{display:flex;align-items:center;gap:16px;width:fit-content;max-width:calc(100% - 32px);margin:0 auto 24px;padding:8px 8px 8px 16px;border-radius:var(--radius);background:var(--navy);color:var(--ivory);font-size:15px}
+
+/* Screenshot view */
+#capture-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;padding:16px 24px;background:var(--ivory);border-bottom:1px solid var(--line);font-size:15px}
+.capture-mode .sidebar,.capture-mode .intro .actions,.capture-mode .intro p,.capture-mode .notice,.capture-mode .task-bottom,.capture-mode .underboard,.capture-mode .board-head>.small,.capture-mode #status,.capture-mode #undo-bar{display:none!important}
+.capture-mode .layout{display:block}
+.capture-mode main{padding:24px 32px}
+.capture-mode h1{font-size:32px}
+.capture-mode .intro{margin-bottom:16px}
+.capture-mode .quadrant,.capture-mode .zone{min-height:0}
+.capture-mode #snapshot-pending{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--ivory)}
+#snapshot-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+#snapshot-list>div{border:1px solid var(--card-line);border-radius:var(--radius);padding:8px 12px;overflow-wrap:anywhere}
+
+/* Print layout: built off-screen so it can be measured, then shown only when printing. Text stays at 10 to 11 pt; long plans flow to more pages. */
+#print-surface{position:absolute;left:-20000px;top:0;width:960px;visibility:hidden;display:flow-root;background:#fff;color:var(--navy);font-family:var(--body);font-size:11pt;line-height:1.35;overflow-wrap:anywhere}
+#print-surface .print-header{padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid #a8a8a8}
+#print-surface .print-brand{font-family:var(--display);font-size:12pt;font-weight:700}
+#print-surface .print-tagline{font-style:italic;font-weight:400;margin-left:8px}
+#print-surface h1{font-family:var(--display);font-size:20pt;font-weight:600;line-height:1.2;letter-spacing:0;margin:4px 0 2px}
+#print-surface .print-meta,#print-surface .print-warning,#print-surface .print-footer{font-size:10pt}
+#print-surface .print-warning{margin:8px 0 12px}
+#print-surface .print-footer{margin-top:10px}
+#print-surface .print-source{font-size:10pt;margin:2px 0 0}
+#print-surface .board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#print-surface .quadrant{min-height:0;break-inside:avoid;border:1px solid #a8a8a8;border-radius:6px;background:#fff}
+#print-surface .qhead,#print-surface .quadrant[data-zone="do"] .qhead{padding:6px 10px;background:#f1f1f1;color:var(--navy);border-top-width:4px;border-bottom-color:#a8a8a8;border-radius:5px 5px 0 0}
+#print-surface .count,#print-surface .quadrant[data-zone="do"] .count{background:#fff;border:1px solid #a8a8a8;font-size:10pt;padding:0 8px}
+#print-surface .qtitle h3{font-size:14pt}
+#print-surface .qhead p{font-size:10pt;margin-top:2px}
+#print-surface .zone{min-height:0;padding:8px}
+#print-surface .task{margin-bottom:6px;padding:6px 8px;background:#fff;border-color:#a8a8a8;box-shadow:none;break-inside:avoid;cursor:default}
+#print-surface .task-content{orphans:2;widows:2}
+#print-surface .task-text{font-size:11pt;line-height:1.3}
+#print-surface .task-meta,#print-surface .task-next,#print-surface .task-plan{font-size:10pt;margin-top:2px}
+#print-surface .overdue{background:none;padding:0 0 0 6px;border-left-width:3px}
+#print-surface .task-bottom{display:none}
+#print-surface .empty{padding:2px 0;text-align:left;font-size:10pt;font-style:italic}
+#print-surface .pending-print{margin-top:10px;padding:8px 10px;border:1px solid #a8a8a8;border-radius:6px;break-inside:avoid}
+#print-surface .pending-print h2{font-size:13pt}
+#print-surface .pending-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:6px}
+#print-surface.long-plan .board,#print-surface.long-plan .pending-items{display:block}
+#print-surface.long-plan .quadrant,#print-surface.long-plan .pending-print{break-inside:auto}
+#print-surface.long-plan .qhead,#print-surface.long-plan h2{break-after:avoid}
+#print-surface.long-plan .quadrant{margin-bottom:10px}
+#print-surface.long-plan .pending-items .task{margin-bottom:6px}
+
+@media print{
+  @page{size:letter landscape;margin:.35in}
+  html,body{background:#fff}
+  body{margin:0;padding:0}
+  body>header,body>main,body>dialog,#status,#undo-bar,#capture-toolbar{display:none!important}
+  #print-surface{position:static;left:auto;visibility:visible;display:block!important;width:100%}
+  *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+
+/* Smaller screens: stack in reading order rather than shrinking */
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .layout{grid-template-columns:280px minmax(0,1fr);gap:24px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+  .board-head>.small{display:none}
+  .qhead{padding:16px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px;flex-direction:column;align-items:flex-start;gap:0}
+  .brand-tagline{padding-left:0;border-left:0}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .notice{padding:16px;margin-bottom:24px}
+  .layout,.board{grid-template-columns:minmax(0,1fr)}
+  .sidebar{padding:16px}
+  .quadrant{min-height:200px}
+  .underboard{flex-direction:column}
+  .underboard>span:last-child{text-align:left}
+  dialog{padding:24px}
+  #snapshot-list{grid-template-columns:minmax(0,1fr)}
+  .capture-mode main{padding:16px}
+}
+</style></head><body><div id="capture-toolbar" hidden><strong>Screenshot view</strong><span>Use a full-page screenshot to capture a plan that extends below the screen.</span><button class="btn" id="exit-capture">Back to planning</button><button class="btn primary" id="capture-print">Print results</button></div><header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header><main><section class="intro"><div><p class="eyebrow">Eisenhower Matrix</p><h1>What needs your attention?</h1><p>Work through your priorities. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider.</p></div><div class="actions"><button class="btn" id="capture">Print results</button><button class="btn" id="reset">Clear tasks</button></div></section><div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Use task descriptions without names or sensitive details. To keep your plan, print it or save it as a PDF.</div></div><div class="layout"><aside class="sidebar"><div class="period-control"><label for="period">Planning timeframe</label><select id="period"><option value="Today">Today</option><option value="This week" selected>This week</option><option value="Next week">Next week</option><option value="This month">This month</option><option value="Next month">Next month</option><option value="Through date">Through a specific date</option><option value="Custom">Choose my own</option></select><label for="period-end" id="period-end-label" class="sub-label" hidden>Complete work by</label><input id="period-end" type="date" hidden aria-describedby="period-end-help"><p id="period-end-help" class="small field-help" hidden>Choose the end date for your plan. Each task can have its own due date.</p><label for="custom-period" id="custom-label" class="sub-label" hidden>My timeframe</label><p class="small field-hint" id="custom-period-hint" hidden>Example: Before the next training</p><input id="custom-period" maxlength="100" aria-describedby="custom-period-hint" hidden><p class="small field-help">Choose the period you are planning for. Urgency depends on when work needs to start, including preparation and dependencies. Changing this period does not move tasks.</p></div><h2>Start with a task</h2><p class="small">One task or a whole list. Add one task per line.</p><form id="add-form"><label for="task-input">What do you need to do?</label><p class="small field-hint" id="task-input-hint">Example: Prepare the team training agenda</p><textarea id="task-input" maxlength="10000" aria-describedby="task-input-hint" required></textarea><div class="field"><label for="add-deadline">Due date (optional)</label><input id="add-deadline" type="date" aria-describedby="add-deadline-help"><p class="small field-help" id="add-deadline-help">For one task. For a pasted list, add each task’s due date through Edit.</p></div><div class="add-actions"><button class="btn primary" type="submit">Add to list</button><button class="btn" type="button" id="help-new">Help me sort</button></div></form><div class="divider"><div class="tray-head"><span class="tray-title">Ready to sort</span><span class="count" id="inbox-count">0</span></div><button class="btn btn-block" id="guide-list" disabled>Guide me through my list</button><div class="task-list" id="inbox" data-zone="inbox"></div></div><p class="tip">Drag a task into a quadrant, use its Move to menu, or choose “Guide me” for a recommendation.</p><div class="guide"><p><strong>Urgent</strong> means work needs attention now, considering the due date, preparation time, and anything others are waiting on. A deadline next month can still require action today.</p><p><strong>Important</strong> means it supports a key goal, responsibility, or meaningful outcome.</p></div></aside><section aria-label="Your priority matrix"><div class="board-head"><div><h2>Your priority map</h2><div class="small" id="period-label"></div></div><span class="small">Drag to place · Move anytime</span></div><div class="board" id="board"></div><div class="underboard"><span id="total">0 tasks on your map</span><span>Recommendations consider timing, value, and who can do the work.</span></div></section></div><section id="snapshot-pending" hidden><h2>Still to sort</h2><div id="snapshot-list"></div></section><section class="about" aria-labelledby="about-title"><h2 id="about-title">About this tool</h2><p>The Eisenhower Matrix is based on the difference between urgent and important work that Dwight D. Eisenhower described in a 1954 speech. Stephen R. Covey later turned that idea into a four-quadrant matrix in <cite>The 7 Habits of Highly Effective People</cite> (1989). This Pivot Labs version adapts the quadrants and adds guided questions about timing, value, and who can do the work.</p><p class="small sources"><strong>Sources:</strong> Eisenhower, D. D. (1954, August 19). <cite>Address at the Second Assembly of the World Council of Churches, Evanston, Illinois.</cite> The American Presidency Project. Covey, S. R. (1989). <cite>The 7 Habits of Highly Effective People.</cite></p></section></main><div class="status" id="status" role="status" aria-live="polite"></div><div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" id="undo">Undo</button></div><div id="print-surface" aria-hidden="true"></div>
+<dialog id="wizard" aria-labelledby="wizard-title"><button type="button" class="close" aria-label="Close guide" id="close-wizard">×</button><p class="eyebrow">A quick check-in</p><h2 id="wizard-title">Choose a practical next step.</h2><p id="guide-progress" class="small"></p><p id="wizard-task"></p><p id="guide-stage" class="eyebrow" aria-live="polite"></p><form id="guide-form"><fieldset data-guide-step="0"><legend>Does this work need to happen?</legend><p class="hint">Consider the requirement, the outcome, and what would happen if this task were delayed or stopped.</p><div class="guide-options"><label><input type="radio" name="purpose" value="required" required><span>It is required or already committed.</span></label><label><input type="radio" name="purpose" value="valuable" required><span>It supports a meaningful outcome.</span></label><label><input type="radio" name="purpose" value="low" required><span>It has limited value and no known requirement.</span></label><label><input type="radio" name="purpose" value="unsure" required><span>I need to clarify why it is needed.</span></label></div></fieldset><fieldset data-guide-step="1"><legend>When does work need to begin?</legend><p class="hint">Considering the due date, preparation time, and anything others are waiting on, does this task need attention now? A task due next month may need work today.</p><div class="guide-options"><label><input type="radio" name="timing" value="now" required><span>Work needs attention now.</span></label><label><input type="radio" name="timing" value="later" required><span>Work can safely begin later.</span></label><label><input type="radio" name="timing" value="unsure" required><span>I need to confirm the latest safe start time.</span></label></div></fieldset><fieldset data-guide-step="2"><legend>Does this task need to be done by you?</legend><p class="hint">Consider your authority, expertise, and judgment. You may keep final decisions or review while someone else does part of the work.</p><div class="guide-options"><label><input type="radio" name="owner" value="me" required><span>It needs to be done by me.</span></label><label><input type="radio" name="owner" value="others" required><span>Someone else could do all or part of it.</span></label><label><input type="radio" name="owner" value="unsure" required><span>I need to discuss who should own it.</span></label></div></fieldset><fieldset data-guide-step="3"><legend>Is delegation practical?</legend><p class="hint">Check the actual handoff. A possible recipient is not a confirmed owner until skills, capacity, timing, and permission are clear.</p><div class="field"><label for="guide-skills">Is there someone with the skills to do the work?</label><select id="guide-skills" name="skills" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option><option value="unsure">Not sure yet</option></select></div><div class="field"><label for="guide-capacity">Does that person have capacity to take it on?</label><select id="guide-capacity" name="capacity" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option><option value="unsure">Not sure yet</option></select></div><div class="field"><label for="guide-handoff">Can you brief them in time for them to complete the work before it is needed?</label><select id="guide-handoff" name="handoff" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option><option value="unsure">Not sure yet</option></select></div><div class="field"><label for="guide-review">Is there time for any review, feedback, and corrections before the work is needed?</label><select id="guide-review" name="review" required><option value="">Choose an answer</option><option value="yes">Yes, or no review is needed</option><option value="no">No</option><option value="unsure">Not sure yet</option></select></div><div class="field"><label for="guide-authority">Can you assign this work without further approval?</label><select id="guide-authority" name="authority" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option><option value="unsure">Not sure yet</option></select></div></fieldset><div id="recommendation" class="result" role="status" aria-live="polite" hidden></div><div class="dialog-actions"><button class="btn" type="button" id="cancel-guide">Cancel</button><button class="btn" type="button" id="skip-guide" hidden>Skip for now</button><button class="btn" type="button" id="guide-back" hidden>Back</button><button class="btn primary" type="submit" id="guide-submit">Continue</button></div></form></dialog>
+<dialog id="copy-dialog" aria-labelledby="copy-title"><button class="close" aria-label="Close" id="close-copy">×</button><p class="eyebrow">Keep your plan</p><h2 id="copy-title">Take your priorities with you.</h2><p>Your entries are temporary. Print your results to keep the full plan. In the print window, choose “Save as PDF” if available. A screenshot also works for a quick record.</p><p class="small">If the plan extends below the screen, use a full-page capture or print to PDF.</p><div id="unsorted-warning" class="notice" hidden></div><p id="print-fit-note" class="small"></p><div class="dialog-actions"><button class="btn" id="back-copy">Back</button><button class="btn" id="screenshot-view">Screenshot view</button><button class="btn primary" id="print">Print results</button></div></dialog>
+<dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">Clear all tasks and the current draft?</h2><p>You can undo removal of added tasks. Copy any unfinished draft you want to keep.</p><div class="dialog-actions"><button class="btn" id="cancel-reset" autofocus>Keep working</button><button class="btn primary" id="confirm-reset">Clear all tasks</button></div></dialog>
+<dialog id="edit-dialog" aria-labelledby="edit-title"><button class="close" id="close-edit" aria-label="Close task editor">×</button><h2 id="edit-title">Edit task</h2><p>Keep the task clear. A due date and next action are optional.</p><form id="edit-form"><div class="field"><label for="edit-text">Task</label><textarea id="edit-text" maxlength="10000" required></textarea></div><div class="field"><label for="edit-deadline">Due date (optional)</label><input id="edit-deadline" type="date"></div><div class="field"><label for="edit-next">Next action (optional)</label><p class="small field-hint" id="edit-next-hint">Example: Draft the first three agenda items</p><input id="edit-next" maxlength="500" aria-describedby="edit-next-hint"></div><div class="dialog-actions"><button class="btn" type="button" id="cancel-edit">Cancel</button><button class="btn primary" type="submit">Save changes</button></div></form></dialog><script src="recommendations.js"></script><script>
+
+'use strict';
+const quadrants=[{id:'do',title:'Do now',hint:'Give this your next focused block of time.'},{id:'schedule',title:'Schedule',hint:'Protect time for work that moves you forward.'},{id:'delegate',title:'Delegate or discuss',hint:'Important work can be delegated too.'},{id:'reconsider',title:'Reconsider',hint:'Review whether to simplify, defer, or stop. Agree on changes to commitments.'}];
+let tasks=[],nextId=1,dragged=null,activeId=null,recommended=null,queue=[],queueIndex=0,editId=null,undoState=null,guideStep=0,guideAnswers={};
+const $=s=>document.querySelector(s);const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n};
+let statusTimer;function announce(msg){$('#status').textContent=msg;clearTimeout(statusTimer);statusTimer=setTimeout(()=>$('#status').textContent='',5000)}
+function localDateKey(date=new Date()){return date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0')}
+function isOverdue(value){return Boolean(value)&&value<localDateKey()}
+function period(){const value=$('#period').value;if(value==='Custom')return $('#custom-period').value.trim()||'My chosen timeframe';if(value==='Through date')return $('#period-end').value?'Through '+dateLabel($('#period-end').value):'Through a specific date';return value}
+function validPeriod(){return $('#period').value!=='Through date'||$('#period-end').reportValidity()}
+function deadlineText(value){return (isOverdue(value)?'Overdue · Due ':'Due ')+dateLabel(value)}
+function taskFocus(id,control='select'){document.querySelector('.task[data-id="'+id+'"] '+control)?.focus()}
+function remember(label,removed=tasks){undoState=removed.map(t=>({task:{...t},index:tasks.findIndex(x=>x.id===t.id)}));$('#undo-label').textContent=label;$('#undo-bar').hidden=false}
+function move(id,zone,focus=true,keepPlan=false){const t=tasks.find(t=>t.id===id);if(!t||!['inbox',...quadrants.map(q=>q.id)].includes(zone)||(!keepPlan&&t.zone===zone))return;if(!keepPlan){delete t.plan;delete t.why}t.zone=zone;render();if(focus)taskFocus(id);announce('Task moved to '+(quadrants.find(q=>q.id===zone)?.title||'Ready to sort')+'.')}
+function dateLabel(value){if(!value)return '';const d=new Date(value+'T12:00:00');return Number.isNaN(d.getTime())?value:d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
+function taskContent(t){const wrap=el('div','task-content');wrap.append(el('div','task-text',t.text));if(t.deadline)wrap.append(el('div','task-meta'+(isOverdue(t.deadline)?' overdue':''),deadlineText(t.deadline)));if(t.next)wrap.append(el('div','task-next','Next: '+t.next));if(t.plan){const plan=el('div','task-plan');if(t.why)plan.append(el('div',null,'Why: '+t.why));plan.append(el('div',null,'Plan: '+t.plan));wrap.append(plan)}return wrap}
+function card(t){const c=el('div','task');c.draggable=true;c.dataset.id=t.id;c.append(taskContent(t));const bottom=el('div','task-bottom');const sel=el('select');sel.setAttribute('aria-label','Move to for: '+t.text);[['inbox','Ready to sort'],...quadrants.map(q=>[q.id,q.title])].forEach(([v,l])=>{const o=el('option',null,l);o.value=v;o.selected=t.zone===v;sel.append(o)});sel.addEventListener('change',()=>move(t.id,sel.value));const moveLabel=el('label','move-label','Move to');moveLabel.append(sel);bottom.append(moveLabel);const controls=el('span','task-controls');for(const [label,action,kind] of [['Edit',()=>openEdit(t.id),'edit'],['Guide me',()=>openGuide(t.id),'guide'],['×',()=>{remember('Task removed.',[t]);const idx=tasks.findIndex(x=>x.id===t.id);tasks.splice(idx,1);render();if(tasks.length)taskFocus(tasks[Math.min(idx,tasks.length-1)].id);else $('#task-input').focus();announce('Task removed. Undo is available.');},'remove']]){const b=el('button','mini',label);b.dataset.control=kind;b.setAttribute('aria-label',(kind==='remove'?'Remove task':label)+': '+t.text);b.onclick=action;controls.append(b)}bottom.append(controls);c.append(bottom);c.addEventListener('dragstart',e=>{if(e.target.closest('button,select,input')){e.preventDefault();return}dragged=t.id;e.dataTransfer.setData('text/plain',String(t.id));e.dataTransfer.effectAllowed='move';c.classList.add('dragging')});c.addEventListener('dragend',()=>{dragged=null;document.querySelectorAll('.over,.dragging').forEach(n=>n.classList.remove('over','dragging'))});return c}
+function dropZone(n,zone){n.addEventListener('dragover',e=>{if(dragged===null)return;e.preventDefault();e.dataTransfer.dropEffect='move';n.classList.add('over')});n.addEventListener('dragleave',e=>{if(!n.contains(e.relatedTarget))n.classList.remove('over')});n.addEventListener('drop',e=>{e.preventDefault();n.classList.remove('over');if(dragged!==null)move(dragged,zone)})}
+function render(){const inbox=$('#inbox');inbox.replaceChildren();const pending=tasks.filter(t=>t.zone==='inbox');$('#inbox-count').textContent=pending.length;$('#guide-list').disabled=!pending.length;pending.forEach(t=>inbox.append(card(t)));if(!pending.length)inbox.append(el('div','tray-empty','Add a task, or move one here to sort it later.'));$('#board').replaceChildren();quadrants.forEach(q=>{const box=el('section','quadrant');box.dataset.zone=q.id;box.setAttribute('aria-label',q.title);const head=el('div','qhead');const title=el('div','qtitle');const list=tasks.filter(t=>t.zone===q.id);title.append(el('h3',null,q.title),el('span','count',list.length));head.append(title,el('p',null,q.hint));const zone=el('div','zone');list.forEach(t=>zone.append(card(t)));if(!list.length)zone.append(el('div','empty','Drop a task here'));box.append(head,zone);dropZone(box,q.id);$('#board').append(box)});const placed=tasks.length-pending.length;$('#total').textContent=placed+' task'+(placed===1?'':'s')+' on your map'+(pending.length?' · '+pending.length+' ready to sort':'');$('#period-label').textContent='Planning for: '+period();$('#snapshot-list').replaceChildren();pending.forEach(t=>$('#snapshot-list').append(taskContent(t)));$('#snapshot-pending').hidden=!document.body.classList.contains('capture-mode')||!pending.length}
+function addTasks(){const input=$('#task-input');const items=input.value.split(/\n/).map(x=>x.trim()).filter(Boolean);if(!items.length){input.setCustomValidity('Enter at least one task.');input.reportValidity();return []}input.setCustomValidity('');const dueInput=$('#add-deadline');if(items.length===1&&!dueInput.reportValidity())return [];const deadline=items.length===1?dueInput.value:'';const ids=[];items.forEach(text=>{const id=nextId++;tasks.push({id,text,zone:'inbox',deadline,next:''});ids.push(id)});input.value='';dueInput.value='';updateAddDeadline();render();$('#task-input').focus();announce(items.length+' task'+(items.length===1?'':'s')+' added.');return ids}
+function updateAddDeadline(){const count=$('#task-input').value.split(/\n/).map(x=>x.trim()).filter(Boolean).length;$('#add-deadline').disabled=count>1;$('#add-deadline-help').textContent=count>1?'You are adding a list. Add each task’s due date through Edit after adding it.':'For one task. For a pasted list, add each task’s due date through Edit.'}
+$('#task-input').oninput=()=>{$('#task-input').setCustomValidity('');updateAddDeadline()};$('#add-form').onsubmit=e=>{e.preventDefault();addTasks()};$('#help-new').onclick=()=>{if(!validPeriod())return;const ids=addTasks();if(ids.length)startQueue(ids)};$('#guide-list').onclick=()=>startQueue(tasks.filter(t=>t.zone==='inbox').map(t=>t.id));dropZone($('#inbox'),'inbox');
+$('#period').onchange=()=>{const custom=$('#period').value==='Custom',through=$('#period').value==='Through date';$('#custom-period').hidden=$('#custom-label').hidden=$('#custom-period-hint').hidden=!custom;$('#period-end').hidden=$('#period-end-label').hidden=$('#period-end-help').hidden=!through;$('#period-end').required=through;render();if(custom)$('#custom-period').focus();if(through)$('#period-end').focus();announce('Timeframe changed. Existing placements have not changed.')};$('#custom-period').oninput=render;$('#period-end').oninput=render;
+function startQueue(ids){if(!validPeriod())return;queue=ids;queueIndex=0;openGuide(queue[0],true)}
+function openGuide(id,batch=false){if(!validPeriod())return;if(!batch){queue=[];queueIndex=0}activeId=id;recommended=null;guideStep=0;guideAnswers={};$('#guide-form').reset();const t=tasks.find(t=>t.id===id);if(!t)return;const summary=$('#wizard-task');summary.textContent=t.text+(t.deadline?' · '+deadlineText(t.deadline):'');$('#guide-progress').textContent=(queue.length?'Task '+(queueIndex+1)+' of '+queue.length+' · ':'')+'Planning for: '+period();$('#skip-guide').hidden=!queue.length;$('#cancel-guide').textContent=queue.length?'Finish later':'Cancel';showGuideStep();if(!$('#wizard').open)$('#wizard').showModal();summary.tabIndex=summary.scrollHeight>summary.clientHeight?0:-1;focusGuide();}
+function focusGuide(){const heading=guideStep===4?$('#recommendation strong'):$('[data-guide-step]:not([hidden]) legend');heading.tabIndex=-1;heading.focus()}
+function showGuideStep(){const labels=['1 · Purpose','2 · Timing','3 · Ownership','4 · Practical handoff'];document.querySelectorAll('[data-guide-step]').forEach(f=>{const active=Number(f.dataset.guideStep)===guideStep;f.hidden=!active;f.disabled=!active});$('#recommendation').hidden=guideStep!==4;$('#guide-back').hidden=guideStep===0;$('#guide-stage').textContent=guideStep===4?'Your recommendation':labels[guideStep];$('#guide-submit').textContent=guideStep===4?(queue.length&&queueIndex<queue.length-1?'Place task and continue':'Place task here'):guideStep===3?'See recommendation':'Continue';$('#wizard').scrollTop=0;}
+function finishGuide(placed=false){const id=activeId;$('#wizard').close();queue=[];queueIndex=0;taskFocus(id,placed?'select':'button[data-control="guide"]')}
+function advanceGuide(placed){queueIndex++;if(queueIndex<queue.length)openGuide(queue[queueIndex],true);else{finishGuide(placed);announce('List review complete.'+(tasks.some(t=>t.zone==='inbox')?' Unsorted tasks remain ready to sort.':''))}}
+function lastAnswerStep(){return ['low','unsure'].includes(guideAnswers.purpose)?1:guideAnswers.owner==='others'?3:2}
+function showRecommendation(){recommended=recommendTask(guideAnswers);const q=quadrants.find(q=>q.id===recommended.zone);$('#recommendation').replaceChildren(el('span','small','Suggested placement: '+q.title),el('strong',null,recommended.title||q.title),el('p',null,recommended.reason),el('p','recommend-action','Next step: '+recommended.action),el('p','small','You decide. Use Back to change your answers, or move the task manually after placing it.'));guideStep=4;showGuideStep();focusGuide();}
+$('#guide-back').onclick=()=>{if(guideStep===4)guideStep=lastAnswerStep();else guideStep--;recommended=null;showGuideStep();focusGuide()};
+$('#guide-form').onchange=e=>{if(e.target.name)guideAnswers[e.target.name]=e.target.value;recommended=null};
+$('#guide-form').onsubmit=e=>{e.preventDefault();if(guideStep===4&&recommended){const t=tasks.find(t=>t.id===activeId);if(t){t.plan=recommended.action;t.why=recommended.reason}move(activeId,recommended.zone,false,true);if(queue.length)advanceGuide(true);else finishGuide(true);return}const answers=new FormData(e.target);for(const [key,value] of answers)guideAnswers[key]=value;if(guideStep===0){guideStep=1;showGuideStep()}else if(guideStep===1&&['low','unsure'].includes(guideAnswers.purpose))showRecommendation();else if(guideStep===1){guideStep=2;showGuideStep()}else if(guideStep===2&&guideAnswers.owner==='others'){guideStep=3;showGuideStep()}else showRecommendation();if(guideStep!==4)focusGuide();};
+$('#close-wizard').onclick=$('#cancel-guide').onclick=()=>finishGuide();$('#wizard').addEventListener('cancel',e=>{e.preventDefault();finishGuide()});$('#skip-guide').onclick=()=>advanceGuide(false);
+function openEdit(id){editId=id;const t=tasks.find(t=>t.id===id);$('#edit-text').value=t.text;$('#edit-text').setCustomValidity('');$('#edit-deadline').value=t.deadline;$('#edit-next').value=t.next;$('#edit-dialog').showModal();$('#edit-text').focus()}
+function closeEdit(){const id=editId;$('#edit-dialog').close();taskFocus(id,'button[data-control="edit"]');editId=null}
+$('#edit-text').oninput=()=>$('#edit-text').setCustomValidity('');$('#edit-form').onsubmit=e=>{e.preventDefault();const text=$('#edit-text').value.trim();if(!text){$('#edit-text').setCustomValidity('Enter a task.');$('#edit-text').reportValidity();return}const t=tasks.find(t=>t.id===editId);if(t){if(t.text!==text||t.deadline!==$('#edit-deadline').value){delete t.plan;delete t.why}t.text=text;t.deadline=$('#edit-deadline').value;t.next=$('#edit-next').value.trim()}render();closeEdit();announce('Task updated.')};$('#close-edit').onclick=$('#cancel-edit').onclick=closeEdit;$('#edit-dialog').addEventListener('cancel',e=>{e.preventDefault();closeEdit()});
+$('#undo').onclick=()=>{if(!undoState)return;for(const entry of undoState){if(!tasks.some(t=>t.id===entry.task.id))tasks.splice(Math.min(entry.index,tasks.length),0,{...entry.task})}undoState=null;$('#undo-bar').hidden=true;render();if(tasks.length)taskFocus(tasks[tasks.length-1].id);else $('#task-input').focus();announce('Removed tasks restored.')};
+function buildPrint(){const surface=$('#print-surface');surface.classList.remove('long-plan');surface.replaceChildren();const head=el('div','print-header');const brand=el('div','print-brand','Pivot Labs');brand.append(el('span','print-tagline','Navigating Everyday Leadership'));head.append(brand,el('h1',null,'My Eisenhower Matrix'),el('div','print-meta','Planning for: '+period()+' · Printed '+new Date().toLocaleDateString()));surface.append(head,el('p','print-warning','Planning purposes only. Your information is not saved in this Eisenhower Matrix. Keep this copy for your records.'));const board=$('#board').cloneNode(true);board.removeAttribute('id');board.querySelectorAll('.task-bottom').forEach(n=>n.remove());board.querySelectorAll('.empty').forEach(n=>n.textContent='No tasks placed here.');surface.append(board);const pending=tasks.filter(t=>t.zone==='inbox');if(pending.length){const box=el('section','pending-print');box.append(el('h2',null,'Still to sort ('+pending.length+')'));const list=el('div','pending-items');pending.forEach(t=>{const c=el('div','task');c.append(taskContent(t));list.append(c)});box.append(list);surface.append(box)}surface.append(el('p','print-footer',tasks.length+' task'+(tasks.length===1?'':'s')+' · Includes all sorted and unsorted tasks.'));const source=el('p','print-source','Based on the urgent and important distinction Dwight D. Eisenhower described in 1954 and the four-quadrant matrix in Stephen R. Covey’s ');source.append(el('cite',null,'The 7 Habits of Highly Effective People'),' (1989). Adapted by Pivot Labs.');surface.append(source);const fits=surface.getBoundingClientRect().height<=720;surface.classList.toggle('long-plan',!fits);surface.dataset.fits=String(fits);$('#print-fit-note').textContent=fits?'This plan is formatted for one landscape Letter page. Turn off browser headers and footers.':'This plan uses a single-column print layout so details can continue across pages at a readable size.';return fits}
+$('#capture').onclick=()=>{if(!validPeriod())return;const n=tasks.filter(t=>t.zone==='inbox').length;$('#unsorted-warning').hidden=!n;$('#unsorted-warning').textContent=n+' task'+(n===1?' is':'s are')+' still to sort. These are included in your screenshot view and printed copy.';buildPrint();$('#copy-dialog').showModal()};$('#close-copy').onclick=$('#back-copy').onclick=()=>$('#copy-dialog').close();function printPlan(){if(!validPeriod())return;buildPrint();if($('#copy-dialog').open)$('#copy-dialog').close();window.print()}$('#print').onclick=$('#capture-print').onclick=printPlan;window.addEventListener('beforeprint',buildPrint);
+$('#screenshot-view').onclick=()=>{$('#copy-dialog').close();document.body.classList.add('capture-mode');$('#capture-toolbar').hidden=false;render();window.scrollTo(0,0);$('#exit-capture').focus()};$('#exit-capture').onclick=()=>{document.body.classList.remove('capture-mode');$('#capture-toolbar').hidden=true;render();$('#capture').focus()};
+$('#reset').onclick=()=>$('#reset-dialog').showModal();$('#cancel-reset').onclick=()=>$('#reset-dialog').close();$('#confirm-reset').onclick=()=>{const hadTasks=tasks.length>0;if(hadTasks)remember('Tasks cleared.');tasks=[];$('#task-input').value='';$('#add-deadline').value='';updateAddDeadline();$('#task-input').setCustomValidity('');render();$('#reset-dialog').close();$('#task-input').focus();announce(hadTasks?'Tasks cleared. Undo is available.':'Draft cleared.')};for(const dialog of document.querySelectorAll('dialog')){
+  dialog.addEventListener('keydown',event=>{
+    if(event.key!=='Tab')return;
+    const controls=Array.from(dialog.querySelectorAll('button,input,select,textarea,[tabindex="0"]'))
+      .filter(control=>!control.matches(':disabled')&&control.getClientRects().length);
+    const first=controls[0], last=controls.at(-1);
+    if(event.shiftKey&&document.activeElement===first){
+      event.preventDefault();
+      last.focus();
+    }else if(!event.shiftKey&&document.activeElement===last){
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
+window.addEventListener('beforeunload',e=>{if(tasks.length||$('#task-input').value.trim()||$('#edit-dialog').open){e.preventDefault();e.returnValue=''}});render();
+</script></body></html>
