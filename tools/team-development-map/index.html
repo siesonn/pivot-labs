@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Plan how to support someone on a specific task with the Pivot Labs Team Development Map. Consider their skill and willingness, and decide whether to guide, stretch, re-engage, or direct."><title>Team Development Map | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, and buttons come from assets/css/pivot-labs.css. Styles below are for this tool. The matrix layout follows the Eisenhower Matrix. */
+.topbar{max-width:1440px}
+
+main{max-width:1440px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+h2{margin:0}
+.btn-block{width:100%;margin-bottom:16px}
+
+.notice{display:flex;gap:16px;align-items:flex-start;background:var(--amber-tint);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:var(--radius);padding:16px 24px;margin-bottom:32px;font-size:16px}
+.notice strong{font-weight:700}
+.notice-icon{flex:0 0 auto;display:grid;place-items:center;width:26px;height:26px;border:2px solid var(--navy);border-radius:50%;font-family:var(--display);font-style:italic;font-weight:700;font-size:15px;line-height:1}
+
+.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:32px}
+.layout>*{min-width:0}
+.sidebar{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);padding:24px;align-self:start}
+.small{font-size:15px}
+.sidebar p{margin:8px 0 16px}
+label{display:block;font-size:16px;font-weight:600;margin-bottom:8px}
+.field-hint{font-size:15px;margin:-4px 0 8px!important}
+textarea,input,select{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);color:var(--navy)}
+textarea{resize:vertical;min-height:96px;line-height:1.5}
+.field{margin-top:16px}
+.field textarea{min-height:80px}
+.add-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
+.add-actions button{flex:1 1 auto}
+.divider{border-top:1px solid var(--line);padding-top:24px}
+.tray-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.tray-title{font-size:16px;font-weight:700}
+.count{display:inline-block;min-width:28px;text-align:center;background:var(--navy-tint);border-radius:999px;padding:2px 10px;font-size:14px;font-weight:700}
+.task-list{min-height:80px}
+.tray-empty{font-size:15px;border:1px dashed var(--mocha);border-radius:var(--radius);padding:16px;text-align:center}
+.tip{margin-top:24px!important;font-size:15px}
+.guide{border-top:1px solid var(--line);padding-top:24px;margin-top:24px;font-size:15px}
+.guide p{margin:0 0 8px}
+.guide p:last-child{margin:0}
+
+/* Map: skill runs left to right, willingness bottom to top. Colors chosen by purpose and every quadrant is labeled. Two accents only (Dusty Teal, Slate Blue), plus Navy and Mocha neutrals. */
+.board-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px}
+.board-head h2{font-size:28px}
+#axis-note{margin-top:4px}
+.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.quadrant{border:1px solid var(--line);border-radius:var(--radius);background:var(--ivory);min-height:240px}
+.quadrant[data-zone="stretch"]{--tint:var(--navy);--accent:var(--navy)}
+.quadrant[data-zone="guide"]{--tint:var(--teal-tint);--accent:var(--teal)}
+.quadrant[data-zone="reengage"]{--tint:var(--slate-tint);--accent:var(--slate)}
+.quadrant[data-zone="direct"]{--tint:var(--mocha-tint);--accent:var(--mocha)}
+.qhead{padding:16px 20px;background:var(--tint);border-top:6px solid var(--accent);border-bottom:1px solid var(--line);border-radius:7px 7px 0 0}
+.quadrant[data-zone="stretch"] .qhead{color:var(--ivory)}
+.quadrant[data-zone="stretch"] .count{background:var(--ivory);color:var(--navy)}
+.qhead .qplace{margin:0 0 4px;font-size:14px;font-weight:600}
+.qtitle{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qtitle h3{font-size:22px;line-height:1.25;margin:0}
+.qhead p{font-size:15px;margin:4px 0 0}
+.zone{padding:16px;min-height:120px}
+.empty{font-size:15px;text-align:center;padding:24px 8px;pointer-events:none}
+.quadrant.over,.task-list.over{outline:3px dashed var(--teal);outline-offset:2px}
+
+/* Cards: one person and one task */
+.task{background:var(--ivory);border:1px solid var(--card-line);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;box-shadow:0 1px 2px rgba(36,57,92,.06);cursor:grab}
+.task:last-child{margin-bottom:0}
+.task.dragging{opacity:.5}
+.task:focus-within{position:relative;z-index:1}
+.task-content{overflow-wrap:anywhere}
+.card-person{font-size:16px;font-weight:700;overflow-wrap:anywhere}
+.card-task{font-size:16px;overflow-wrap:anywhere;white-space:pre-wrap}
+.task-next,.task-plan{font-size:15px;margin-top:4px;overflow-wrap:anywhere}
+.task-plan{padding-left:8px;border-left:2px solid var(--slate)}
+.task-plan>div+div{margin-top:2px}
+.task-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:12px}
+.move-label{width:100%;margin:0;font-size:15px;font-weight:600}
+.move-label select{display:block;margin-top:4px;font-size:16px}
+.task-controls{display:flex;flex-wrap:wrap;gap:4px}
+.mini{min-width:44px;min-height:44px;padding:8px 12px;border:1px solid transparent;border-radius:var(--radius);background:transparent;color:var(--navy);font-size:16px;font-weight:600}
+.mini:hover{background:var(--hover-tint);border-color:var(--control)}
+.mini[data-control="remove"]{font-size:22px;line-height:1}
+
+.underboard{display:flex;justify-content:space-between;gap:16px;margin:16px 0;font-size:15px}
+.underboard>span:last-child{max-width:400px;text-align:right}
+
+/* Attribution */
+.about{max-width:760px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.about p{margin:8px 0 0}
+.about .sources{margin-top:16px}
+cite{font-style:italic}
+.capture-mode .about{margin-top:24px}
+
+/* Dialogs */
+dialog{border:1px solid var(--line);border-radius:var(--radius);max-width:560px;width:calc(100% - 32px);padding:32px;background:var(--ivory);color:var(--navy);box-shadow:0 24px 64px rgba(36,57,92,.25)}
+dialog::backdrop{background:rgba(26,43,71,.72)}
+dialog h2{font-size:26px;margin:4px 0 8px}
+dialog p{font-size:16px}
+.close{float:right;min-width:44px;min-height:44px;margin:-12px -12px 0 8px;border:1px solid transparent;border-radius:var(--radius);background:transparent;color:var(--navy);font-size:28px;line-height:1}
+.close:hover{background:var(--hover-tint);border-color:var(--control)}
+fieldset{padding:0;border:0;margin:16px 0;min-width:0}
+legend{padding:0;font-weight:600}
+#guide-form legend{font-size:20px;line-height:1.35;margin-bottom:8px;overflow-wrap:anywhere}
+.hint{font-size:15px;margin:0 0 16px}
+.guide-options{display:grid;gap:8px}
+.guide-options label{display:flex;align-items:flex-start;gap:12px;margin:0;padding:12px 16px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);font-size:16px;font-weight:500;cursor:pointer}
+.guide-options label:hover{background:var(--hover-tint)}
+.guide-options input{width:20px;height:20px;min-height:0;flex-shrink:0;margin:2px 0 0;padding:0;accent-color:var(--navy)}
+.guide-options label:has(input:checked){border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy);background:var(--selected-tint)}
+#wizard{max-height:90vh;overflow-y:auto}
+#guide-progress{margin:8px 0}
+#wizard-task{margin:8px 0;padding:12px 16px;max-height:7.5rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--mocha-tint);border-radius:var(--radius);font-weight:600}
+#guide-stage{margin:16px 0 0}
+.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:24px}
+.result{background:var(--slate-tint);border-left:4px solid var(--navy);border-radius:var(--radius);padding:16px 20px;margin-top:16px}
+.result strong{display:block;font-family:var(--display);font-size:24px;font-weight:600;line-height:1.25;margin-top:4px}
+#recommendation p{margin:8px 0}
+.recommend-action{font-weight:600}
+#copy-dialog .notice{margin:16px 0 0}
+
+/* Status and undo */
+#status{width:fit-content;max-width:calc(100% - 32px);margin:0 auto 16px;padding:8px 16px;border-radius:var(--radius);background:var(--navy);color:var(--ivory);font-size:15px}
+#status:empty{display:none}
+#undo-bar{display:flex;align-items:center;gap:16px;width:fit-content;max-width:calc(100% - 32px);margin:0 auto 24px;padding:8px 8px 8px 16px;border-radius:var(--radius);background:var(--navy);color:var(--ivory);font-size:15px}
+
+/* Screenshot view */
+#capture-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;padding:16px 24px;background:var(--ivory);border-bottom:1px solid var(--line);font-size:15px}
+.capture-mode .sidebar,.capture-mode .intro .actions,.capture-mode .intro p,.capture-mode .notice,.capture-mode .task-bottom,.capture-mode .underboard>span:first-child,.capture-mode .board-head>.small,.capture-mode #status,.capture-mode #undo-bar{display:none!important}
+.capture-mode .layout{display:block}
+.capture-mode main{padding:24px 32px}
+.capture-mode h1{font-size:32px}
+.capture-mode .intro{margin-bottom:16px}
+.capture-mode .quadrant,.capture-mode .zone{min-height:0}
+.capture-mode .underboard{justify-content:flex-start}
+.capture-mode .underboard>span:last-child{text-align:left;max-width:none}
+.capture-mode #snapshot-pending{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--ivory)}
+#snapshot-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+#snapshot-list>div{border:1px solid var(--card-line);border-radius:var(--radius);padding:8px 12px;overflow-wrap:anywhere}
+
+/* Print layout: built off-screen so it can be measured, then shown only when printing. Text stays at 10 to 11 pt; long maps flow to more pages. */
+#print-surface{position:absolute;left:-20000px;top:0;width:960px;visibility:hidden;display:flow-root;background:#fff;color:var(--navy);font-family:var(--body);font-size:11pt;line-height:1.35;overflow-wrap:anywhere}
+#print-surface .print-header{padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid #a8a8a8}
+#print-surface .print-brand{font-family:var(--display);font-size:12pt;font-weight:700}
+#print-surface .print-tagline{font-style:italic;font-weight:400;margin-left:8px}
+#print-surface h1{font-size:20pt;line-height:1.2;letter-spacing:0;margin:4px 0 2px}
+#print-surface .print-meta,#print-surface .print-warning,#print-surface .print-footer{font-size:10pt}
+#print-surface .print-warning{margin:8px 0 12px}
+#print-surface .print-footer{margin-top:10px}
+#print-surface .print-source{font-size:10pt;margin:2px 0 0}
+#print-surface .board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#print-surface .quadrant{min-height:0;break-inside:avoid;border:1px solid #a8a8a8;border-radius:6px;background:#fff}
+#print-surface .qhead,#print-surface .quadrant[data-zone="stretch"] .qhead{padding:6px 10px;background:#f1f1f1;color:var(--navy);border-top-width:4px;border-bottom-color:#a8a8a8;border-radius:5px 5px 0 0}
+#print-surface .count,#print-surface .quadrant[data-zone="stretch"] .count{background:#fff;border:1px solid #a8a8a8;font-size:10pt;padding:0 8px}
+#print-surface .qhead .qplace{font-size:10pt;margin:0 0 2px}
+#print-surface .qtitle h3{font-size:14pt}
+#print-surface .qhead p{font-size:10pt;margin-top:2px}
+#print-surface .zone{min-height:0;padding:8px}
+#print-surface .task{margin-bottom:6px;padding:6px 8px;background:#fff;border-color:#a8a8a8;box-shadow:none;break-inside:avoid;cursor:default}
+#print-surface .task-content{orphans:2;widows:2}
+#print-surface .card-person,#print-surface .card-task{font-size:11pt;line-height:1.3}
+#print-surface .task-next,#print-surface .task-plan{font-size:10pt;margin-top:2px}
+#print-surface .task-bottom{display:none}
+#print-surface .empty{padding:2px 0;text-align:left;font-size:10pt;font-style:italic}
+#print-surface .pending-print{margin-top:10px;padding:8px 10px;border:1px solid #a8a8a8;border-radius:6px;break-inside:avoid}
+#print-surface .pending-print h2{font-size:13pt}
+#print-surface .pending-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:6px}
+#print-surface.long-plan .board,#print-surface.long-plan .pending-items{display:block}
+#print-surface.long-plan .quadrant,#print-surface.long-plan .pending-print{break-inside:auto}
+#print-surface.long-plan .qhead,#print-surface.long-plan h2{break-after:avoid}
+#print-surface.long-plan .quadrant{margin-bottom:10px}
+#print-surface.long-plan .pending-items .task{margin-bottom:6px}
+
+@media print{
+  @page{size:letter landscape;margin:.35in}
+  html,body{background:#fff}
+  body{margin:0;padding:0}
+  body>header,body>main,body>dialog,#status,#undo-bar,#capture-toolbar{display:none!important}
+  #print-surface{position:static;left:auto;visibility:visible;display:block!important;width:100%}
+  *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+
+/* Smaller screens: stack in reading order rather than shrinking */
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .layout{grid-template-columns:280px minmax(0,1fr);gap:24px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+  .board-head>.small{display:none}
+  .qhead{padding:16px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .notice{padding:16px;margin-bottom:24px}
+  .layout,.board{grid-template-columns:minmax(0,1fr)}
+  #axis-note{display:none}
+  .sidebar{padding:16px}
+  .quadrant{min-height:200px}
+  .underboard{flex-direction:column}
+  .underboard>span:last-child{text-align:left}
+  dialog{padding:24px}
+  #snapshot-list{grid-template-columns:minmax(0,1fr)}
+  .capture-mode main{padding:16px}
+}
+</style></head><body><div id="capture-toolbar" hidden><strong>Screenshot view</strong><span>Use a full-page screenshot to capture a map that extends below the screen.</span><button class="btn" id="exit-capture">Back to planning</button><button class="btn primary" id="capture-print">Print results</button></div><header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header><main><section class="intro"><div><p class="eyebrow">Team Development Map</p><h1>What does each person need from you?</h1><p>Plan how to support someone on a specific task. Add a person and a task, consider their skill and willingness, and decide whether to guide, stretch, re-engage, or direct.</p></div><div class="actions"><button class="btn" id="capture">Print results</button><button class="btn" id="reset">Clear cards</button></div></section><div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Use first names or initials and leave out sensitive details. To keep your map, print it or save it as a PDF.</div></div><div class="layout"><aside class="sidebar"><h2>Add a person and a task</h2><p class="small">Each card is one person and one task. Add one task per line to make several cards for the same person.</p><form id="add-form"><label for="person-input">Person</label><p class="small field-hint" id="person-hint">First name or initials. Example: Jordan</p><input id="person-input" maxlength="60" autocomplete="off" aria-describedby="person-hint" required><div class="field"><label for="task-input">Task or responsibility</label><p class="small field-hint" id="task-hint">Example: Run the weekly status meeting</p><textarea id="task-input" maxlength="10000" aria-describedby="task-hint" required></textarea></div><div class="add-actions"><button class="btn primary" type="submit">Add to list</button><button class="btn" type="button" id="help-new">Help me place</button></div></form><div class="divider"><div class="tray-head"><span class="tray-title">Ready to place</span><span class="count" id="inbox-count">0</span></div><button class="btn btn-block" id="guide-list" disabled>Guide me through my list</button><div class="task-list" id="inbox" data-zone="inbox"></div></div><p class="tip">Drag a card into a quadrant, use its Move to menu, or choose “Guide me” for a suggestion.</p><div class="guide"><p><strong>Skill</strong> means the knowledge and experience to do this task well. It’s about this task, not the person overall.</p><p><strong>Willingness</strong> means the motivation and confidence to take this task on right now. It can change with workload, support, and how the task is set up.</p></div></aside><section aria-label="Your team development map"><div class="board-head"><div><h2>Your team map</h2><div class="small" id="axis-note">Skill for the task increases left to right. Willingness increases bottom to top.</div></div><span class="small">Drag to place · Move anytime</span></div><div class="board" id="board"></div><div class="underboard"><span id="total">0 cards on your map</span><span>Each placement is a starting point for one task, not a judgment of the person.</span></div></section></div><section id="snapshot-pending" hidden><h2>Still to place</h2><div id="snapshot-list"></div></section><section class="about" aria-labelledby="about-title"><h2 id="about-title">About this tool</h2><p>The Team Development Map is based on the Skill/Will Matrix that Max Landsberg describes in <cite>The Tao of Coaching</cite> (1996). Landsberg matches a coaching approach to a person’s skill and will for a specific task. This Pivot Labs version renames two of his approaches, Delegate and Excite, as Stretch and Re-engage. It adds guided questions about what you’ve seen and what might be behind hesitation.</p><p class="small sources"><strong>Source:</strong> Landsberg, M. (1996). <cite>The Tao of Coaching.</cite> HarperCollins.</p></section></main><div class="status" id="status" role="status" aria-live="polite"></div><div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" id="undo">Undo</button></div><div id="print-surface" aria-hidden="true"></div>
+<dialog id="wizard" aria-labelledby="wizard-title"><button type="button" class="close" aria-label="Close guide" id="close-wizard">×</button><p class="eyebrow">A quick check-in</p><h2 id="wizard-title">Choose how to support them on this task.</h2><p id="guide-progress" class="small"></p><p id="wizard-task"></p><p id="guide-stage" class="eyebrow" aria-live="polite"></p><form id="guide-form"><fieldset data-guide-step="0"><legend>How ready is <span class="who"></span> to do this task well today?</legend><p class="hint">Think about work you’ve seen them do, not their title, how long they’ve been here, or how confident they sound.</p><div class="guide-options"><label><input type="radio" name="skill" value="skilled" required><span>They’ve done this task, or very similar work, well on their own.</span></label><label><input type="radio" name="skill" value="building" required><span>They’re new to it, or have done it only with a lot of help.</span></label><label><input type="radio" name="skill" value="unsure" required><span>I’m not sure. I haven’t seen them do this kind of work.</span></label></div></fieldset><fieldset data-guide-step="1"><legend>How willing is <span class="who"></span> to take this on right now?</legend><p class="hint">Think about this task and this moment. Willingness can shift with workload, interest, and confidence.</p><div class="guide-options"><label><input type="radio" name="will" value="willing" required><span>They’ve said yes or shown interest in this work.</span></label><label><input type="radio" name="will" value="hesitant" required><span>They’ve seemed hesitant or pushed back.</span></label><label><input type="radio" name="will" value="unsure" required><span>I don’t know yet. I haven’t asked them.</span></label></div></fieldset><fieldset data-guide-step="2"><legend>What might be behind the hesitation?</legend><p class="hint">Choose the closest fit. If you’re guessing, choose “I don’t know.”</p><div class="guide-options"><label><input type="radio" name="cause" value="workload" required><span>A full workload or competing priorities</span></label><label><input type="radio" name="cause" value="confidence" required><span>Not sure they can do it well</span></label><label><input type="radio" name="cause" value="clarity" required><span>Unclear why it matters or what’s expected</span></label><label><input type="radio" name="cause" value="interest" required><span>Not interested in this kind of work</span></label><label><input type="radio" name="cause" value="unknown" required><span>I don’t know</span></label></div></fieldset><div id="recommendation" class="result" role="status" aria-live="polite" hidden></div><div class="dialog-actions"><button class="btn" type="button" id="cancel-guide">Cancel</button><button class="btn" type="button" id="skip-guide" hidden>Skip for now</button><button class="btn" type="button" id="guide-back" hidden>Back</button><button class="btn primary" type="submit" id="guide-submit">Continue</button></div></form></dialog>
+<dialog id="copy-dialog" aria-labelledby="copy-title"><button class="close" aria-label="Close" id="close-copy">×</button><p class="eyebrow">Keep your map</p><h2 id="copy-title">Take your plan with you.</h2><p>Your entries are temporary. Print your results to keep the full map. In the print window, choose “Save as PDF” if available. A screenshot also works for a quick record.</p><p class="small">If the map extends below the screen, use a full-page capture or print to PDF. Printed maps include the names you entered, so store them as you would other notes about your team.</p><div id="unsorted-warning" class="notice" hidden></div><p id="print-fit-note" class="small"></p><div class="dialog-actions"><button class="btn" id="back-copy">Back</button><button class="btn" id="screenshot-view">Screenshot view</button><button class="btn primary" id="print">Print results</button></div></dialog>
+<dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">Clear all cards and the current draft?</h2><p>You can undo removal of added cards. Copy any unfinished draft you want to keep.</p><div class="dialog-actions"><button class="btn" id="cancel-reset" autofocus>Keep working</button><button class="btn primary" id="confirm-reset">Clear all cards</button></div></dialog>
+<dialog id="edit-dialog" aria-labelledby="edit-title"><button class="close" id="close-edit" aria-label="Close card editor">×</button><h2 id="edit-title">Edit card</h2><p>A next action is optional. Changing the person or task clears the suggestion on this card.</p><form id="edit-form"><div class="field"><label for="edit-person">Person</label><input id="edit-person" maxlength="60" autocomplete="off" required></div><div class="field"><label for="edit-task">Task or responsibility</label><textarea id="edit-task" maxlength="10000" required></textarea></div><div class="field"><label for="edit-next">Next action (optional)</label><p class="small field-hint" id="edit-next-hint">Example: Walk through last month’s agenda together</p><input id="edit-next" maxlength="500" aria-describedby="edit-next-hint"></div><div class="dialog-actions"><button class="btn" type="button" id="cancel-edit">Cancel</button><button class="btn primary" type="submit">Save changes</button></div></form></dialog><script src="recommendations.js"></script><script>
+
+'use strict';
+// Grid order: top row is more willing, right column is more skilled.
+const quadrants=[
+  {id:'guide',title:'Guide',place:'Willing, still building skill',hint:'Build the skill with examples, practice, and quick feedback.'},
+  {id:'stretch',title:'Stretch',place:'Skilled and willing',hint:'Hand over ownership. Agree on the outcome and check-ins.'},
+  {id:'direct',title:'Direct',place:'Building skill, hesitant',hint:'Give clear steps and short goals. Check in often.'},
+  {id:'reengage',title:'Re-engage',place:'Skilled, hesitant',hint:'Find out what’s in the way before changing anything.'}
+];
+let cards=[],nextId=1,dragged=null,activeId=null,recommended=null,queue=[],queueIndex=0,editId=null,undoState=null,guideStep=0,guideAnswers={};
+const $=s=>document.querySelector(s);const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n};
+let statusTimer;function announce(msg){$('#status').textContent=msg;clearTimeout(statusTimer);statusTimer=setTimeout(()=>$('#status').textContent='',5000)}
+const zoneTitle=zone=>quadrants.find(q=>q.id===zone)?.title||'Ready to place';
+const cardLabel=c=>c.person+', '+c.task;
+function cardFocus(id,control='select'){document.querySelector('.task[data-id="'+id+'"] '+control)?.focus()}
+function remember(label,removed=cards){undoState=removed.map(c=>({card:{...c},index:cards.findIndex(x=>x.id===c.id)}));$('#undo-label').textContent=label;$('#undo-bar').hidden=false}
+function move(id,zone,focus=true,keepPlan=false){const c=cards.find(c=>c.id===id);if(!c||!['inbox',...quadrants.map(q=>q.id)].includes(zone)||(!keepPlan&&c.zone===zone))return;if(!keepPlan){delete c.plan;delete c.why}c.zone=zone;render();if(focus)cardFocus(id);announce('Card moved to '+zoneTitle(zone)+'.')}
+function cardContent(c){const wrap=el('div','task-content');wrap.append(el('div','card-person',c.person),el('div','card-task',c.task));if(c.next)wrap.append(el('div','task-next','Next: '+c.next));if(c.plan){const plan=el('div','task-plan');if(c.why)plan.append(el('div',null,'Why: '+c.why));plan.append(el('div',null,'Plan: '+c.plan));wrap.append(plan)}return wrap}
+function card(c){const n=el('div','task');n.draggable=true;n.dataset.id=c.id;n.append(cardContent(c));const bottom=el('div','task-bottom');const sel=el('select');sel.setAttribute('aria-label','Move to for: '+cardLabel(c));[['inbox','Ready to place'],...quadrants.map(q=>[q.id,q.title])].forEach(([v,l])=>{const o=el('option',null,l);o.value=v;o.selected=c.zone===v;sel.append(o)});sel.addEventListener('change',()=>move(c.id,sel.value));const moveLabel=el('label','move-label','Move to');moveLabel.append(sel);bottom.append(moveLabel);const controls=el('span','task-controls');for(const [label,action,kind] of [['Edit',()=>openEdit(c.id),'edit'],['Guide me',()=>openGuide(c.id),'guide'],['×',()=>{remember('Card removed.',[c]);const idx=cards.findIndex(x=>x.id===c.id);cards.splice(idx,1);render();if(cards.length)cardFocus(cards[Math.min(idx,cards.length-1)].id);else $('#person-input').focus();announce('Card removed. Undo is available.')},'remove']]){const b=el('button','mini',label);b.dataset.control=kind;b.setAttribute('aria-label',(kind==='remove'?'Remove card':label)+': '+cardLabel(c));b.onclick=action;controls.append(b)}bottom.append(controls);n.append(bottom);n.addEventListener('dragstart',e=>{if(e.target.closest('button,select,input')){e.preventDefault();return}dragged=c.id;e.dataTransfer.setData('text/plain',String(c.id));e.dataTransfer.effectAllowed='move';n.classList.add('dragging')});n.addEventListener('dragend',()=>{dragged=null;document.querySelectorAll('.over,.dragging').forEach(x=>x.classList.remove('over','dragging'))});return n}
+function dropZone(n,zone){n.addEventListener('dragover',e=>{if(dragged===null)return;e.preventDefault();e.dataTransfer.dropEffect='move';n.classList.add('over')});n.addEventListener('dragleave',e=>{if(!n.contains(e.relatedTarget))n.classList.remove('over')});n.addEventListener('drop',e=>{e.preventDefault();n.classList.remove('over');if(dragged!==null)move(dragged,zone)})}
+function render(){const inbox=$('#inbox');inbox.replaceChildren();const pending=cards.filter(c=>c.zone==='inbox');$('#inbox-count').textContent=pending.length;$('#guide-list').disabled=!pending.length;pending.forEach(c=>inbox.append(card(c)));if(!pending.length)inbox.append(el('div','tray-empty','Add a card, or move one here to place it later.'));$('#board').replaceChildren();quadrants.forEach(q=>{const box=el('section','quadrant');box.dataset.zone=q.id;box.setAttribute('aria-label',q.title+': '+q.place);const head=el('div','qhead');const title=el('div','qtitle');const list=cards.filter(c=>c.zone===q.id);title.append(el('h3',null,q.title),el('span','count',list.length));head.append(el('p','qplace',q.place),title,el('p',null,q.hint));const zone=el('div','zone');list.forEach(c=>zone.append(card(c)));if(!list.length)zone.append(el('div','empty','Drop a card here'));box.append(head,zone);dropZone(box,q.id);$('#board').append(box)});const placed=cards.length-pending.length;$('#total').textContent=placed+' card'+(placed===1?'':'s')+' on your map'+(pending.length?' · '+pending.length+' ready to place':'');$('#snapshot-list').replaceChildren();pending.forEach(c=>$('#snapshot-list').append(cardContent(c)));$('#snapshot-pending').hidden=!document.body.classList.contains('capture-mode')||!pending.length}
+function addCards(){const personInput=$('#person-input'),taskInput=$('#task-input');const person=personInput.value.trim();const items=taskInput.value.split(/\n/).map(x=>x.trim()).filter(Boolean);personInput.setCustomValidity(person?'':'Enter a first name or initials.');taskInput.setCustomValidity(items.length?'':'Enter at least one task.');if(!person){personInput.reportValidity();return []}if(!items.length){taskInput.reportValidity();return []}const ids=[];items.forEach(task=>{const id=nextId++;cards.push({id,person,task,zone:'inbox',next:''});ids.push(id)});personInput.value='';taskInput.value='';render();personInput.focus();announce(items.length+' card'+(items.length===1?'':'s')+' added for '+person+'.');return ids}
+$('#person-input').oninput=()=>$('#person-input').setCustomValidity('');$('#task-input').oninput=()=>$('#task-input').setCustomValidity('');$('#add-form').onsubmit=e=>{e.preventDefault();addCards()};$('#help-new').onclick=()=>{const ids=addCards();if(ids.length)startQueue(ids)};$('#guide-list').onclick=()=>startQueue(cards.filter(c=>c.zone==='inbox').map(c=>c.id));dropZone($('#inbox'),'inbox');
+function startQueue(ids){queue=ids;queueIndex=0;openGuide(queue[0],true)}
+function openGuide(id,batch=false){if(!batch){queue=[];queueIndex=0}const c=cards.find(c=>c.id===id);if(!c)return;activeId=id;recommended=null;guideStep=0;guideAnswers={};$('#guide-form').reset();document.querySelectorAll('#guide-form .who').forEach(n=>n.textContent=c.person);const summary=$('#wizard-task');summary.textContent=c.person+' · '+c.task;$('#guide-progress').textContent=queue.length?'Card '+(queueIndex+1)+' of '+queue.length:'';$('#guide-progress').hidden=!queue.length;$('#skip-guide').hidden=!queue.length;$('#cancel-guide').textContent=queue.length?'Finish later':'Cancel';showGuideStep();if(!$('#wizard').open)$('#wizard').showModal();summary.tabIndex=summary.scrollHeight>summary.clientHeight?0:-1;focusGuide()}
+function focusGuide(){const heading=guideStep===3?$('#recommendation strong'):$('[data-guide-step]:not([hidden]) legend');heading.tabIndex=-1;heading.focus()}
+function needsCause(){return guideAnswers.will==='hesitant'&&guideAnswers.skill!=='unsure'}
+function lastAnswerStep(){return needsCause()?2:1}
+function showGuideStep(){const labels=['1 · Skill','2 · Willingness','3 · What’s behind it'];document.querySelectorAll('[data-guide-step]').forEach(f=>{const active=Number(f.dataset.guideStep)===guideStep;f.hidden=!active;f.disabled=!active});$('#recommendation').hidden=guideStep!==3;$('#guide-back').hidden=guideStep===0;$('#guide-stage').textContent=guideStep===3?'Your suggestion':labels[guideStep];const more=queue.length&&queueIndex<queue.length-1;const unplaced=recommended&&recommended.zone==='inbox';$('#guide-submit').textContent=guideStep===3?(unplaced?(more?'Save next step and continue':'Save next step'):(more?'Place card and continue':'Place card here')):'Continue';$('#wizard').scrollTop=0}
+function finishGuide(placed=false){const id=activeId;$('#wizard').close();queue=[];queueIndex=0;cardFocus(id,placed?'select':'button[data-control="guide"]')}
+function advanceGuide(placed){queueIndex++;if(queueIndex<queue.length)openGuide(queue[queueIndex],true);else{finishGuide(placed);announce('List review complete.'+(cards.some(c=>c.zone==='inbox')?' Some cards are still ready to place.':''))}}
+function showRecommendation(){recommended=recommendPlacement(guideAnswers);const q=quadrants.find(q=>q.id===recommended.zone);$('#recommendation').replaceChildren(el('span','small',q?'Suggested placement: '+q.title:'Suggestion: hold off on placing this card'),el('strong',null,recommended.title||q.title),el('p',null,recommended.reason),el('p','recommend-action','Next step: '+recommended.action),el('p','small','This is a starting point for one task, not a judgment of the person. You decide. Use Back to change your answers, or move the card yourself.'));guideStep=3;showGuideStep();focusGuide()}
+function saveRecommendation(){const c=cards.find(c=>c.id===activeId);if(c){c.plan=recommended.action;c.why=recommended.reason;if(recommended.zone==='inbox'){c.zone='inbox';render();announce('Next step saved. The card stays in Ready to place until you know more.')}else move(activeId,recommended.zone,false,true)}if(queue.length)advanceGuide(true);else finishGuide(true)}
+$('#guide-back').onclick=()=>{if(guideStep===3)guideStep=lastAnswerStep();else guideStep--;recommended=null;showGuideStep();focusGuide()};
+$('#guide-form').onchange=e=>{if(e.target.name)guideAnswers[e.target.name]=e.target.value;recommended=null};
+$('#guide-form').onsubmit=e=>{e.preventDefault();if(guideStep===3&&recommended){saveRecommendation();return}for(const [key,value] of new FormData(e.target))guideAnswers[key]=value;if(guideStep===0){guideStep=1;showGuideStep();focusGuide()}else if(guideStep===1&&needsCause()){guideStep=2;showGuideStep();focusGuide()}else showRecommendation()};
+$('#close-wizard').onclick=$('#cancel-guide').onclick=()=>finishGuide();$('#wizard').addEventListener('cancel',e=>{e.preventDefault();finishGuide()});$('#skip-guide').onclick=()=>advanceGuide(false);
+function openEdit(id){editId=id;const c=cards.find(c=>c.id===id);$('#edit-person').value=c.person;$('#edit-task').value=c.task;$('#edit-person').setCustomValidity('');$('#edit-task').setCustomValidity('');$('#edit-next').value=c.next;$('#edit-dialog').showModal();$('#edit-person').focus()}
+function closeEdit(){const id=editId;$('#edit-dialog').close();cardFocus(id,'button[data-control="edit"]');editId=null}
+$('#edit-person').oninput=()=>$('#edit-person').setCustomValidity('');$('#edit-task').oninput=()=>$('#edit-task').setCustomValidity('');$('#edit-form').onsubmit=e=>{e.preventDefault();const person=$('#edit-person').value.trim(),task=$('#edit-task').value.trim();if(!person){$('#edit-person').setCustomValidity('Enter a first name or initials.');$('#edit-person').reportValidity();return}if(!task){$('#edit-task').setCustomValidity('Enter a task.');$('#edit-task').reportValidity();return}const c=cards.find(c=>c.id===editId);if(c){if(c.person!==person||c.task!==task){delete c.plan;delete c.why}c.person=person;c.task=task;c.next=$('#edit-next').value.trim()}render();closeEdit();announce('Card updated.')};$('#close-edit').onclick=$('#cancel-edit').onclick=closeEdit;$('#edit-dialog').addEventListener('cancel',e=>{e.preventDefault();closeEdit()});
+$('#undo').onclick=()=>{if(!undoState)return;for(const entry of undoState){if(!cards.some(c=>c.id===entry.card.id))cards.splice(Math.min(entry.index,cards.length),0,{...entry.card})}undoState=null;$('#undo-bar').hidden=true;render();if(cards.length)cardFocus(cards[cards.length-1].id);else $('#person-input').focus();announce('Removed cards restored.')};
+function buildPrint(){const surface=$('#print-surface');surface.classList.remove('long-plan');surface.replaceChildren();const head=el('div','print-header');const brand=el('div','print-brand','Pivot Labs');brand.append(el('span','print-tagline','Navigating Everyday Leadership'));head.append(brand,el('h1',null,'My Team Development Map'),el('div','print-meta','Printed '+new Date().toLocaleDateString()+' · Skill for the task increases left to right. Willingness increases bottom to top.'));surface.append(head,el('p','print-warning','Planning purposes only. Your information is not saved in this Team Development Map. Keep this copy for your records. Each placement is a starting point for one task, not a judgment of the person.'));const board=$('#board').cloneNode(true);board.removeAttribute('id');board.querySelectorAll('.task-bottom').forEach(n=>n.remove());board.querySelectorAll('.empty').forEach(n=>n.textContent='No cards placed here.');surface.append(board);const pending=cards.filter(c=>c.zone==='inbox');if(pending.length){const box=el('section','pending-print');box.append(el('h2',null,'Still to place ('+pending.length+')'));const list=el('div','pending-items');pending.forEach(c=>{const n=el('div','task');n.append(cardContent(c));list.append(n)});box.append(list);surface.append(box)}surface.append(el('p','print-footer',cards.length+' card'+(cards.length===1?'':'s')+' · Includes all placed and unplaced cards.'));const source=el('p','print-source','Based on the Skill/Will Matrix in Max Landsberg’s ');source.append(el('cite',null,'The Tao of Coaching'),' (1996). Adapted by Pivot Labs.');surface.append(source);const fits=surface.getBoundingClientRect().height<=720;surface.classList.toggle('long-plan',!fits);surface.dataset.fits=String(fits);$('#print-fit-note').textContent=fits?'This map is formatted for one landscape Letter page. Turn off browser headers and footers.':'This map uses a single-column print layout so details can continue across pages at a readable size.';return fits}
+$('#capture').onclick=()=>{const n=cards.filter(c=>c.zone==='inbox').length;$('#unsorted-warning').hidden=!n;$('#unsorted-warning').textContent=n+' card'+(n===1?' is':'s are')+' still to place. These are included in your screenshot view and printed copy.';buildPrint();$('#copy-dialog').showModal()};$('#close-copy').onclick=$('#back-copy').onclick=()=>$('#copy-dialog').close();function printPlan(){buildPrint();if($('#copy-dialog').open)$('#copy-dialog').close();window.print()}$('#print').onclick=$('#capture-print').onclick=printPlan;window.addEventListener('beforeprint',buildPrint);
+$('#screenshot-view').onclick=()=>{$('#copy-dialog').close();document.body.classList.add('capture-mode');$('#capture-toolbar').hidden=false;render();window.scrollTo(0,0);$('#exit-capture').focus()};$('#exit-capture').onclick=()=>{document.body.classList.remove('capture-mode');$('#capture-toolbar').hidden=true;render();$('#capture').focus()};
+$('#reset').onclick=()=>$('#reset-dialog').showModal();$('#cancel-reset').onclick=()=>$('#reset-dialog').close();$('#confirm-reset').onclick=()=>{const hadCards=cards.length>0;if(hadCards)remember('Cards cleared.');cards=[];$('#person-input').value='';$('#task-input').value='';$('#person-input').setCustomValidity('');$('#task-input').setCustomValidity('');render();$('#reset-dialog').close();$('#person-input').focus();announce(hadCards?'Cards cleared. Undo is available.':'Draft cleared.')};for(const dialog of document.querySelectorAll('dialog')){
+  dialog.addEventListener('keydown',event=>{
+    if(event.key!=='Tab')return;
+    const controls=Array.from(dialog.querySelectorAll('button,input,select,textarea,[tabindex="0"]'))
+      .filter(control=>!control.matches(':disabled')&&control.getClientRects().length);
+    const first=controls[0], last=controls.at(-1);
+    if(event.shiftKey&&document.activeElement===first){
+      event.preventDefault();
+      last.focus();
+    }else if(!event.shiftKey&&document.activeElement===last){
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
+window.addEventListener('beforeunload',e=>{if(cards.length||$('#person-input').value.trim()||$('#task-input').value.trim()||$('#edit-dialog').open){e.preventDefault();e.returnValue=''}});render();
+</script></body></html>
