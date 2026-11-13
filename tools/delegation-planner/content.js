@@ -382,6 +382,14 @@ const DelegationPlanner = (() => {
       review = 'after ' + days + ' days' + (around ? ', around ' + around : '');
     }
     checkins.append(el('p', null, 'We’ll review how this handoff is going ' + review + ', and adjust together.'));
+    // On screen only, for the leader. Opens in a new tab and carries no names or task text.
+    const checkinTip = el('p', 'small no-print');
+    const feedbackLink = el('a', null, 'Prepare that conversation with the Feedback Conversation Planner (opens in a new tab)');
+    feedbackLink.href = '../feedback-conversation-planner/index.html';
+    feedbackLink.target = '_blank';
+    feedbackLink.rel = 'noopener';
+    checkinTip.append('At check-ins, you may want to recognize what’s working or raise what needs to change. ', feedbackLink);
+    checkins.append(checkinTip);
     brief.append(checkins);
 
     const chosen = commitments.filter(c => (a.commitments || []).includes(c.value));
