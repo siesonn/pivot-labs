@@ -370,6 +370,14 @@ const DelegationPlanner = (() => {
     track.append(el('p', null, (a.offTrack === 'sameday'
       ? 'If a measure goes off track, let me know the same day.'
       : 'If a measure goes off track, bring it to our next check-in with a plan.') + ' We’ll solve it together.'));
+    // On screen only, for the leader. Opens in a new tab and carries no names or task text.
+    const trackTip = el('p', 'small no-print');
+    const causeLink = el('a', null, 'find the cause with the Root Cause Finder (opens in a new tab)');
+    causeLink.href = '../root-cause-finder/index.html';
+    causeLink.target = '_blank';
+    causeLink.rel = 'noopener';
+    trackTip.append('If it goes off track more than once, ', causeLink, '.');
+    track.append(trackTip);
     brief.append(track);
 
     const checkins = section('Check-ins', 5, api, 'check-ins');

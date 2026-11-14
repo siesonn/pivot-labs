@@ -407,6 +407,17 @@ const FeedbackPlanner = (() => {
       if (a.approach === 'view') {
         q.append(el('p', null, 'After you listen: if it matches what you heard, describe the effect and agree on a next step. If it doesn’t, thank them, and decide who else needs to hear back.'));
       }
+      // For a repeated issue, the answer to "what's getting in the way?" may be a process or tool.
+      // On screen only. Opens in a new tab and carries no names or text.
+      if (a.approach === 'pattern' || a.approach === 'expect') {
+        const tip = el('p', 'small no-print');
+        const link = el('a', null, 'find the cause with the Root Cause Finder (opens in a new tab)');
+        link.href = '../root-cause-finder/index.html';
+        link.target = '_blank';
+        link.rel = 'noopener';
+        tip.append('If a process or tool is part of it, ', link, '.');
+        q.append(tip);
+      }
       plan.append(q);
     }
 
