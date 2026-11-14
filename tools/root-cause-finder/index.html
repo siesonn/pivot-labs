@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Work through one problem with the Pivot Labs Root Cause Finder. Describe what happened, get a suggested method, find the cause, and print a summary of the fix and how you'll check it worked."><title>Root Cause Finder | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, the guided planner layout, and the situation picker come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1200px}
+main{max-width:1200px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* Step 4: the why chain (numbered rows) and the fishbone's four areas */
+.why-example{margin:-8px 0 0}
+.why-chain{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:20px}
+.why-chain li{display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:12px;align-items:start}
+.why-num{width:28px;height:28px;display:grid;place-items:center;border:2px solid var(--navy);border-radius:50%;font-size:14px;font-weight:700}
+.why-row label,.sub-field label{font-size:17px;margin:2px 0 4px}
+.why-row .field-hint{margin:0 0 8px!important;overflow-wrap:anywhere}
+.why-chain textarea{min-height:64px}
+.sub-field{margin-top:24px}
+.sub-field:first-of-type{margin-top:8px}
+
+/* The summary: the why chain, the root cause, and the fishbone layout */
+.brief ol{margin:8px 0 0;padding-left:24px}
+.brief ol li+li{margin-top:4px}
+.why-label{font-weight:700}
+.brief .root-cause{margin-top:8px;padding:12px 16px;background:var(--teal-tint);border-left:6px solid var(--teal);border-radius:var(--radius);font-size:18px;font-weight:600;white-space:pre-wrap}
+.fishbone{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(120px,170px);grid-template-areas:"people process ." "spine spine head" "tools environment .";column-gap:16px;margin-top:16px}
+.fb-head{grid-area:head;align-self:center;padding:10px 16px 10px 14px;background:var(--navy);color:var(--ivory);border-radius:var(--radius) 40px 40px var(--radius)}
+.fb-head-label{display:block;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.brief .fb-head p{margin:2px 0 0;font-family:var(--display);font-size:16px;font-weight:600;line-height:1.25}
+.fb-people{grid-area:people}.fb-process{grid-area:process}.fb-tools{grid-area:tools}.fb-environment{grid-area:environment}
+.fb-area{padding:10px 12px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.fb-people,.fb-process{border-bottom:3px solid var(--teal)}
+.fb-tools,.fb-environment{border-top:3px solid var(--teal)}
+.brief .fb-area h4{margin:0;font-family:var(--display);font-size:17px}
+.brief .fb-sub{margin:0;font-size:13px}
+.brief .fb-text{margin:6px 0 0;white-space:pre-wrap}
+.brief .fb-empty{margin:6px 0 0;font-style:italic;color:var(--espresso)}
+/* The spine runs into the head; the two bones meet the middle of each column */
+.fb-spine{grid-area:spine;min-height:40px;margin-right:-16px;background:linear-gradient(var(--navy),var(--navy)) 0 50%/100% 3px no-repeat,linear-gradient(var(--teal),var(--teal)) 25% 0/3px 100% no-repeat,linear-gradient(var(--teal),var(--teal)) 75% 0/3px 100% no-repeat}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .brief .root-cause{padding:6pt 10pt;font-size:12pt}
+  .fishbone{break-inside:avoid;column-gap:10pt}
+  .fb-area{padding:6pt 8pt;border-color:#a8a8a8}
+  .brief .fb-area h4{font-size:11pt}
+  .brief .fb-sub{font-size:8.5pt}
+  .brief .fb-text,.brief .fb-empty{font-size:10pt;margin-top:3pt}
+  .brief .fb-head p{font-size:11pt}
+  .fb-head-label{font-size:8pt}
+  .fb-spine{min-height:24pt}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .why-chain li{grid-template-columns:minmax(0,1fr);row-gap:6px}
+}
+/* Screens only: a printed page is narrow enough to match a phone width, so the fishbone keeps its layout on paper */
+@media screen and (max-width:740px){
+  .fishbone{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "people" "process" "tools" "environment";row-gap:8px}
+  .fb-spine{display:none}
+  .fb-head{border-radius:var(--radius)}
+  .fb-people,.fb-process{border-bottom:1px solid var(--card-line)}
+  .fb-people,.fb-process,.fb-tools,.fb-environment{border-top:1px solid var(--card-line);border-left:4px solid var(--teal)}
+}
+</style></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Root Cause Finder</p>
+      <h1>What’s really behind this problem?</h1>
+      <p>Work through one problem. Describe what happened, get a suggested method, find the cause, and leave with a summary of the fix and how you’ll check it worked.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Describe what happened, not who was involved, and leave out sensitive details. To keep your summary, print it or save it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>The Root Cause Finder helps you work through one problem: what happened, why, what to change, and how you’ll know the fix worked. Your answers suggest one of three methods, and you can choose another. Every method looks at what failed in the work, not who failed.</p>
+    <p>The 5 Whys comes from Toyota. It was developed by Sakichi Toyoda and made widely known by Taiichi Ohno. The fishbone diagram, also called the cause-and-effect or Ishikawa diagram, was developed by Kaoru Ishikawa, who first used it in 1943. Three parts are adapted from Christian Rebernik’s Root Cause Analysis infographic: when a full analysis isn’t needed, the four fishbone areas, and the mistakes the tool helps you avoid. The structure and wording here are our own.</p>
+    <p class="small sources"><strong>Sources:</strong> Ishikawa, K. (1976). <cite>Guide to quality control.</cite> Asian Productivity Organization. · Ohno, T. (1988). <cite>Toyota production system: Beyond large-scale production.</cite> Productivity Press. · Rebernik, C. (n.d.). <cite>Root cause analysis: The leader’s guide to fixing problems for good</cite> [Infographic].</p>
+  </section>
+</main>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every answer and your summary. You can undo it until you start entering new answers.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear my answers</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="../../assets/js/situation-picker.js"></script><script src="content.js"></script><script>
+'use strict';
+GuidedPlanner.create(RootCauseFinder);
+</script></body></html>

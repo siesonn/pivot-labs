@@ -117,8 +117,8 @@ cite{font-style:italic}
 
 /*
   Guided planner: a step list, one step at a time, and a printable brief at the end.
-  Used by the Delegation Planner and built for later planners (Feedback Conversation
-  Planner, Root Cause Finder). The step logic is in assets/js/guided-planner.js.
+  Used by the Delegation Planner, Feedback Conversation Planner, and Root Cause Finder,
+  and built for later planners. The step logic is in assets/js/guided-planner.js.
   Pages that use it add class="planner-page" to <body>.
 */
 .planner-layout{display:grid;grid-template-columns:248px minmax(0,1fr);gap:32px;align-items:start}
@@ -210,6 +210,7 @@ cite{font-style:italic}
 .brief dl{margin:8px 0 0}
 .brief dt{margin-top:12px;font-weight:700}
 .brief dd{margin:2px 0 0;white-space:pre-wrap}
+.brief-text{white-space:pre-wrap}
 .brief-lines{margin-top:8px}
 .brief-lines div{height:36px;border-bottom:1px solid var(--card-line)}
 .brief-foot{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
@@ -235,6 +236,8 @@ cite{font-style:italic}
   .planner-page .brief dt{margin-top:6pt}
   .planner-page .brief-lines div{height:26pt;border-bottom-color:#a8a8a8}
   .planner-page .brief-foot{font-size:10pt;border-top-color:#a8a8a8}
+  /* Notes and the footer stay together, so the footer never prints alone */
+  .planner-page .brief-end{break-inside:avoid}
   .planner-page *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
 }
 
