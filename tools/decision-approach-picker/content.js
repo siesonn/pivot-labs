@@ -742,6 +742,16 @@ const DecisionPicker = (() => {
     items.forEach(t => ul.append(el('li', null, t)));
     return ul;
   }
+  // A line that links to another tool. On screen only: it opens in a new tab and carries no entries.
+  function toolLink(before, label, href) {
+    const p = el('p', 'small no-print');
+    const a = el('a', null, label + ' (opens in a new tab)');
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    p.append(before, a, '.');
+    return p;
+  }
 
   // The scores as a table for wide screens and print, and as a list on phones.
   function matrix(a) {
@@ -914,11 +924,17 @@ const DecisionPicker = (() => {
     const roles = section('Who’s involved', 4, api, 'who’s involved');
     roles.append(pairs([['How it’s decided', whose ? whose.record : ''], ['Makes the final call', a.decides], ['Keeps it moving', a.driver],
       ['Gives input', a.input], ['Carries it out', a.carry], ['Needs to know', a.inform]]));
+    if (a.whose === 'handoff') {
+      roles.append(toolLink('To plan the handoff, including what they can decide on their own, use ', 'the Delegation Planner', '../delegation-planner/index.html'));
+    }
     doc.append(roles);
 
     const next = section('What happens next', 5, api, 'what happens next');
     next.append(el('h4', null, 'First steps'), list(lines(a.firstSteps)),
       pairs([['When we’ll check how it’s going', text(a.checkWhen) || cap(suggestedCheck(a, true))]]));
+    if (a.method === 'steady') {
+      next.append(toolLink('Once things are calm, find out what led to this with ', 'the Root Cause Finder', '../root-cause-finder/index.html'));
+    }
     doc.append(next);
 
     if (a.method !== 'steady' && text(a.reopen)) {
