@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Plan one coaching conversation with the Pivot Labs Coaching Approach Picker. Describe what's going on, get a suggested approach and why it fits, plan the questions you'll ask, and print a short plan to bring with you."><title>Coaching Approach Picker | Pivot Labs</title><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, the guided planner layout, the situation picker, and the plan checklist come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1200px}
+main{max-width:1200px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* Step 4: tips under the coaching questions */
+.coach-tips{padding:12px 16px;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:var(--radius);font-size:15px}
+.coach-tips-title{margin:0;font-weight:700}
+.coach-tips ul{margin:4px 0 0;padding-left:22px}
+.coach-tips li+li{margin-top:4px}
+
+/* The plan: the part to spend the most time on */
+.brief h4 .tag{margin-left:4px}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .brief h4 .tag{font-size:8pt;padding:1pt 6pt}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+}
+</style></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Coaching Approach Picker</p>
+      <h1>What kind of conversation will help most?</h1>
+      <p>Plan one conversation to help someone grow, get unstuck, decide, get started, or <span class="nowrap">re-engage</span>. Describe what’s going on, get a suggested approach and why it fits, plan the questions you’ll ask, and leave with a short plan to bring with you.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Use first names or initials and leave out personal or sensitive details. To keep your plan, print it or save it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>The Coaching Approach Picker helps you plan one conversation to help someone grow, get unstuck, decide, get started, or <span class="nowrap">re-engage</span>. Your answers suggest one of seven approaches, and you can choose another. Most plans are built around questions, because in coaching the person you’re helping owns the answers.</p>
+    <p>The four parts of each coaching plan (what they want, where things stand, options, and a next step) draw on the GROW™ model, developed by Sir John Whitmore and colleagues, including Graham Alexander and Alan Fine. Build on what’s working draws on the solution-focused approach developed by Steve de Shazer, Insoo Kim Berg, and colleagues, including the 1-to-10 scaling question. Weigh the options draws on the decisional balance sheet described by Irving Janis and Leon Mann. Turn it into action draws on the action and review stages of Peter Hawkins’s CLEAR model. Reconnect with the work draws on Max Landsberg’s Skill/Will Matrix. Choosing between coaching, mentoring, and giving direction, and the traps in the “Before you talk” checklist, are adapted from infographics by Amy Gibson. The asking and telling check draws on Edgar Schein’s <cite>Humble Inquiry</cite>, and the tip to ask what else comes from Michael Bungay Stanier’s <cite>The Coaching Habit</cite>®. The structure and wording here are our own.</p>
+    <p>Some coaching methods, such as cognitive behavioral coaching and thought reframing, work with a person’s beliefs and call for specialist training. This tool sticks to conversations a leader can have well. If someone brings up something personal or health-related, listen, and point them to support such as an employee assistance program or HR.</p>
+    <p class="small">GROW is a trademark of Performance Consultants International. The Coaching Habit is a registered trademark of Box of Crayons.</p>
+    <p class="small sources"><strong>Sources:</strong> Bungay Stanier, M. (2016). <cite>The coaching habit: Say less, ask more &amp; change the way you lead forever.</cite> Box of Crayons Press. · de Shazer, S. (1988). <cite>Clues: Investigating solutions in brief therapy.</cite> W. W. Norton. · Gibson, A. (n.d.). <cite>Coaching vs mentoring vs managing</cite> [Infographic]. · Gibson, A. (n.d.). <cite>How to coach your team</cite> [Infographic]. · Hawkins, P., &amp; Smith, N. (2006). <cite>Coaching, mentoring and organizational consultancy: Supervision and development.</cite> Open University Press. · Janis, I. L., &amp; Mann, L. (1977). <cite>Decision making: A psychological analysis of conflict, choice, and commitment.</cite> Free Press. · Landsberg, M. (1996). <cite>The Tao of coaching.</cite> HarperCollins. · Schein, E. H. (2013). <cite>Humble inquiry: The gentle art of asking instead of telling.</cite> Berrett-Koehler. · Whitmore, J. (1992). <cite>Coaching for performance.</cite> Nicholas Brealey.</p>
+  </section>
+</main>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every answer and your plan. You can undo it until you start entering new answers.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear my answers</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="../../assets/js/situation-picker.js"></script><script src="content.js"></script><script>
+'use strict';
+GuidedPlanner.create(CoachingPlanner);
+</script></body></html>

@@ -117,8 +117,8 @@ cite{font-style:italic}
 
 /*
   Guided planner: a step list, one step at a time, and a printable brief at the end.
-  Used by the Delegation Planner, Feedback Conversation Planner, and Root Cause Finder,
-  and built for later planners. The step logic is in assets/js/guided-planner.js.
+  Used by the Delegation Planner, Feedback Conversation Planner, Root Cause Finder, and
+  Coaching Approach Picker, and built for later planners. The step logic is in assets/js/guided-planner.js.
   Pages that use it add class="planner-page" to <body>.
 */
 .planner-layout{display:grid;grid-template-columns:248px minmax(0,1fr);gap:32px;align-items:start}
@@ -161,8 +161,8 @@ cite{font-style:italic}
 
 /*
   Situation picker: a suggested option with the reason it fits, and the other options to
-  choose instead. Used by the Feedback Conversation Planner, the Root Cause Finder, and the
-  home page starter cards, and built for the Coaching Approach Picker and Decision Toolkit.
+  choose instead. Used by the Feedback Conversation Planner, the Root Cause Finder, the
+  Coaching Approach Picker, and the home page starter cards, and built for the Decision Toolkit.
   The logic is in assets/js/situation-picker.js.
 */
 .picker-card{max-width:680px;padding:20px 24px;background:var(--ivory);border:1px solid var(--card-line);border-left:6px solid var(--teal);border-radius:var(--radius)}
@@ -219,6 +219,12 @@ cite{font-style:italic}
 .brief-foot{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
 .brief-edit{min-height:44px;padding:4px 16px}
 .print-only{display:none}
+/* Checklist in a plan: a box per item, with a check mark on items the leader checked.
+   Used by the Feedback Conversation Planner and the Coaching Approach Picker. */
+.brief .check-list{list-style:none;padding-left:0}
+.check-list li{position:relative;padding-left:32px}
+.check-list li::before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border:2px solid var(--navy);border-radius:4px;box-sizing:border-box}
+.check-list li.is-checked::after{content:"";position:absolute;left:7px;top:5px;width:6px;height:11px;border:solid var(--navy);border-width:0 3px 3px 0;transform:rotate(45deg)}
 
 @media print{
   .planner-page{background:#fff}
@@ -241,6 +247,9 @@ cite{font-style:italic}
   .planner-page .brief-foot{font-size:10pt;border-top-color:#a8a8a8}
   /* Notes and the footer stay together, so the footer never prints alone */
   .planner-page .brief-end{break-inside:avoid}
+  .planner-page .check-list li{padding-left:22pt}
+  .planner-page .check-list li::before{top:1pt;width:13pt;height:13pt}
+  .planner-page .check-list li.is-checked::after{left:4.5pt;top:3pt;width:4pt;height:8pt;border-width:0 2pt 2pt 0}
   .planner-page *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
 }
 
