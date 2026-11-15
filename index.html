@@ -1,89 +1,173 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Pivot Labs offers interactive tools for everyday leadership."><title>Pivot Labs | Navigating Everyday Leadership</title><link rel="stylesheet" href="assets/css/pivot-labs.css"><style>
-/* Bare-bones home page: brand header and tools grouped by the leader's situation. Shared fonts, colors, header, and buttons come from assets/css/pivot-labs.css. */
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Pivot Labs offers interactive tools for everyday leadership. Start with what’s going on, and a question or two points you to a tool that fits."><title>Pivot Labs | Navigating Everyday Leadership</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/css/pivot-labs.css"><style>
+/* Home page: the question, starter cards, the tool list, and the seal. Shared fonts, colors, header, buttons, answer choices, and the situation picker come from assets/css/pivot-labs.css. The starter cards' wording and routing live in home.js. */
 body{display:flex;flex-direction:column;min-height:100vh}
-.topbar,main,.site-footer>div{max-width:1120px;margin:0 auto;padding-inline:48px}
-main{flex:1;width:100%;padding-block:48px}
+.topbar,.site-footer>div{max-width:1120px;margin:0 auto;padding-inline:48px}
+main{flex:1;width:100%;max-width:856px;margin:0 auto;padding:32px 48px 64px}
+
+/* The question, with the seal beside it. The seal stays at 266 px (about 250 px of visible seal) with clear space around it. */
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px}
+.hero-seal{flex:0 0 auto;padding:26px}
+.hero-seal img,.about-seal img{display:block;width:266px;height:266px}
+.hero-text{flex:1 1 320px;min-width:0}
 h1{margin:0 0 16px}
-.lead{font-size:18px;max-width:640px;margin:0 0 48px}
-h2{font-size:26px;margin:0 0 8px}
-.category{margin-bottom:48px}
-.category:last-child{margin-bottom:0}
-.category-lead{margin:0 0 24px;max-width:640px}
-.tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
-.tool-card{display:flex;flex-direction:column;background:var(--ivory);border:1px solid var(--card-line);border-top:6px solid var(--navy);border-radius:var(--radius);padding:24px}
-.tool-card h3{font-size:24px;line-height:1.25;margin:0 0 8px}
-.tool-card p{margin:0 0 24px}
-.tool-card .btn{margin-top:auto;align-self:flex-start}
+.lead{font-size:18px;margin:0 0 12px}
+.hero .small{margin:0}
+
+/* Starter cards: each opens its questions in place. A card with one fitting tool is a link. */
+.start{margin-top:32px}
+.start h2{margin:0 0 16px}
+.starters{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.starter{border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory)}
+.starter-toggle{display:flex;align-items:center;gap:24px;width:100%;min-height:88px;padding:20px 24px;border:0;border-radius:7px;background:transparent;color:var(--navy);font-size:16px;line-height:1.5;text-align:left;text-decoration:none}
+.starter-toggle:hover{background:var(--hover-tint)}
+.starter-toggle:hover .starter-meta{color:var(--navy)}
+.starter-text{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px}
+.starter-title{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.25}
+.starter-meta{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--teal)}
+.starter-meta svg{width:22px;height:22px;flex:0 0 auto;transition:transform .15s}
+.starter-close{display:none}
+.starter.open{border-width:2px;border-color:var(--navy)}
+.starter.open .starter-toggle{padding:19px 23px;border-bottom:1px solid var(--card-line);border-radius:6px 6px 0 0;background:var(--selected-tint)}
+.starter.open .starter-meta{color:var(--navy)}
+.starter.open .starter-hint{display:none}
+.starter.open .starter-close{display:inline}
+.starter.open .starter-meta svg{transform:rotate(180deg)}
+.starter-panel{padding:24px 24px 28px}
+.starter-panel .picker-question:first-child{margin-top:0}
+.starter-panel .picker-result-title{font-size:26px;margin:0 0 8px}
+.starter-panel .picker-basis{margin:0 0 20px}
+.starter-panel .picker-card{max-width:none}
+.starter-panel .picker-others{max-width:none;margin-bottom:0}
+
+/* Browse: every tool by name, grouped by category. A category shows once it has a tool. */
+.browse{margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
+.browse h2{font-size:28px;margin:0 0 8px}
+.browse>p{margin:0 0 24px}
+.tool-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px 32px}
+.tool-group{padding-top:16px;border-top:1px solid var(--card-line)}
+.tool-group h3{font-size:19px;line-height:1.3;margin:0 0 4px}
+.tool-group ul{list-style:none;margin:0;padding:0}
+.tool-group a{display:block;padding:6px 0;text-decoration:none}
+.tool-name{font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.tool-group a:hover .tool-name{text-decoration-thickness:2px}
+.tool-line{display:block;font-size:15px}
+
+/* About: shown on phones, where the seal moves below the cards so the question comes first */
+.about-brand{display:none}
 .site-footer{border-top:1px solid var(--line);font-size:15px}
-.site-footer>div{padding-block:24px}
+.site-footer>div{padding-block:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px}
 .site-footer em{font-family:var(--display)}
+.footer-about{max-width:560px}
+
+@media(prefers-reduced-motion:reduce){.starter-meta svg{transition:none}}
 @media(max-width:740px){
-  .topbar,main,.site-footer>div{padding-inline:16px}
-  main{padding-block:32px}
-  h1{font-size:32px}
-  .lead{margin-bottom:32px}
+  .topbar,.site-footer>div{padding-inline:16px}
+  main{padding:32px 16px 48px}
+  .hero-seal{display:none}
+  h1{font-size:32px;margin-bottom:12px}
+  .lead{font-size:17px}
+  .starter-toggle{gap:12px;padding:16px}
+  .starter.open .starter-toggle{padding:15px}
+  .starter-title{font-size:21px}
+  .starter-hint,.starter.open .starter-close{display:none}
+  .starter-panel{padding:20px 16px 24px}
+  .starter-panel .picker-result-title{font-size:24px}
+  .starter-panel .picker-card{padding:16px}
+  .starter-panel .picker-actions{flex-direction:column}
+  .starter-panel .picker-actions .btn,.starter-panel .picker-others .btn{width:100%}
+  .starter-panel .picker-others li{flex-direction:column;align-items:stretch;padding:12px}
+  .browse{margin-top:48px;padding-top:32px}
+  .browse h2,.about-brand h2{font-size:26px}
+  .tool-index{grid-template-columns:minmax(0,1fr);gap:16px}
+  .about-brand{display:block;margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+  .about-brand h2{margin:0 0 8px}
+  .about-seal{display:flex;justify-content:center;padding:24px}
+  .about-seal img{width:256px;height:256px}
+  .about-brand p{margin:0}
+  .footer-about{display:none}
 }
 </style></head><body>
 <header class="site-header"><div class="topbar"><span class="brand-name">Pivot Labs</span><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
 <main>
-  <h1>What do you need help with?</h1>
-  <p class="lead">Start with what you’re working through, then choose the tool that fits.</p>
-  <section class="category" aria-labelledby="prioritize-title">
-    <h2 id="prioritize-title">Prioritize your time</h2>
-    <p class="category-lead">Decide what gets attention now and what can wait.</p>
-    <ul class="tools">
-      <li class="tool-card">
-        <h3>Eisenhower Matrix</h3>
-        <p>Work through your priorities. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider.</p>
-        <a class="btn primary" href="tools/eisenhower-matrix/index.html">Open the Eisenhower Matrix</a>
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-seal"><picture><source type="image/webp" srcset="assets/img/pivot-labs-seal-560.webp 560w, assets/img/pivot-labs-seal-800.webp 800w" sizes="266px"><img src="assets/img/pivot-labs-seal-560.png" width="266" height="266" alt="Pivot Labs" loading="lazy"></picture></div>
+    <div class="hero-text">
+      <h1 id="page-title">What do you need help with?</h1>
+      <p class="lead">Start with what’s going on. A question or two points you to a tool that fits, and says why.</p>
+      <p class="small">No account or login. Each tool runs in your browser.</p>
+    </div>
+  </section>
+
+  <section class="start" aria-labelledby="start-title">
+    <h2 id="start-title">Choose what sounds closest</h2>
+    <ul class="starters">
+      <li class="starter" data-starter="time">
+        <button type="button" class="starter-toggle" id="starter-time" aria-expanded="false" aria-controls="starter-time-panel">
+          <span class="starter-text"><span class="starter-title">I have too much on my plate</span><span>Sort what needs you now, what can wait, and what someone else could take.</span></span>
+          <span class="starter-meta"><span class="starter-hint">1 question</span><span class="starter-close">Close</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="starter-panel" id="starter-time-panel" role="region" aria-labelledby="starter-time" hidden></div>
+      </li>
+      <li class="starter" data-starter="team">
+        <button type="button" class="starter-toggle" id="starter-team" aria-expanded="false" aria-controls="starter-team-panel">
+          <span class="starter-text"><span class="starter-title">I need help with my team</span><span>Talk with someone, hand off work, or decide how much support someone needs.</span></span>
+          <span class="starter-meta"><span class="starter-hint">1 or 2 questions</span><span class="starter-close">Close</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="starter-panel" id="starter-team-panel" role="region" aria-labelledby="starter-team" hidden></div>
+      </li>
+      <li class="starter">
+        <a class="starter-toggle" href="tools/feedback-conversation-planner/index.html">
+          <span class="starter-text"><span class="starter-title">I have a conversation to prepare for</span><span>With someone you lead: recognize good work, raise a concern, or help them grow.</span></span>
+          <span class="starter-meta"><span class="starter-hint">Opens a tool</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+      <li class="starter" data-starter="wrong">
+        <button type="button" class="starter-toggle" id="starter-wrong" aria-expanded="false" aria-controls="starter-wrong-panel">
+          <span class="starter-text"><span class="starter-title">Something keeps going wrong</span><span>Find what’s behind it so it stops coming back.</span></span>
+          <span class="starter-meta"><span class="starter-hint">1 question</span><span class="starter-close">Close</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="starter-panel" id="starter-wrong-panel" role="region" aria-labelledby="starter-wrong" hidden></div>
       </li>
     </ul>
   </section>
-  <section class="category" aria-labelledby="expectations-title">
-    <h2 id="expectations-title">Set expectations and run the team</h2>
-    <p class="category-lead">Make roles, handoffs, and team routines clear.</p>
-    <ul class="tools">
-      <li class="tool-card">
-        <h3>Delegation Planner</h3>
-        <p>Plan one handoff. Agree on what done looks like, who decides what, and when you’ll check in, then print a brief to review together.</p>
-        <a class="btn primary" href="tools/delegation-planner/index.html">Open the Delegation Planner</a>
-      </li>
-    </ul>
+
+  <section class="browse" aria-labelledby="browse-title">
+    <h2 id="browse-title">Or browse every tool</h2>
+    <p>Already know what you need? Every tool, grouped by what you’re working on.</p>
+    <div class="tool-index">
+      <section class="tool-group" aria-labelledby="cat-time">
+        <h3 id="cat-time">Prioritize your time</h3>
+        <ul><li><a href="tools/eisenhower-matrix/index.html"><span class="tool-name">Eisenhower Matrix</span><span class="tool-line">Sort your tasks by urgency and importance.</span></a></li></ul>
+      </section>
+      <section class="tool-group" aria-labelledby="cat-team">
+        <h3 id="cat-team">Set expectations and run the team</h3>
+        <ul><li><a href="tools/delegation-planner/index.html"><span class="tool-name">Delegation Planner</span><span class="tool-line">Plan one handoff, from the outcome to check-ins.</span></a></li></ul>
+      </section>
+      <section class="tool-group" aria-labelledby="cat-talk">
+        <h3 id="cat-talk">Have the conversation</h3>
+        <ul><li><a href="tools/feedback-conversation-planner/index.html"><span class="tool-name">Feedback Conversation Planner</span><span class="tool-line">Prepare one feedback conversation.</span></a></li></ul>
+      </section>
+      <section class="tool-group" aria-labelledby="cat-develop">
+        <h3 id="cat-develop">Develop your people</h3>
+        <ul><li><a href="tools/team-development-map/index.html"><span class="tool-name">Team Development Map</span><span class="tool-line">Decide how to support someone on a task.</span></a></li></ul>
+      </section>
+      <section class="tool-group" aria-labelledby="cat-solve">
+        <h3 id="cat-solve">Decide, solve and plan ahead</h3>
+        <ul><li><a href="tools/root-cause-finder/index.html"><span class="tool-name">Root Cause Finder</span><span class="tool-line">Find the cause of a problem and plan the fix.</span></a></li></ul>
+      </section>
+    </div>
   </section>
-  <section class="category" aria-labelledby="conversation-title">
-    <h2 id="conversation-title">Have the conversation</h2>
-    <p class="category-lead">Prepare what to say, what to ask, and how to follow up.</p>
-    <ul class="tools">
-      <li class="tool-card">
-        <h3>Feedback Conversation Planner</h3>
-        <p>Prepare one feedback conversation. Describe what happened, get a suggested approach, and print a plan to bring with you.</p>
-        <a class="btn primary" href="tools/feedback-conversation-planner/index.html">Open the Feedback Conversation Planner</a>
-      </li>
-    </ul>
-  </section>
-  <section class="category" aria-labelledby="develop-title">
-    <h2 id="develop-title">Develop your people</h2>
-    <p class="category-lead">Choose how to coach, stretch, or support each person.</p>
-    <ul class="tools">
-      <li class="tool-card">
-        <h3>Team Development Map</h3>
-        <p>Plan how to support someone on a specific task. Add a person and a task, consider their skill and willingness, and decide whether to guide, stretch, <span class="nowrap">re-engage</span>, or direct.</p>
-        <a class="btn primary" href="tools/team-development-map/index.html">Open the Team Development Map</a>
-      </li>
-    </ul>
-  </section>
-  <section class="category" aria-labelledby="solve-title">
-    <h2 id="solve-title">Decide, solve and plan ahead</h2>
-    <p class="category-lead">Find the real cause of a problem, weigh your options, and plan for what’s ahead.</p>
-    <ul class="tools">
-      <li class="tool-card">
-        <h3>Root Cause Finder</h3>
-        <p>Work through one problem. Describe what happened, get a suggested method to find the cause, and print a summary of the fix and how you’ll check it worked.</p>
-        <a class="btn primary" href="tools/root-cause-finder/index.html">Open the Root Cause Finder</a>
-      </li>
-    </ul>
+
+  <section class="about-brand" aria-labelledby="about-title">
+    <h2 id="about-title">About Pivot Labs</h2>
+    <div class="about-seal"><picture><source type="image/webp" srcset="assets/img/pivot-labs-seal-560.webp 560w, assets/img/pivot-labs-seal-800.webp 800w" sizes="256px"><img src="assets/img/pivot-labs-seal-560.png" width="256" height="256" alt="Pivot Labs" loading="lazy"></picture></div>
+    <p>Pivot Labs helps leaders work through everyday challenges with thoughtful guidance, practical tools, and learning they can apply.</p>
   </section>
 </main>
-<footer class="site-footer"><div>Pivot Labs · <em>Navigating Everyday Leadership</em></div></footer>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span class="footer-about">Pivot Labs helps leaders work through everyday challenges with thoughtful guidance, practical tools, and learning they can apply.</span></div></footer>
+<script src="assets/js/situation-picker.js"></script>
+<script src="home.js"></script>
 </body></html>

@@ -27,6 +27,12 @@
     On its own page (for example the Coaching Approach Picker, Decision Toolkit, or home page starter
       cards): picker.mount(container, options) shows the questions, then the suggestion and the
       other options. Options with an href become links. Others call options.onChoose(option, answers).
+      Optional mount options:
+        headingLevel     level of the result heading (default 2). The suggestion and "Other options"
+                         sit one level below it. Use 3 when the picker sits under a page's h2.
+        showAnswers      true adds "Based on your answer:" with the answers given, so the leader can see
+                         what the suggestion rests on.
+        changeInActions  true puts "Change my answers" next to the main button instead of at the end.
 */
 const SituationPicker = (() => {
   function el(tag, cls, text) {
@@ -58,9 +64,9 @@ const SituationPicker = (() => {
     const visible = (q, answers) => !q.showIf || q.showIf(answers);
 
     // The suggested option: what it is and why it fits.
-    function card(option, reason, eyebrow, answers) {
+    function card(option, reason, eyebrow, answers, level) {
       const box = el('section', 'picker-card');
-      const h = el('h3', null, resolve(option.title, answers));
+      const h = el('h' + (level || 3), 'picker-card-title', resolve(option.title, answers));
       box.setAttribute('aria-label', eyebrow + ': ' + h.textContent);
       box.append(el('p', 'eyebrow', eyebrow), h);
       const summary = resolve(option.summary, answers);
@@ -250,20 +256,38 @@ const SituationPicker = (() => {
         return node;
       }
 
+      // The answers the suggestion rests on, in question order.
+      function answerSummary() {
+        const parts = [];
+        cfg.questions.forEach(q => {
+          if (!visible(q, answers) || isEmpty(answers[q.id])) return;
+          const values = [].concat(answers[q.id]);
+          q.options.forEach(o => { if (values.includes(o.value)) parts.push(resolve(o.label, answers)); });
+        });
+        if (!parts.length) return null;
+        const p = el('p', 'picker-basis');
+        p.append(el('strong', null, parts.length > 1 ? 'Based on your answers: ' : 'Based on your answer: '), parts.join(' '));
+        return p;
+      }
+
       function showResult() {
         const s = suggest(answers);
         if (!s) return;
         const chosen = find(s.id);
+        const level = Math.min(Math.max(opts.headingLevel || 2, 2), 5);
         result.replaceChildren();
-        const h = el('h2', 'picker-result-title', resolve(opts.resultTitle, answers) || 'Here’s a place to start');
+        const h = el('h' + level, 'picker-result-title', resolve(opts.resultTitle, answers) || 'Here’s a place to start');
         h.tabIndex = -1;
-        result.append(h, card(chosen, resolve(s.reason, answers), opts.eyebrow || 'Suggested', answers));
+        result.append(h);
+        const basis = opts.showAnswers ? answerSummary() : null;
+        if (basis) result.append(basis);
+        result.append(card(chosen, resolve(s.reason, answers), opts.eyebrow || 'Suggested', answers, level + 1));
         const primary = el('div', 'picker-actions');
         primary.append(action(chosen, true));
         result.append(primary);
         const others = cfg.options.filter(o => o.id !== s.id);
         if (others.length) {
-          result.append(el('h3', 'picker-others-title', opts.othersTitle || 'Other options'));
+          result.append(el('h' + (level + 1), 'picker-others-title', opts.othersTitle || 'Other options'));
           const list = el('ul', 'picker-others');
           others.forEach(o => {
             const li = el('li');
@@ -284,7 +308,8 @@ const SituationPicker = (() => {
           const first = questionsWrap.querySelector('input');
           if (first) first.focus();
         });
-        result.append(back);
+        if (opts.changeInActions) primary.append(back);
+        else result.append(back);
         form.hidden = true;
         result.hidden = false;
         h.focus();
