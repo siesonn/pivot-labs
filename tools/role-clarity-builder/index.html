@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Make one role clear with the Pivot Labs Role Clarity Builder. List what the role runs, shares, and leaves to others, who it works with, and who decides what. Print a sheet to go through together."><title>Role Clarity Builder | Pivot Labs</title><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, and the guided planner layout come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1200px}
+main{max-width:1200px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* Repeating lists: one card per row */
+.row-question{margin:24px 0 8px;font-size:19px;font-weight:700}
+.row-list{display:grid;gap:16px;margin-top:16px}
+.row-card{border:1px solid var(--card-line);border-radius:var(--radius);padding:16px}
+.row-card>fieldset{margin:0}
+.row-legend{font-size:17px;margin-bottom:4px}
+.row-fields.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.row-remove,.row-add{margin-top:16px}
+p.row-add{margin-top:16px}
+
+/* Decisions: one card per decision, with four choices side by side */
+.decision-list{display:grid;gap:16px;margin-top:16px}
+.decision-card{border:1px solid var(--card-line);border-radius:var(--radius);padding:16px}
+.decision-card>fieldset{margin:0}
+.decision-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:17px;margin-bottom:12px}
+.decision-options{grid-template-columns:repeat(4,minmax(0,1fr))}
+.decision-options label{padding:10px 12px;font-size:15px}
+.decision-limit{max-width:320px}
+.planner-field .decision-level{margin:24px 0 0}
+.decision-level legend{font-size:16px;margin-bottom:8px}
+.decision-remove{margin-top:16px}
+.decision-add{margin-top:16px}
+
+/* The sheet: tables and the three decision groups */
+.brief-table{width:100%;margin-top:8px;border-collapse:collapse;font-size:16px}
+.brief-table th,.brief-table td{padding:8px 10px;border:1px solid var(--card-line);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.brief-table th{background:var(--selected-tint);font-weight:700}
+.brief-table tr{break-inside:avoid}
+
+/* Status and undo float at the bottom of the screen so they stay visible on a long page */
+#status,#undo-bar{position:fixed;left:50%;transform:translateX(-50%);z-index:5;margin:0;box-shadow:0 8px 24px rgba(36,57,92,.25)}
+#status{bottom:16px}
+#undo-bar{bottom:64px}
+#status:empty+#undo-bar{bottom:16px}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .brief-table{font-size:10pt}
+  .brief-table th,.brief-table td{padding:3pt 5pt;border-color:#a8a8a8}
+  /* The three decision groups sit side by side on paper */
+  .brief-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 16pt}
+  .brief-groups h4{margin-top:6pt}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+  .decision-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .row-fields.two{grid-template-columns:minmax(0,1fr)}
+}
+/* On narrow screens the sheet's tables become labeled lines. Screen only: a printed page is narrow enough to match a phone width. */
+@media screen and (max-width:740px){
+  .brief-table,.brief-table tbody,.brief-table tr,.brief-table td{display:block;width:100%}
+  .brief-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .brief-table tr{margin-top:12px;border:1px solid var(--card-line);border-radius:var(--radius)}
+  .brief-table td{border:0;border-bottom:1px solid var(--line);padding:8px 12px}
+  .brief-table td:last-child{border-bottom:0}
+  .brief-table td::before{content:attr(data-label);display:block;font-size:14px;font-weight:700}
+}
+@media(max-width:480px){
+  .decision-options{grid-template-columns:minmax(0,1fr)}
+}
+</style></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Role Clarity Builder</p>
+      <h1>Who owns what in this role?</h1>
+      <p>Make one role clear. List what it runs, what it shares, and what belongs to someone else, then agree on who decides what. Leave with a one-page sheet to go through together.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Use first names or initials, leave out sensitive details, and describe the role, not the person. To keep your sheet, print it or save it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>The Role Clarity Builder helps you make one role clear: what it runs, what it shares with others, what belongs to someone else, who it works with, and who decides what. It is inspired by Cicely Simpson’s Role Clarity Document infographic. The structure and wording are our own. Its decision levels are a simpler version of the degrees of initiative that William Oncken, Jr. and Donald L. Wass describe in “Management Time: Who’s Got the Monkey?” Research on role ambiguity, beginning with Kahn and colleagues (1964) and Rizzo, House, and Lirtzman (1970), links unclear expectations to strain at work.</p>
+    <p class="small sources"><strong>Sources:</strong> Simpson, C. Role Clarity Document (infographic, LinkedIn). Oncken, W., Jr., &amp; Wass, D. L. (1974). Management time: Who’s got the monkey? <cite>Harvard Business Review.</cite> Kahn, R. L., Wolfe, D. M., Quinn, R. P., Snoek, J. D., &amp; Rosenthal, R. A. (1964). <cite>Organizational stress: Studies in role conflict and ambiguity.</cite> Wiley. Rizzo, J. R., House, R. J., &amp; Lirtzman, S. I. (1970). Role conflict and ambiguity in complex organizations. <cite>Administrative Science Quarterly,</cite> 15(2), 150-163.</p>
+  </section>
+</main>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every answer and your sheet. You can undo it until you start entering new answers.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear my answers</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="content.js"></script><script>
+'use strict';
+GuidedPlanner.create(RoleClarityBuilder);
+</script></body></html>
