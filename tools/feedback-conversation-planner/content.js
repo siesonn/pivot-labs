@@ -398,6 +398,17 @@ const FeedbackPlanner = (() => {
 
     const say = section('What to say', 3, api, 'what you’ll say');
     say.append(pairs(sayPairs(a)));
+    // Look ahead assumes a goal. When there isn't one yet, a coaching conversation fits better.
+    // On screen only. Opens in a new tab and carries no names or text.
+    if (a.approach === 'ahead') {
+      const tip = el('p', 'small no-print');
+      const link = el('a', null, 'plan a coaching conversation with the Coaching Approach Picker (opens in a new tab)');
+      link.href = '../coaching-approach-picker/index.html';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      tip.append('If they’re not sure yet what to work toward, ', link, '.');
+      say.append(tip);
+    }
     plan.append(say);
 
     const question = text(a[askKey[a.approach]]);

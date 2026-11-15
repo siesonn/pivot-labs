@@ -383,6 +383,14 @@ const CoachingPlanner = (() => {
       const s = section('The direction', 3, api, 'the direction');
       s.append(pairs([['What good looks like', a.good], ['First steps', a.firstSteps], ['Support and check-ins', a.supportDirect],
         ['To check they’re clear, ask', a.checkClear], ['When you’ll ask more and tell less', a.shift]]));
+      // Handing off new work is the natural next step. On screen only. Opens in a new tab and carries no names or text.
+      const tip = el('p', 'small no-print');
+      const link = el('a', null, 'plan the details with the Delegation Planner (opens in a new tab)');
+      link.href = '../delegation-planner/index.html';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      tip.append('If you’re handing off this work, ', link, '.');
+      s.append(tip);
       plan.append(s);
     }
   }
