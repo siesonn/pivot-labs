@@ -71,7 +71,7 @@ The full setup is described at the top of `assets/js/situation-picker.js`.
 
 ## How the tools handle entries
 
-The tools run in the browser. There is no server or login, and each page blocks network requests, so entries are not sent anywhere. Entries clear when the page is refreshed or closed.
+The tools run in the browser. There is no server or login, and each page blocks network requests except to Cloudflare Web Analytics, which counts page visits. Entries are not sent anywhere. Entries clear when the page is refreshed or closed.
 
 ## Brand
 
