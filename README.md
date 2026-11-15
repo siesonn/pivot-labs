@@ -6,7 +6,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Home page. Starts with "What do you need help with?" and four starter cards, then lists every tool by category under "Or browse every tool." Shows the Pivot Labs seal. |
+| `index.html` | Home page. Starts with "What do you need help with?" and five starter cards, then lists every tool by category under "Or browse every tool." Shows the Pivot Labs seal. |
 | `home.js` | The home page's starter cards: their questions, which tool each answer suggests, and why it fits. Runs on the shared situation picker. See "Home page starter cards" below. |
 | `tools/` | One folder per tool. Each tool's page is the `index.html` inside its folder. |
 | `tools/eisenhower-matrix/` | The Eisenhower Matrix. `recommendations.js` holds the logic for the guided questions. |
@@ -15,6 +15,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 | `tools/feedback-conversation-planner/` | The Feedback Conversation Planner. Five steps to prepare one feedback conversation: a few questions suggest one of six approaches, then the leader plans what to say and ends with a printable plan. The first tool to use the situation picker. `content.js` holds its questions, approaches, prompts, and plan. |
 | `tools/root-cause-finder/` | The Root Cause Finder. Six steps to work through one problem: a few questions suggest the 5 Whys, a fishbone diagram, or a quick fix and check, then the leader finds the cause, plans the fix, and ends with a summary to share. Uses the guided planner and the situation picker. `content.js` holds its questions, methods, prompts, and summary. |
 | `tools/coaching-approach-picker/` | The Coaching Approach Picker. Five steps to plan one coaching conversation: a few questions about the situation suggest one of seven approaches (find the goal, build on what's working, weigh the options, turn it into action, reconnect with the work, share what you've learned, or start with clear direction), then the leader plans the conversation and ends with a printable plan. Uses the guided planner and the situation picker, the same setup as the Feedback Conversation Planner. `content.js` holds its questions, approaches, routing, prompts, checklists, and plan. |
+| `tools/decision-approach-picker/` | The Decision Approach Picker. Six steps to decide how to make one decision: three questions about the situation suggest one of four ways to decide (follow the known way, compare the options, try small and learn, or steady things first), then the leader works through that way and ends with a printable decision record. Compare the options is a small weighted matrix with its own step. Uses the guided planner and the situation picker, the same setup as the Coaching Approach Picker. `content.js` holds its questions, routing, methods, prompts, and record. |
 | `assets/css/pivot-labs.css` | Shared styles for every page: fonts, colors, the brand header, buttons, form fields, answer choices, the session notice, dialogs, status messages, the "Suggested" tag, the "About this tool" section, the guided planner layout, the plan checklist, and the situation picker. The start of the Pivot Labs design system. |
 | `assets/js/guided-planner.js` | The shared step engine for guided planners: the step list, Back and Continue, required answers, Start over with Undo, and showing the finished brief. It holds no tool wording. |
 | `assets/js/situation-picker.js` | The shared situation picker: a few questions, a suggested option with the reason it fits, and the other options to choose instead. Works inside a guided planner step or on its own, as on the home page. It holds no tool wording. |
@@ -34,7 +35,7 @@ Add to the shared stylesheet only what more than one page will use. Styles for o
 
 ## Home page starter cards
 
-Each starter card is written in the leader's words ("Something keeps going wrong"). Clicking it opens a question or two right on the card. The answers suggest one tool, say why it fits, show the answers the suggestion rests on, and list the card's other tools. A card with only one fitting tool is a plain link instead (today, "I have a conversation to prepare for" goes straight to the Feedback Conversation Planner). On "I need help with my team," the "I want to help someone grow" answer asks "Where are you starting from?" with four answers: a task in mind leads to the Team Development Map, ideas to share lead to the Feedback Conversation Planner, and "we haven't talked about it yet" or "I'm not sure" lead to the Coaching Approach Picker.
+Each starter card is written in the leader's words ("Something keeps going wrong"). Clicking it opens a question or two right on the card. The answers suggest one tool, say why it fits, show the answers the suggestion rests on, and list the card's other tools. A card with only one fitting tool is a plain link instead (today, "I have a conversation to prepare for" and "I have a decision to make" go straight to their tools). "I have a decision to make" will become a question card when the Role Risk Map is built. On "I need help with my team," the "I want to help someone grow" answer asks "Where are you starting from?" with four answers: a task in mind leads to the Team Development Map, ideas to share lead to the Feedback Conversation Planner, and "we haven't talked about it yet" or "I'm not sure" lead to the Coaching Approach Picker.
 
 The cards are in `index.html` (one `<li class="starter">` each, with a `data-starter` name). Their questions and routing are in `home.js` under the same name.
 
@@ -58,7 +59,7 @@ Guided planners (for example the Role Clarity Builder) reuse the Delegation Plan
 
 ## Adding a situation picker
 
-The situation picker suggests one option from a few questions and says why it fits. The leader can always choose another. The home page starter cards, the Feedback Conversation Planner, the Root Cause Finder, and the Coaching Approach Picker use it, and so will the Decision Toolkit.
+The situation picker suggests one option from a few questions and says why it fits. The leader can always choose another. The home page starter cards, the Feedback Conversation Planner, the Root Cause Finder, the Coaching Approach Picker, and the Decision Approach Picker use it.
 
 1. Load `../../assets/js/situation-picker.js` and call `SituationPicker.create(...)` with the questions, the options, and a `suggest(answers)` rule. The same answers must always give the same suggestion, whoever the person is.
 2. On its own page, call `picker.mount(container, options)`. Options with an `href` become links to that page or tool. Optional settings: `headingLevel` (3 when the picker sits under a page's h2), `showAnswers` (adds "Based on your answer:" with the answers given), and `changeInActions` (puts "Change my answers" beside the main button).
