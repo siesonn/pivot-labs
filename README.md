@@ -14,7 +14,8 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 | `tools/delegation-planner/` | The Delegation Planner. Six short steps for one handoff, ending in a printable handoff brief. The first guided planner. `content.js` holds its steps, questions, suggestions, and brief. |
 | `tools/feedback-conversation-planner/` | The Feedback Conversation Planner. Five steps to prepare one feedback conversation: a few questions suggest one of six approaches, then the leader plans what to say and ends with a printable plan. The first tool to use the situation picker. `content.js` holds its questions, approaches, prompts, and plan. |
 | `tools/root-cause-finder/` | The Root Cause Finder. Six steps to work through one problem: a few questions suggest the 5 Whys, a fishbone diagram, or a quick fix and check, then the leader finds the cause, plans the fix, and ends with a summary to share. Uses the guided planner and the situation picker. `content.js` holds its questions, methods, prompts, and summary. |
-| `assets/css/pivot-labs.css` | Shared styles for every page: fonts, colors, the brand header, buttons, form fields, answer choices, the session notice, dialogs, status messages, the "Suggested" tag, the "About this tool" section, the guided planner layout, and the situation picker. The start of the Pivot Labs design system. |
+| `tools/coaching-approach-picker/` | The Coaching Approach Picker. Five steps to plan one coaching conversation: a few questions about the situation suggest one of seven approaches (find the goal, build on what's working, weigh the options, turn it into action, reconnect with the work, share what you've learned, or start with clear direction), then the leader plans the conversation and ends with a printable plan. Uses the guided planner and the situation picker, the same setup as the Feedback Conversation Planner. `content.js` holds its questions, approaches, routing, prompts, checklists, and plan. |
+| `assets/css/pivot-labs.css` | Shared styles for every page: fonts, colors, the brand header, buttons, form fields, answer choices, the session notice, dialogs, status messages, the "Suggested" tag, the "About this tool" section, the guided planner layout, the plan checklist, and the situation picker. The start of the Pivot Labs design system. |
 | `assets/js/guided-planner.js` | The shared step engine for guided planners: the step list, Back and Continue, required answers, Start over with Undo, and showing the finished brief. It holds no tool wording. |
 | `assets/js/situation-picker.js` | The shared situation picker: a few questions, a suggested option with the reason it fits, and the other options to choose instead. Works inside a guided planner step or on its own, as on the home page. It holds no tool wording. |
 | `assets/img/` | The Pivot Labs seal in web sizes (`pivot-labs-seal-560.webp`, `-800.webp`, and a `-560.png` fallback) and the browser-tab icon (`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`). |
@@ -25,7 +26,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 
 1. Make a folder in `tools/` named for the tool, for example `tools/learning-solutions-guide/`.
 2. Put the tool's `index.html`, and any script files it needs, in that folder.
-3. Link the shared stylesheet before the page's own styles: `<link rel="stylesheet" href="../../assets/css/pivot-labs.css">`. It brings in the fonts, colors, header, buttons, and form styles.
+3. Link the shared stylesheet before the page's own styles: `<link rel="stylesheet" href="../../assets/css/pivot-labs.css">`. It brings in the fonts, colors, header, buttons, and form styles. Add the three browser-tab icon `<link>` tags after `</title>` (see "Brand" below).
 4. Add the tool to the home page's browse list in `index.html`, under the category that matches what the leader is trying to do: its name as a link and one short line about what it's for. Add a new category group only when it has a tool to show.
 5. Decide which starter card it belongs on, and add it there in `home.js` (see below). A tool doesn't have to be on a card, but most should be.
 
@@ -33,7 +34,7 @@ Add to the shared stylesheet only what more than one page will use. Styles for o
 
 ## Home page starter cards
 
-Each starter card is written in the leader's words ("Something keeps going wrong"). Clicking it opens a question or two right on the card. The answers suggest one tool, say why it fits, show the answers the suggestion rests on, and list the card's other tools. A card with only one fitting tool is a plain link instead (today, "I have a conversation to prepare for" goes straight to the Feedback Conversation Planner).
+Each starter card is written in the leader's words ("Something keeps going wrong"). Clicking it opens a question or two right on the card. The answers suggest one tool, say why it fits, show the answers the suggestion rests on, and list the card's other tools. A card with only one fitting tool is a plain link instead (today, "I have a conversation to prepare for" goes straight to the Feedback Conversation Planner). On "I need help with my team," the "I want to help someone grow" answer asks "Where are you starting from?" with four answers: a task in mind leads to the Team Development Map, ideas to share lead to the Feedback Conversation Planner, and "we haven't talked about it yet" or "I'm not sure" lead to the Coaching Approach Picker.
 
 The cards are in `index.html` (one `<li class="starter">` each, with a `data-starter` name). Their questions and routing are in `home.js` under the same name.
 
@@ -57,11 +58,11 @@ Guided planners (for example the Role Clarity Builder) reuse the Delegation Plan
 
 ## Adding a situation picker
 
-The situation picker suggests one option from a few questions and says why it fits. The leader can always choose another. The home page starter cards use it, and so will the Coaching Approach Picker and the Decision Toolkit.
+The situation picker suggests one option from a few questions and says why it fits. The leader can always choose another. The home page starter cards, the Feedback Conversation Planner, the Root Cause Finder, and the Coaching Approach Picker use it, and so will the Decision Toolkit.
 
 1. Load `../../assets/js/situation-picker.js` and call `SituationPicker.create(...)` with the questions, the options, and a `suggest(answers)` rule. The same answers must always give the same suggestion, whoever the person is.
 2. On its own page, call `picker.mount(container, options)`. Options with an `href` become links to that page or tool. Optional settings: `headingLevel` (3 when the picker sits under a page's h2), `showAnswers` (adds "Based on your answer:" with the answers given), and `changeInActions` (puts "Change my answers" beside the main button).
-3. Inside a guided planner, put `picker.questions` in one step and `picker.field(...)` in the next. The Feedback Conversation Planner and the Root Cause Finder show how.
+3. Inside a guided planner, put `picker.questions` in one step and `picker.field(...)` in the next. The Feedback Conversation Planner, the Root Cause Finder, and the Coaching Approach Picker show how.
 
 The full setup is described at the top of `assets/js/situation-picker.js`.
 
@@ -75,5 +76,5 @@ Built to the Pivot Labs Brand Guide 2.1 (Deep Navy is the Pivot Labs signature c
 
 - **Seal.** The folded-ribbon seal with "Navigating Everyday Leadership" appears on the home page only, at 240 px or more of visible seal with clear space around it. The files in `assets/img/` are resized copies of the approved PNG: same proportions, nothing cropped, recolored, or redrawn. To change the seal, replace the files from a new approved PNG.
 - **Tool headers** use the live-text brand name, as the guide requires at navigation size.
-- **Browser-tab icon.** The small mark (ribbon on navy) was approved as a favicon on November 14, 2026. It's on the home page. Adding it to a tool page takes the same three `<link>` tags in that page's `<head>` (with `../../` in front of each path), and needs the brand owner's OK first.
+- **Browser-tab icon.** The small mark (ribbon on navy) was approved as a favicon on November 14, 2026. It's on the home page and every tool page (added to the tool pages with the brand owner's OK on November 15, 2026). A new tool page takes the same three `<link>` tags after `</title>`, with `../../` in front of each path: `favicon.svg` (`type="image/svg+xml"`), `favicon-32.png` (`sizes="32x32"`), and `apple-touch-icon.png` (as `rel="apple-touch-icon"`).
 - New logo variants, palette changes, and program identities need review by the brand owner before release.
