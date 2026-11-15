@@ -33,6 +33,10 @@
     rootCause: {
       title: 'Root Cause Finder', href: 'tools/root-cause-finder/index.html',
       summary: 'Work through one problem. Describe what happened, get a suggested method to find the cause, and print a summary of the fix and how you’ll check it worked.'
+    },
+    coaching: {
+      title: 'Coaching Approach Picker', href: 'tools/coaching-approach-picker/index.html',
+      summary: 'Plan one coaching conversation. Describe what’s going on, get a suggested approach and why it fits, plan the questions you’ll ask, and print a short plan.'
     }
   };
 
@@ -76,15 +80,18 @@
           { value: 'grow', label: 'I want to help someone grow.' },
           { value: 'unsure', label: 'I’m not sure.' }
         ] },
-        { id: 'growTask', type: 'choice', label: 'Do you have a task or project in mind for them?', showIf: a => a.team === 'grow', options: [
-          { value: 'yes', label: 'Yes.' },
-          { value: 'notYet', label: 'Not yet. I want to talk about where they’re headed.' }
+        { id: 'growTask', type: 'choice', label: 'Where are you starting from?', showIf: a => a.team === 'grow', options: [
+          { value: 'task', label: 'I have a task or project that could stretch them.' },
+          { value: 'ideas', label: 'They know what they want to work on, and I have ideas to share.' },
+          { value: 'notTalked', label: 'We haven’t talked yet about where they want to grow.' },
+          { value: 'unsure', label: 'I’m not sure.' }
         ] }
       ],
       options: [
         tool('feedback', 'When you need to talk with someone about their work.'),
         tool('delegation', 'When you want to hand off a piece of work.'),
-        tool('development', 'When you’re deciding how much support someone needs on a task.')
+        tool('development', 'When you’re deciding how much support someone needs on a task.'),
+        tool('coaching', 'When you want to help someone think something through.')
       ],
       suggest(a) {
         switch (a.team) {
@@ -93,8 +100,10 @@
           case 'support': return pick('development', 'The Team Development Map looks at one person and one task. It asks about their skill and willingness for that task and suggests whether to guide, stretch, re-engage, or direct.');
           case 'hesitant': return pick('development', 'Pick one task to start. The Team Development Map asks what might be behind the hesitation, such as workload, confidence, clarity, or interest, and the answer shapes your next step.');
           case 'grow':
-            if (a.growTask === 'yes') return pick('development', 'Real work is a good place to grow. The Team Development Map helps you decide how far to stretch them and how much support to give.');
-            if (a.growTask === 'notYet') return pick('feedback', 'Start with a conversation. The Feedback Conversation Planner helps you agree on one thing to work toward and the next chance to try it.');
+            if (a.growTask === 'task') return pick('development', 'Real work is a good place to grow. The Team Development Map helps you decide how far to stretch them and how much support to give.');
+            if (a.growTask === 'ideas') return pick('feedback', 'The Feedback Conversation Planner helps you agree on one thing to work toward and trade ideas for the next chance to try it.');
+            if (a.growTask === 'notTalked') return pick('coaching', 'Start with a conversation about where they want to go. The Coaching Approach Picker suggests an approach and helps you plan the questions you’ll ask.');
+            if (a.growTask === 'unsure') return pick('coaching', 'The Coaching Approach Picker asks a few questions about the situation, then suggests whether to coach, share your experience, or give direction.');
             return null;
           case 'unsure': return pick('development', 'Start with one person and one task. The Team Development Map suggests a next step and links to the planner that helps you carry it out.');
           default: return null;
