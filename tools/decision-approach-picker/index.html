@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Make one decision with the Pivot Labs Decision Approach Picker. Describe the situation, get a suggested way to decide and why it fits, work it through, and print a short decision record to share."><title>Decision Approach Picker | Pivot Labs</title><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, the guided planner layout, the situation picker, and the plan checklist come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1200px}
+main{max-width:1200px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+.planner-tip:empty{display:none}
+.brief-edit{flex-shrink:0} /* keeps "Edit" on one line beside a long decision question */
+
+/* Step 4: parts of a custom field, and lists you can add to (criteria, options, tests) */
+.planner-field .part{margin-top:32px}
+.planner-field .part:first-child{margin-top:0}
+.part>label{font-size:18px;line-height:1.35;margin-bottom:8px}
+.part legend{font-size:18px;line-height:1.35;margin-bottom:8px}
+.edit-rows{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.edit-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;column-gap:12px;align-items:start;padding:16px;border:1px solid var(--line);border-radius:var(--radius)}
+.row-num{width:28px;height:28px;display:grid;place-items:center;border:2px solid var(--navy);border-radius:50%;font-size:14px;font-weight:700}
+.row-body{display:grid;gap:12px;min-width:0}
+.row-part label{font-size:16px;margin:2px 0 4px}
+.row-part .field-hint{margin:0 0 8px!important}
+.row-part textarea{min-height:64px}
+.row-body .planner-note{margin:0}
+.row-out{min-height:44px;align-items:center;font-size:16px}
+.edit-add{margin-top:12px}
+.edit-limit{margin:8px 0 0}
+.edit-limit:empty{display:none}
+
+/* Step 4: scores and totals */
+.score-groups{display:grid;gap:12px}
+.score-group{margin:0;padding:12px 16px 16px;border:1px solid var(--card-line);border-radius:var(--radius)}
+.score-group legend{padding:0 4px;margin:0;font-family:var(--display);font-size:18px;font-weight:600}
+.score-row{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:4px 16px;align-items:center;margin-top:8px}
+.score-row label{margin:0;font-weight:500}
+.score-weight{font-size:14px;font-weight:400}
+.score-totals{max-width:680px;margin-top:24px;padding:16px 20px;border:1px solid var(--card-line);border-left:6px solid var(--navy);border-radius:var(--radius)}
+.score-totals h3{font-size:20px;margin:0}
+.score-totals p{margin:8px 0 0}
+.score-rank{margin:8px 0 0;padding-left:24px}
+.score-rank li{padding:2px 0}
+.score-rank li+li{border-top:1px solid var(--line)}
+.score-name{font-weight:700}
+.score-total{float:right;margin-left:16px}
+.score-rank li::after{content:"";display:block;clear:both}
+
+/* The record: the decision set off, and the scores */
+.brief .decision-statement{margin-top:8px;padding:12px 16px;background:var(--teal-tint);border-left:6px solid var(--teal);border-radius:var(--radius);font-size:18px;font-weight:600;white-space:pre-wrap}
+.matrix-table{width:100%;margin-top:12px;border-collapse:collapse;font-size:15px}
+.matrix-table th,.matrix-table td{padding:6px 10px;border:1px solid var(--card-line);text-align:left;vertical-align:top}
+.matrix-table thead th{background:var(--navy-tint)}
+.matrix-table .num{text-align:center}
+.matrix-table tfoot th,.matrix-table tfoot td{font-weight:700}
+.matrix-table .is-top{background:var(--teal-tint)}
+.matrix-stack{display:none;margin:12px 0 0;padding-left:24px}
+.matrix-stack>li+li{margin-top:12px}
+.brief .matrix-stack-name{margin:0;font-weight:700}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .brief .decision-statement{padding:6pt 10pt;font-size:12pt}
+  .matrix-table{font-size:10pt;break-inside:avoid}
+  .matrix-table th,.matrix-table td{padding:3pt 6pt;border-color:#a8a8a8}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .edit-row{grid-template-columns:28px minmax(0,1fr);row-gap:12px;padding:12px}
+  .row-remove{grid-column:2;justify-self:start}
+  .score-row{grid-template-columns:minmax(0,1fr)}
+  .score-total{float:none;display:block;margin:0}
+}
+/* Screens only: a printed page keeps the table */
+@media screen and (max-width:740px){
+  .matrix-table{display:none}
+  .matrix-stack{display:block}
+}
+</style></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Decision Approach Picker</p>
+      <h1>How should you make this decision?</h1>
+      <p>Work through one decision. Describe the situation, get a suggested way to decide and why it fits, work it through, and leave with a short decision record to share.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> Describe the decision, not the people it affects, and leave out sensitive details. For decisions about people, use initials or letters. To keep your record, print it or save it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>The Decision Approach Picker helps you make one decision and record it. Your answers suggest one of four ways to decide: follow the known way, compare the options, try small and learn, or steady things first. You can choose another. The same answers always give the same suggestion.</p>
+    <p>The four ways to decide draw on the Cynefin® framework, developed by Dave Snowden and described with Mary E. Boone in “A Leader’s Framework for Decision Making.” Compare the options is a weighted decision matrix, adapted from Stuart Pugh’s concept selection method. Its must-haves draw on the musts and wants of Charles Kepner and Benjamin Tregoe. The question about how hard a decision is to undo draws on Jeff Bezos’s one-way and two-way doors. “What could go wrong?” draws on Gary Klein’s article “Performing a Project Premortem.” The decision roles are a plain-language take on responsibility charts such as RACI and DACI. Making it hold, and the check that a decision landed, are adapted from Cicely Simpson’s infographic “The Alignment Gap.” The structure and wording here are our own.</p>
+    <p>For decisions about people, such as hiring, promotion, or who gets an assignment, the tool asks you to set criteria before you look at the options and to use the same ones for everyone. Decisions about pay, discipline, or ending someone’s employment follow your organization’s process. Talk with HR.</p>
+    <p class="small">Cynefin is a registered trademark of Cognitive Edge Pte. Ltd., trading as The Cynefin Company.</p>
+    <p class="small sources"><strong>Sources:</strong> Bezos, J. (2016). <cite>2015 letter to shareholders.</cite> Amazon.com, Inc. · Kepner, C. H., &amp; Tregoe, B. B. (1965). <cite>The rational manager: A systematic approach to problem solving and decision making.</cite> McGraw-Hill. · Klein, G. (2007). Performing a project premortem. <cite>Harvard Business Review, 85</cite>(9). · Pugh, S. (1981). Concept selection: A method that works. In V. Hubka (Ed.), <cite>Review of design methodology: Proceedings of the International Conference on Engineering Design.</cite> Heurista. · Simpson, C. (n.d.). <cite>The alignment gap: What it is, why it happens, and how to close it</cite> [Infographic]. · Snowden, D. J., &amp; Boone, M. E. (2007). A leader’s framework for decision making. <cite>Harvard Business Review, 85</cite>(11).</p>
+  </section>
+</main>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every answer and your record. You can undo it until you start entering new answers.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear my answers</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="../../assets/js/situation-picker.js"></script><script src="content.js"></script><script>
+'use strict';
+GuidedPlanner.create(DecisionPicker);
+</script></body></html>
