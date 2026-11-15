@@ -34,6 +34,10 @@
       title: 'Root Cause Finder', href: 'tools/root-cause-finder/index.html',
       summary: 'Work through one problem. Describe what happened, get a suggested method to find the cause, and print a summary of the fix and how you’ll check it worked.'
     },
+    executiveAsk: {
+      title: 'Executive Ask Builder', href: 'tools/executive-ask-builder/index.html',
+      summary: 'Prepare one ask for a decision. Say the ask in one sentence, give just enough context, prepare for concerns, and print a one-page brief.'
+    },
     coaching: {
       title: 'Coaching Approach Picker', href: 'tools/coaching-approach-picker/index.html',
       summary: 'Plan one coaching conversation. Describe what’s going on, get a suggested approach and why it fits, plan the questions you’ll ask, and print a short plan.'
@@ -106,6 +110,28 @@
             if (a.growTask === 'unsure') return pick('coaching', 'The Coaching Approach Picker asks a few questions about the situation, then suggests whether to coach, share your experience, or give direction.');
             return null;
           case 'unsure': return pick('development', 'Start with one person and one task. The Team Development Map suggests a next step and links to the planner that helps you carry it out.');
+          default: return null;
+        }
+      }
+    },
+
+    talk: {
+      questions: [
+        { id: 'talk', type: 'choice', label: 'Who’s the conversation with?', options: [
+          { value: 'team', label: 'Someone I lead.' },
+          { value: 'senior', label: 'My manager or senior leaders.' },
+          { value: 'unsure', label: 'I’m not sure.' }
+        ] }
+      ],
+      options: [
+        tool('feedback', 'When you need to talk with someone about their work.'),
+        tool('executiveAsk', 'When you need a decision from a manager or senior leaders.')
+      ],
+      suggest(a) {
+        switch (a.talk) {
+          case 'team': return pick('feedback', 'Whether it’s praise, a concern, or a nudge to grow, the Feedback Conversation Planner suggests an approach and helps you plan what to say, what to ask, and how to follow up.');
+          case 'senior': return pick('executiveAsk', 'You need a decision. The Executive Ask Builder helps you say the ask in one sentence, give just enough context, prepare for concerns, and close by asking again.');
+          case 'unsure': return pick('feedback', 'Start here. If the conversation is a request for a decision from senior leaders, use the Executive Ask Builder instead.');
           default: return null;
         }
       }
