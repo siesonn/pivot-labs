@@ -927,6 +927,9 @@ const DecisionPicker = (() => {
     if (a.whose === 'handoff') {
       roles.append(toolLink('To plan the handoff, including what they can decide on their own, use ', 'the Delegation Planner', '../delegation-planner/index.html'));
     }
+    if (a.whose === 'above') {
+      roles.append(toolLink('To prepare the ask, use ', 'the Executive Ask Builder', '../executive-ask-builder/index.html'));
+    }
     doc.append(roles);
 
     const next = section('What happens next', 5, api, 'what happens next');

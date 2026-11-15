@@ -223,7 +223,17 @@ const ExecutiveAskBuilder = (() => {
         { id: 'by', type: 'text', maxlength: 100, optional: true, label: 'When do you need the decision by?',
           hint: 'Example: End of this month' },
         { id: 'when', type: 'text', maxlength: 100, optional: true, label: 'When is the conversation?',
-          hint: 'Example: Thursday’s leadership meeting' }
+          hint: 'Example: Thursday’s leadership meeting' },
+        // On screen only. Opens in a new tab and carries no entries.
+        { id: 'deciderLink', type: 'custom', render: wrap => {
+          const p = el('p', 'small');
+          const link = el('a', null, 'the Decision Approach Picker (opens in a new tab)');
+          link.href = '../decision-approach-picker/index.html';
+          link.target = '_blank';
+          link.rel = 'noopener';
+          p.append('Not sure how to decide what to recommend? Try ', link, '.');
+          wrap.append(p);
+        } }
       ]
     },
     {
