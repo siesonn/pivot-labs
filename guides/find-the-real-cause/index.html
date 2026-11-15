@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A one-page visual guide to two ways of finding the real cause of a problem: the 5 Whys and the fishbone diagram. From Pivot Labs."><title>Find the real cause | Visual guide | Pivot Labs</title><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<style>
+/* Shared fonts, colors, header, buttons, and the About section come from assets/css/pivot-labs.css. Styles below are for this guide. */
+.topbar,.site-footer>div{max-width:960px}
+.site-footer>div{margin:0 auto;padding:24px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px;font-size:15px}
+.site-footer{border-top:1px solid var(--line)}
+.site-footer em{font-family:var(--display)}
+main{max-width:960px;margin:auto;padding:40px 48px 48px}
+h1{margin:8px 0 16px}
+.lede{margin:0;max-width:640px;font-size:18px}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.guide-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.guide-section h2{margin:0 0 8px}
+.guide-section>p{margin:0;max-width:640px}
+h3{font-size:18px;line-height:1.3;margin:0 0 8px}
+
+/* The 5 Whys chain */
+.why-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:32px;margin-top:24px;align-items:start}
+.example-label{margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal)}
+.why-chain{list-style:none;margin:0;padding:0}
+.why-chain li{position:relative;padding:12px 16px;border:1px solid var(--teal);border-radius:var(--radius);background:var(--teal-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.why-chain li+li{margin-top:44px}
+.why-chain li+li::before{content:"";position:absolute;left:24px;top:-32px;height:28px;border-left:2px solid var(--teal)}
+.why-chain li+li::after{content:"";position:absolute;left:19px;top:-10px;width:8px;height:8px;border-right:2px solid var(--teal);border-bottom:2px solid var(--teal);transform:rotate(45deg)}
+.why-chain .ask{position:absolute;left:40px;top:-32px;font-size:14px;font-weight:700;line-height:28px;color:var(--teal)}
+.why-chain .step-tag{display:block;margin:0 0 2px;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.why-chain .problem{background:var(--navy);border-color:var(--navy);color:var(--ivory)}
+.why-chain .root{background:var(--amber-tint);border:2px solid var(--amber)}
+.why-chain .root .step-tag{color:var(--navy)}
+.tips{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.tips ul{margin:0;padding-left:20px}
+.tips li+li{margin-top:8px}
+
+/* The fishbone drawing. The wide drawing and the list are two views of the same example. */
+.fishbone-figure{margin:24px 0 0}
+.fishbone-figure svg{display:block;width:100%;height:auto}
+.fishbone-figure figcaption{margin-top:12px;font-size:15px}
+.dot{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:50%;background:var(--amber);vertical-align:baseline}
+.fb-bone{fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round}
+.fb-spine{stroke:var(--navy);stroke-width:3;stroke-linecap:round}
+.fb-area-box{fill:var(--teal-tint);stroke:var(--teal);stroke-width:1}
+.fb-head-box{fill:var(--navy)}
+.fb-text{font-family:var(--body);font-size:12px;fill:var(--navy)}
+.fb-cat{font-family:var(--body);font-size:14px;font-weight:600;fill:var(--navy)}
+.fb-headtext{font-family:var(--body);font-size:14px;fill:var(--ivory)}
+.fb-dot{fill:var(--teal)}.fb-dot.key{fill:var(--amber)}
+.fb-list{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;list-style:none}
+.fb-list h4,.fb-list p,.fb-list ul{margin:0}
+
+/* Which one to use */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.compare>div{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.compare p{margin:0}
+.cta-band{margin-top:48px;padding:24px;border-radius:var(--radius);background:var(--navy-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cta-band p{margin:0;max-width:640px}
+.cta-band .cta{margin-top:16px}
+
+@media screen and (max-width:719px){
+  main{padding:32px 16px 40px}
+  .topbar,.site-footer>div{padding-inline:16px}
+  h1{font-size:32px}
+  .why-layout,.compare{grid-template-columns:1fr}
+  .fishbone-figure svg,.dot-note{display:none}
+  .fb-list{position:static!important;width:auto;height:auto;margin:16px 0 0;overflow:visible;clip:auto;white-space:normal;display:grid;gap:12px}
+  .fb-list>li{padding:12px 16px;border:1px solid var(--card-line);border-left:6px solid var(--teal);border-radius:var(--radius)}
+  .fb-list ul{margin-top:4px;padding-left:20px}
+  .fb-list .key{font-weight:600}
+}
+@media print{
+  html,body{background:#fff}
+  .site-header,.cta,.cta-band{display:none!important}
+  main{max-width:none;padding:0}
+  .guide-section,.about{break-inside:avoid}
+  .site-footer{break-before:avoid}
+}
+</style></head>
+<body>
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span></div></header>
+<main>
+  <p class="eyebrow">Visual guide</p>
+  <h1>Find the real cause</h1>
+  <p class="lede">Two ways to look past the first answer. Use the 5 Whys when one thing led to another. Use the fishbone diagram when several things played a part.</p>
+  <div class="cta"><a class="btn primary" href="../../tools/root-cause-finder/">Work through a problem with the Root Cause Finder</a></div>
+
+  <section class="guide-section" aria-labelledby="whys-title">
+    <h2 id="whys-title">The 5 Whys</h2>
+    <p>Ask why something happened. Then ask why about the answer. Keep going until you reach something you can change. Five rounds is a guide, not a rule.</p>
+    <div class="why-layout">
+      <div>
+        <p class="example-label">Example: a late weekly report</p>
+        <ol class="why-chain">
+          <li class="problem"><span class="step-tag">Problem</span>The weekly report went out late.</li>
+          <li><span class="ask">Why?</span>The data arrived after the deadline.</li>
+          <li><span class="ask">Why?</span>Handoffs happen by email with no due time.</li>
+          <li><span class="ask">Why?</span>No one owns the handoff step.</li>
+          <li class="root"><span class="ask">Why?</span><span class="step-tag">Root cause</span>The steps were never written down.</li>
+        </ol>
+      </div>
+      <div class="tips">
+        <h3>Two tips</h3>
+        <ul>
+          <li>Start with what happened, in plain words.</li>
+          <li>Stop at something you can change, not at someone to blame.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" aria-labelledby="fish-title">
+    <h2 id="fish-title">The fishbone diagram</h2>
+    <p>Write the problem at the head. Then sort what might be behind it into four areas: people, process, tools, and environment. Look for the causes that mattered most, and work on those. People covers skills, training, workload, and communication. It is about the setup, not about blaming anyone.</p>
+    <figure class="fishbone-figure">
+      <svg viewBox="0 0 680 300" aria-hidden="true" focusable="false">
+        <line class="fb-spine" x1="40" y1="144" x2="500" y2="144"/>
+        <line class="fb-bone" x1="230" y1="144" x2="170" y2="42"/>
+        <line class="fb-bone" x1="420" y1="144" x2="360" y2="42"/>
+        <line class="fb-bone" x1="230" y1="144" x2="170" y2="246"/>
+        <line class="fb-bone" x1="420" y1="144" x2="360" y2="246"/>
+        <rect class="fb-head-box" x="500" y="112" width="140" height="64" rx="8"/>
+        <text class="fb-headtext" x="570" y="136" text-anchor="middle">The weekly report</text>
+        <text class="fb-headtext" x="570" y="156" text-anchor="middle">went out late</text>
+        <rect class="fb-area-box" x="120" y="10" width="100" height="28" rx="6"/>
+        <text class="fb-cat" x="170" y="24" text-anchor="middle" dominant-baseline="central">People</text>
+        <rect class="fb-area-box" x="310" y="10" width="100" height="28" rx="6"/>
+        <text class="fb-cat" x="360" y="24" text-anchor="middle" dominant-baseline="central">Process</text>
+        <rect class="fb-area-box" x="120" y="250" width="100" height="28" rx="6"/>
+        <text class="fb-cat" x="170" y="264" text-anchor="middle" dominant-baseline="central">Tools</text>
+        <rect class="fb-area-box" x="310" y="250" width="100" height="28" rx="6"/>
+        <text class="fb-cat" x="360" y="264" text-anchor="middle" dominant-baseline="central">Environment</text>
+        <circle class="fb-dot" cx="206" cy="104" r="3.5"/><circle class="fb-dot" cx="188" cy="74" r="3.5"/>
+        <circle class="fb-dot key" cx="396" cy="104" r="5"/><circle class="fb-dot key" cx="378" cy="74" r="5"/>
+        <circle class="fb-dot" cx="206" cy="184" r="3.5"/><circle class="fb-dot" cx="188" cy="214" r="3.5"/>
+        <circle class="fb-dot" cx="396" cy="184" r="3.5"/><circle class="fb-dot" cx="378" cy="214" r="3.5"/>
+        <text class="fb-text" x="196" y="108" text-anchor="end">Workload peaks</text>
+        <text class="fb-text" x="178" y="78" text-anchor="end">Priorities unclear</text>
+        <text class="fb-text" x="386" y="108" text-anchor="end">No handoff owner</text>
+        <text class="fb-text" x="368" y="78" text-anchor="end">Steps not written</text>
+        <text class="fb-text" x="196" y="188" text-anchor="end">Manual data export</text>
+        <text class="fb-text" x="178" y="218" text-anchor="end">No late alerts</text>
+        <text class="fb-text" x="386" y="188" text-anchor="end">Month-end crunch</text>
+        <text class="fb-text" x="368" y="218" text-anchor="end">Team on two sites</text>
+      </svg>
+      <ul class="fb-list" aria-label="Example causes by area for the late weekly report">
+        <li><h4>People</h4><ul><li>Workload peaks</li><li>Priorities unclear</li></ul></li>
+        <li><h4>Process</h4><ul><li class="key">No handoff owner (mattered most)</li><li class="key">Steps not written (mattered most)</li></ul></li>
+        <li><h4>Tools</h4><ul><li>Manual data export</li><li>No late alerts</li></ul></li>
+        <li><h4>Environment</h4><ul><li>Month-end crunch</li><li>Team on two sites</li></ul></li>
+      </ul>
+      <figcaption>Example: the same late report.<span class="dot-note"> <span class="dot" aria-hidden="true"></span>The larger dots mark the causes that mattered most.</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="guide-section" aria-labelledby="which-title">
+    <h2 id="which-title">Which one to use</h2>
+    <div class="compare">
+      <div><h3>The 5 Whys</h3><p>One thing led to another. You can follow a single chain from the problem back to its cause.</p></div>
+      <div><h3>The fishbone diagram</h3><p>Several things played a part. It is also a good choice when a problem is serious or keeps coming back.</p></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <p>The Root Cause Finder asks a few questions, suggests a method, and ends with a summary you can share with the people working on the fix.</p>
+    <div class="cta"><a class="btn primary" href="../../tools/root-cause-finder/">Work through a problem with the Root Cause Finder</a></div>
+  </div>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this guide</h2>
+    <p>This guide is a one-page picture of the two methods in the Root Cause Finder. The 5 Whys comes from Toyota. It was developed by Sakichi Toyoda and made widely known by Taiichi Ohno. The fishbone diagram, also called the cause-and-effect or Ishikawa diagram, was developed by Kaoru Ishikawa, who first used it in 1943. The four fishbone areas are adapted from Christian Rebernik’s Root Cause Analysis infographic. The structure, drawings, and wording here are our own.</p>
+    <p class="small sources"><strong>Sources:</strong> Ishikawa, K. (1976). <cite>Guide to quality control.</cite> Asian Productivity Organization. · Ohno, T. (1988). <cite>Toyota production system: Beyond large-scale production.</cite> Productivity Press. · Rebernik, C. (n.d.). <cite>Root cause analysis: The leader’s guide to fixing problems for good</cite> [Infographic].</p>
+  </section>
+</main>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>A visual guide to the Root Cause Finder.</span></div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>
