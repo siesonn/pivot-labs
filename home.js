@@ -41,6 +41,10 @@
     coaching: {
       title: 'Coaching Approach Picker', href: 'tools/coaching-approach-picker/index.html',
       summary: 'Plan one coaching conversation. Describe what’s going on, get a suggested approach and why it fits, plan the questions you’ll ask, and print a short plan.'
+    },
+    roleClarity: {
+      title: 'Role Clarity Builder', href: 'tools/role-clarity-builder/index.html',
+      summary: 'Make one role clear. List what it runs, what it shares, and what belongs to someone else, agree on who decides what, and print a sheet to go through together.'
     }
   };
 
@@ -76,7 +80,16 @@
 
     team: {
       questions: [
-        { id: 'team', type: 'choice', label: 'What’s going on?', options: [
+        { id: 'scope', type: 'choice', label: 'Is this about one person or the whole team?', options: [
+          { value: 'person', label: 'One person.' },
+          { value: 'team', label: 'The whole team.' },
+          { value: 'unsure', label: 'I’m not sure.' }
+        ] },
+        { id: 'owners', type: 'choice', label: 'What’s going on?', showIf: a => a.scope === 'team', options: [
+          { value: 'owns', label: 'People aren’t sure who owns what.' },
+          { value: 'unsure', label: 'I’m not sure.' }
+        ] },
+        { id: 'team', type: 'choice', label: 'What’s going on?', showIf: a => a.scope === 'person' || a.scope === 'unsure', options: [
           { value: 'talk', label: 'I need to talk with someone about their work.' },
           { value: 'handoff', label: 'I want to hand off some work to someone.' },
           { value: 'support', label: 'I’m not sure how much support someone needs on a task.' },
@@ -84,7 +97,7 @@
           { value: 'grow', label: 'I want to help someone grow.' },
           { value: 'unsure', label: 'I’m not sure.' }
         ] },
-        { id: 'growTask', type: 'choice', label: 'Where are you starting from?', showIf: a => a.team === 'grow', options: [
+        { id: 'growTask', type: 'choice', label: 'Where are you starting from?', showIf: a => (a.scope === 'person' || a.scope === 'unsure') && a.team === 'grow', options: [
           { value: 'task', label: 'I have a task or project that could stretch them.' },
           { value: 'ideas', label: 'They know what they want to work on, and I have ideas to share.' },
           { value: 'notTalked', label: 'We haven’t talked yet about where they want to grow.' },
@@ -95,9 +108,15 @@
         tool('feedback', 'When you need to talk with someone about their work.'),
         tool('delegation', 'When you want to hand off a piece of work.'),
         tool('development', 'When you’re deciding how much support someone needs on a task.'),
-        tool('coaching', 'When you want to help someone think something through.')
+        tool('coaching', 'When you want to help someone think something through.'),
+        tool('roleClarity', 'When people aren’t sure who owns what.')
       ],
       suggest(a) {
+        if (a.scope === 'team') {
+          if (a.owners === 'owns') return pick('roleClarity', 'The Role Clarity Builder helps you make one role clear: what it runs, what it shares, what belongs to someone else, and who decides what. Then you go through the sheet together.');
+          if (a.owners === 'unsure') return pick('roleClarity', 'Start with one role. The Role Clarity Builder lists what the role runs, what it shares, and what belongs to someone else, and marks anything that isn’t settled yet.');
+          return null;
+        }
         switch (a.team) {
           case 'talk': return pick('feedback', 'Whether it’s praise, a concern, or a nudge to grow, the Feedback Conversation Planner suggests an approach and helps you plan what to say, what to ask, and how to follow up.');
           case 'handoff': return pick('delegation', WHY.handoff);
