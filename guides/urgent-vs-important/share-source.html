@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="robots" content="noindex"><meta name="viewport" content="width=1080"><title>Source for the Urgent vs important shareable image | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<!--
+  This file is the source for urgent-vs-important-share.png (1080 x 1350 px). It is not a page for visitors.
+  To change the image: edit this file, then remake the PNG. The README section "Visual guides" has the command.
+  Keep the wording here in step with index.html in this folder.
+-->
+<style>
+/* Fonts and colors come from assets/css/pivot-labs.css. Sizes are fixed in px because the output is a fixed-size picture. */
+html,body{margin:0;width:1080px;height:1350px;overflow:hidden}
+body{display:flex;flex-direction:column;border-top:14px solid var(--navy);box-sizing:border-box;background:var(--ivory);color:var(--navy);font-family:var(--body)}
+main{flex:1;display:flex;flex-direction:column;padding:34px 60px 0}
+.eyebrow{margin:0;font-size:18px;font-weight:700;letter-spacing:3.6px;text-transform:uppercase;color:var(--navy)}
+h1{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:78px;line-height:1.1;letter-spacing:-1px}
+.sub{margin:10px 0 0;font-size:25px;line-height:1.3;color:var(--espresso)}
+
+.matrix{display:grid;grid-template-columns:30px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:12px;margin-top:26px}
+.axis{font-size:16px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;text-align:center;align-self:center}
+.axis.row{writing-mode:vertical-rl;transform:rotate(180deg);justify-self:center}
+.box{padding:22px 26px 24px;border:2px solid var(--card-line);border-radius:10px}
+.box h2{margin:0;font-family:var(--display);font-weight:600;font-size:38px;line-height:1.15;letter-spacing:0}
+.box p{margin:0}
+.box .box-tag{margin-top:6px;font-size:15px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.box .step{margin-top:14px;font-size:24px;line-height:1.3;font-weight:500}
+.box .example{margin-top:14px;padding-top:12px;border-top:1px solid currentColor;font-size:20px;line-height:1.3}
+.box.do{grid-area:2/2;background:var(--navy);border-color:var(--navy);color:var(--ivory)}
+.box.schedule{grid-area:2/3;background:var(--teal-tint);border-color:var(--teal)}
+.box.delegate{grid-area:3/2;background:var(--slate-tint);border-color:var(--slate)}
+.box.reconsider{grid-area:3/3;background:var(--mocha-tint)}
+
+.who{margin-top:auto;margin-bottom:auto;padding-top:22px;border-top:3px solid var(--teal)}
+.who h2{margin:0;font-family:var(--display);font-weight:600;font-size:34px;line-height:1.2}
+.who .lead{margin:6px 0 0;font-size:22px;line-height:1.3}
+.checks{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.checks li{display:flex;align-items:center;gap:8px;padding:8px 16px 8px 12px;border:1px solid var(--teal);border-radius:8px;background:var(--teal-tint);font-size:21px;font-weight:500;line-height:1.2}
+.checks svg{width:20px;height:20px;fill:none;stroke:var(--navy);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.who .unclear{margin:14px 0 0;font-size:21px;line-height:1.3}
+
+footer{display:flex;justify-content:space-between;align-items:center;gap:40px;padding:22px 60px 24px;background:var(--navy);color:var(--ivory)}
+footer .credit{margin:0;max-width:660px;font-size:17.5px;line-height:1.4}
+footer .brand{text-align:right;white-space:nowrap}
+footer .brand strong{display:block;font-family:var(--display);font-weight:700;font-size:28px;line-height:1.2}
+footer .brand span{font-size:20px}
+</style></head>
+<body>
+<main>
+  <p class="eyebrow">Visual guide</p>
+  <h1>Urgent vs important</h1>
+  <p class="sub">Two questions sort a full list into four next steps.</p>
+
+  <div class="matrix">
+    <div class="axis" style="grid-area:1/2">Urgent</div>
+    <div class="axis" style="grid-area:1/3">Not urgent</div>
+    <div class="axis row" style="grid-area:2/1">Important</div>
+    <div class="axis row" style="grid-area:3/1">Less important</div>
+    <div class="box do"><h2>Do now</h2><p class="box-tag">Urgent and important</p><p class="step">Give it your next focused block of time.</p><p class="example"><strong>Example:</strong> a customer issue that needs an answer today.</p></div>
+    <div class="box schedule"><h2>Schedule</h2><p class="box-tag">Important, not urgent</p><p class="step">Protect time for it before it turns urgent.</p><p class="example"><strong>Example:</strong> preparing for next month’s budget review.</p></div>
+    <div class="box delegate"><h2>Delegate or discuss</h2><p class="box-tag">Urgent, less important</p><p class="step">It needs doing soon, and it may not need you.</p><p class="example"><strong>Example:</strong> a weekly status update a teammate is ready to own.</p></div>
+    <div class="box reconsider"><h2>Reconsider</h2><p class="box-tag">Less important, not urgent</p><p class="step">Simplify it, defer it, or stop. Agree on the change first.</p><p class="example"><strong>Example:</strong> a recurring meeting with no clear purpose.</p></div>
+  </div>
+
+  <div class="who">
+    <h2>Then ask: who can do it?</h2>
+    <p class="lead">Important work can be handed off too. Check five things first.</p>
+    <ul class="checks">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Skills</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Room in their workload</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Time to brief</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Time to review</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>OK to assign</li>
+    </ul>
+    <p class="unclear">If any answer is unclear, talk before you decide.</p>
+  </div>
+</main>
+<footer>
+  <p class="credit">Idea: Dwight D. Eisenhower (1954). Four-box matrix: Stephen R. Covey (1989). The drawing and wording are Pivot Labs’ own.</p>
+  <p class="brand"><strong>Pivot Labs</strong><span>pivotlabsleadership.com</span></p>
+</footer>
+</body></html>

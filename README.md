@@ -69,6 +69,19 @@ The situation picker suggests one option from a few questions and says why it fi
 
 The full setup is described at the top of `assets/js/situation-picker.js`.
 
+## Visual guides
+
+Each guide is a folder in `guides/` with the page (`index.html`) and a shareable image, 1080 x 1350 px. The hub at `guides/index.html` lists them.
+
+From guide 2 on ("Urgent vs important"), the image's source is kept beside it as `share-source.html`. It is a fixed-size page that uses the site's fonts and colors, with a `noindex` tag because it is not a page for visitors. To change an image, edit `share-source.html`, then remake the PNG from the repository's top folder:
+
+```
+python3 -m http.server 8765 &
+google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1080,1350 --virtual-time-budget=3000 --screenshot=guides/urgent-vs-important/urgent-vs-important-share.png http://127.0.0.1:8765/guides/urgent-vs-important/share-source.html
+```
+
+Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
+
 ## How the tools handle entries
 
 The tools run in the browser. There is no server or login, and each page blocks network requests except to Cloudflare Web Analytics, which counts page visits. Entries are not sent anywhere. Entries clear when the page is refreshed or closed.
