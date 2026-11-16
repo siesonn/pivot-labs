@@ -6,7 +6,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Home page. Starts with "What do you need help with?", then a featured visual guide card (today, Urgent vs important, with a 520 px web copy of its shareable image), then five starter cards, then lists every tool by category under "Or browse every tool." Shows the Pivot Labs seal. |
+| `index.html` | Home page. Starts with "What do you need help with?", then a featured visual guide card (today, Skill and will, with a 520 px web copy of its shareable image), then five starter cards, then lists every tool by category under "Or browse every tool." Shows the Pivot Labs seal. |
 | `home.js` | The home page's starter cards: their questions, which tool each answer suggests, and why it fits. Runs on the shared situation picker. See "Home page starter cards" below. |
 | `tools/` | One folder per tool. Each tool's page is the `index.html` inside its folder. |
 | `tools/eisenhower-matrix/` | The Eisenhower Matrix. `recommendations.js` holds the logic for the guided questions. |
@@ -82,7 +82,7 @@ google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --w
 
 ### The featured guide on the home page
 
-The card under the opening question always shows the **newest** guide, and its tag says "Newest visual guide." That is the whole rule, so the card is never an unexplained pick. When a new guide goes live, change the card in the same commit as the hub entry: the image (make a 520 px wide `.webp` copy beside the guide's shareable image, as `urgent-vs-important-share-520.webp` does), the title, the link, and the one-line reason. Keep the tag. Later, once there are several guides and a few weeks of visitor data, the rule could change, for example to the most viewed guide, with a matching tag.
+The card under the opening question always shows the **newest** guide, and its tag says "Newest visual guide." That is the whole rule, so the card is never an unexplained pick. When a new guide goes live, change the card in the same commit as the hub entry: the image (make a 520 px wide `.webp` copy beside the guide's shareable image, as `skill-and-will-share-520.webp` does), the title, the link, and the one-line reason. Keep the tag. Later, once there are several guides and a few weeks of visitor data, the rule could change, for example to the most viewed guide, with a matching tag.
 
 The same command works for any guide: change the folder and file names (for example `guides/skill-and-will/skill-and-will-share.png` and `guides/skill-and-will/share-source.html`). Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
 
