@@ -224,7 +224,7 @@ cite{font-style:italic}
 .brief-lines{margin-top:8px}
 .brief-lines div{height:36px;border-bottom:1px solid var(--card-line)}
 .brief-foot{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
-.brief-edit{min-height:44px;padding:4px 16px}
+.brief-edit{min-height:44px;padding:4px 16px;flex:0 0 auto;white-space:nowrap}
 .print-only{display:none}
 /* Checklist in a plan: a box per item, with a check mark on items the leader checked.
    Used by the Feedback Conversation Planner and the Coaching Approach Picker. */
