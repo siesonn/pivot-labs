@@ -17,13 +17,13 @@ h1{margin:0 0 16px}
 .hero .small{margin:0}
 
 /* Featured visual guide: one guide image with a link to its page, under the question. */
-.feature{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:center;margin-top:32px;padding:20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.feature{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:center;margin-top:32px;padding:20px;border:1px solid var(--teal);border-top:6px solid var(--navy);border-radius:var(--radius);background:var(--teal-tint)}
 .feature-img{display:block}
 .feature-img img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:var(--radius)}
-.feature h2{margin:4px 0 8px;font-size:28px}
+.feature .tag{background:var(--navy);color:var(--ivory)}
+.feature h2{margin:12px 0 8px;font-size:28px}
 .feature h2 a{color:var(--navy)}
 .feature p{margin:0;max-width:560px}
-.feature .feature-tool{margin-top:8px;font-size:15px}
 .feature .btn{margin-top:16px}
 
 /* Starter cards: each opens its questions in place. A card with one fitting tool is a link. */
@@ -83,9 +83,8 @@ h1{margin:0 0 16px}
   main{padding:32px 16px 48px}
   .hero-seal{display:none}
   .feature{grid-template-columns:132px minmax(0,1fr);gap:16px;padding:12px}
-  .feature h2{font-size:22px;margin:2px 0 6px}
+  .feature h2{font-size:22px;margin:8px 0 6px}
   .feature p{font-size:15px}
-  .feature .feature-tool{display:none}
   .feature .btn{margin-top:12px;width:100%}
   h1{font-size:32px;margin-bottom:12px}
   .lead{font-size:17px}
@@ -130,10 +129,9 @@ h1{margin:0 0 16px}
   <section class="feature" aria-labelledby="feature-title">
     <a class="feature-img" href="guides/urgent-vs-important/index.html" tabindex="-1" aria-hidden="true"><picture><source type="image/webp" srcset="guides/urgent-vs-important/urgent-vs-important-share-520.webp"><img src="guides/urgent-vs-important/urgent-vs-important-share.png" width="1080" height="1350" alt=""></picture></a>
     <div>
-      <p class="eyebrow">Featured visual guide</p>
+      <span class="tag">Newest visual guide</span>
       <h2 id="feature-title"><a href="guides/urgent-vs-important/index.html">Urgent vs important</a></h2>
-      <p>Two questions sort a full list into four next steps, with an example for each.</p>
-      <p class="feature-tool">Goes with the <a href="tools/eisenhower-matrix/index.html">Eisenhower Matrix</a>.</p>
+      <p>Our newest guide. It shows how two questions sort a full list into four next steps, the thinking behind the <a href="tools/eisenhower-matrix/index.html">Eisenhower Matrix</a>.</p>
       <a class="btn primary" href="guides/urgent-vs-important/index.html">Open the guide</a>
     </div>
   </section>

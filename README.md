@@ -80,6 +80,10 @@ python3 -m http.server 8765 &
 google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1080,1350 --virtual-time-budget=3000 --screenshot=guides/urgent-vs-important/urgent-vs-important-share.png http://127.0.0.1:8765/guides/urgent-vs-important/share-source.html
 ```
 
+### The featured guide on the home page
+
+The card under the opening question always shows the **newest** guide, and its tag says "Newest visual guide." That is the whole rule, so the card is never an unexplained pick. When a new guide goes live, change the card in the same commit as the hub entry: the image (make a 520 px wide `.webp` copy beside the guide's shareable image, as `urgent-vs-important-share-520.webp` does), the title, the link, and the one-line reason. Keep the tag. Later, once there are several guides and a few weeks of visitor data, the rule could change, for example to the most viewed guide, with a matching tag.
+
 Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
 
 ## Share previews
