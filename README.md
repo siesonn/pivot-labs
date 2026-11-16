@@ -21,7 +21,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 | `assets/css/pivot-labs.css` | Shared styles for every page: fonts, colors, the brand header and its menu (Tools, Visual guides, About), buttons, form fields, answer choices, the session notice, dialogs, status messages, the "Suggested" tag, the "About this tool" section, the guided planner layout, the plan checklist, and the situation picker. The start of the Pivot Labs design system. |
 | `assets/js/guided-planner.js` | The shared step engine for guided planners: the step list, Back and Continue, required answers, Start over with Undo, and showing the finished brief. It holds no tool wording. |
 | `assets/js/situation-picker.js` | The shared situation picker: a few questions, a suggested option with the reason it fits, and the other options to choose instead. Works inside a guided planner step or on its own, as on the home page. It holds no tool wording. |
-| `assets/img/` | The Pivot Labs seal in web sizes (`pivot-labs-seal-560.webp`, `-800.webp`, and a `-560.png` fallback) and the browser-tab icon (`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`). |
+| `assets/img/` | The Pivot Labs seal in web sizes (`pivot-labs-seal-560.webp`, `-800.webp`, and a `-560.png` fallback) and the browser-tab icon (`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`). Also the share preview image (`pivot-labs-share-1200x630.png`) and its source (`share-source.html`). |
 | `assets/fonts/` | Playfair Display and Source Sans 3, shared by every page. Both use the SIL Open Font License (license files included). |
 | `.nojekyll` | Tells GitHub Pages to publish the files as they are. |
 
@@ -29,7 +29,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 
 1. Make a folder in `tools/` named for the tool, for example `tools/learning-solutions-guide/`.
 2. Put the tool's `index.html`, and any script files it needs, in that folder.
-3. Link the shared stylesheet before the page's own styles: `<link rel="stylesheet" href="../../assets/css/pivot-labs.css">`. It brings in the fonts, colors, header, buttons, and form styles. Add the three browser-tab icon `<link>` tags after `</title>` (see "Brand" below). Copy the header from another tool page, including its `<nav class="site-nav">` menu, which marks Tools as the current section with `aria-current="page"`.
+3. Link the shared stylesheet before the page's own styles: `<link rel="stylesheet" href="../../assets/css/pivot-labs.css">`. It brings in the fonts, colors, header, buttons, and form styles. Add the three browser-tab icon `<link>` tags after `</title>` (see "Brand" below). Add the share preview tags (see "Share previews" below). Copy the header from another tool page, including its `<nav class="site-nav">` menu, which marks Tools as the current section with `aria-current="page"`.
 4. Add the tool to the home page's browse list in `index.html`, under the category that matches what the leader is trying to do: its name as a link and one short line about what it's for. Add a new category group only when it has a tool to show.
 5. Decide which starter card it belongs on, and add it there in `home.js` (see below). A tool doesn't have to be on a card, but most should be.
 
@@ -81,6 +81,21 @@ google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --w
 ```
 
 Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
+
+## Share previews
+
+When a Pivot Labs link is posted on LinkedIn or elsewhere, the site shows a title, a short description, and a picture. Every page has these tags right after its `</title>`: `og:type`, `og:site_name`, `og:title`, `og:description`, `og:url`, `og:image` (with width, height, and alt text), and `twitter:card`. The title and description repeat the page's own `<title>` and `description`, and `og:url` is the page's folder address, for example `https://pivotlabsleadership.com/tools/eisenhower-matrix/`. Every page uses the same picture, `assets/img/pivot-labs-share-1200x630.png` (1200 x 630 px, the shape link previews use). Link previews need full web addresses, so `og:image` and `og:url` start with `https://pivotlabsleadership.com`.
+
+For a new page, copy the tags from a similar page and change the title, description, and `og:url`. Keep them matching the page's own title and description.
+
+The picture's source is `assets/img/share-source.html`. To change the picture, edit it, then remake the PNG from the repository's top folder:
+
+```
+python3 -m http.server 8765 &
+google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630 --virtual-time-budget=3000 --screenshot=assets/img/pivot-labs-share-1200x630.png http://127.0.0.1:8765/assets/img/share-source.html
+```
+
+LinkedIn keeps a copy of each link's preview for a while. After a change, clear it with the LinkedIn Post Inspector (linkedin.com/post-inspector) by entering the page's address.
 
 ## How the tools handle entries
 
