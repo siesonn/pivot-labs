@@ -205,3 +205,24 @@
     toggle.addEventListener('click', () => setOpen(item, toggle.getAttribute('aria-expanded') !== 'true'));
   });
 })();
+
+/* Browse list: closed on phones to keep the page short, always open on wider screens. */
+(function () {
+  const details = document.querySelector('.browse-details');
+  if (!details) return;
+  const phone = window.matchMedia('(max-width: 740px)');
+  const sync = () => { details.open = !phone.matches; };
+  sync();
+  if (phone.addEventListener) phone.addEventListener('change', sync);
+  details.querySelector('summary').addEventListener('click', e => { if (!phone.matches) e.preventDefault(); });
+  const openAndScroll = () => {
+    details.open = true;
+    document.getElementById('browse').scrollIntoView();
+  };
+  if (location.hash === '#browse') openAndScroll();
+  window.addEventListener('hashchange', () => { if (location.hash === '#browse') openAndScroll(); });
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href="#browse"]');
+    if (a) { e.preventDefault(); history.replaceState(null, '', '#browse'); openAndScroll(); }
+  });
+})();

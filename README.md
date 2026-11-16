@@ -6,8 +6,8 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Home page. Starts with "What do you need help with?", then a featured visual guide card (today, Skill and will, with a 520 px web copy of its shareable image), then six starter cards, then lists every tool by category under "Or browse every tool." Shows the Pivot Labs seal. |
-| `home.js` | The home page's starter cards: their questions, which tool each answer suggests, and why it fits. Runs on the shared situation picker. See "Home page starter cards" below. |
+| `index.html` | Home page. Starts with "What do you need help with?", then a featured visual guide card (today, Skill and will, with a 520 px web copy of its shareable image), then six starter cards, then lists every tool by category under "Or browse every tool." On phones (740 px and narrower) the starter cards show titles only and the browse list is a closed section that opens on tap, to keep the page short; on wider screens the descriptions show and the list stays open. A link to #browse opens it. Shows the Pivot Labs seal. |
+| `home.js` | The home page's starter cards: their questions, which tool each answer suggests, and why it fits. Runs on the shared situation picker. It also opens and closes the browse list by screen width. See "Home page starter cards" below. |
 | `tools/` | One folder per tool. Each tool's page is the `index.html` inside its folder. |
 | `tools/eisenhower-matrix/` | The Eisenhower Matrix. `recommendations.js` holds the logic for the guided questions. |
 | `tools/team-development-map/` | The Team Development Map. Places one person and one task by skill and willingness. Built on the Eisenhower Matrix engine. `recommendations.js` holds the logic for the guided questions. |
