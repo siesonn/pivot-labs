@@ -286,41 +286,206 @@ const EmotionWheel = (() => {
     return [{ errorId: 'err-feelings', focusId, message: 'Pick at least one word to continue.' }];
   }
 
+  // ----- Steps 2 to 4 use the shared planner fields.
+  const strengths = [
+    { value: '1', label: '1: Barely there' },
+    { value: '2', label: '2: Mild' },
+    { value: '3', label: '3: Moderate' },
+    { value: '4', label: '4: Strong' },
+    { value: '5', label: '5: Very strong' }
+  ];
+  const strengthWord = v => (strengths.find(x => x.value === v) || { label: '' }).label.replace(/^\d: /, '').toLowerCase();
+
+  const behind = [
+    { value: 'care', label: 'Something I care about feels at risk.' },
+    { value: 'clarity', label: 'I need more clarity about what’s expected.' },
+    { value: 'help', label: 'I need more help or support.' },
+    { value: 'rest', label: 'I need rest or some breathing room.' },
+    { value: 'heard', label: 'I need to be heard.' },
+    { value: 'standard', label: 'It’s about a standard I hold myself to.' },
+    { value: 'unsure', label: 'I’m not sure yet.' }
+  ];
+  const help = [
+    { value: 'pause', label: 'Pause before I respond.' },
+    { value: 'talk', label: 'Talk it through with someone I trust.' },
+    { value: 'write', label: 'Write down what I need.' },
+    { value: 'break', label: 'Take a short break or a walk.' },
+    { value: 'step', label: 'Do the first small step.' },
+    { value: 'sleep', label: 'Wait until tomorrow before I decide.' }
+  ];
+  const convo = [
+    { value: 'none', label: 'No conversation right now.' },
+    { value: 'lead', label: 'Yes, with someone I lead.' },
+    { value: 'boss', label: 'Yes, with my manager or senior leaders.' }
+  ];
+  const labelsFor = (list, values) => list.filter(o => (values || []).includes(o.value)).map(o => o.label);
+
   const steps = [
     {
       id: 'name',
       title: 'Name it',
       intro: 'Start with the feeling that’s closest, then pick the words that fit. Mixed feelings are normal, so you can choose up to three.',
-      fields: [{ id: 'feelings', type: 'custom', render: renderWheel, validate: validateWheel }]
+      fields: [
+        { id: 'situation', type: 'text', maxlength: 200, optional: true, label: 'What’s going on?',
+          hint: 'Example: Presenting the budget to my manager tomorrow. Leave out names and sensitive details.' },
+        { id: 'feelings', type: 'custom', render: renderWheel, validate: validateWheel }
+      ]
+    },
+    {
+      id: 'strength',
+      title: 'How strong is it?',
+      intro: 'A feeling that’s barely there asks for something different than one that’s taking over.',
+      fields: [
+        { id: 'strength', type: 'choice', options: strengths,
+          label: a => 'Overall, how strong is ' + (a.feelings.length > 1 ? 'this mix of feelings' : 'this feeling') + ' right now?',
+          error: 'Choose how strong it is to continue.' }
+      ]
+    },
+    {
+      id: 'behind',
+      title: 'What might be behind it?',
+      intro: 'Feelings often point to something you need or something you care about. Nothing here is a diagnosis. These are things to consider.',
+      fields: [
+        { id: 'behind', type: 'multi', optional: true, label: 'Which of these might be part of it?', hint: 'Choose any that fit.', options: behind },
+        { id: 'behindNote', type: 'text', maxlength: 300, optional: true, label: 'In a sentence, what do you think is behind it?',
+          hint: 'Example: I want this to go well, and I’m not sure I have the numbers I need' }
+      ]
+    },
+    {
+      id: 'help',
+      title: 'What could help?',
+      intro: 'You don’t need to fix the feeling. You just need a sensible next move.',
+      fields: [
+        { id: 'help', type: 'multi', optional: true, label: 'What could help right now?', hint: 'Choose any that fit.', options: help },
+        { id: 'first', type: 'text', maxlength: 300, optional: true, label: 'What will you do first?',
+          hint: 'Example: Take a ten-minute walk before the 2:00 meeting' },
+        { id: 'convo', type: 'choice', label: 'Is there a conversation coming up because of this?', default: () => 'none', options: convo }
+      ]
     }
   ];
 
-  const initialAnswers = () => ({ feelings: [], openCore: '' });
-  const isDirty = a => a.feelings.length > 0;
+  const initialAnswers = () => ({ situation: '', feelings: [], openCore: '', strength: '', behind: [], behindNote: '', help: [], first: '', convo: 'none' });
+  const isDirty = a => a.feelings.length > 0 || String(a.situation || '').trim() !== '';
 
-  // Stage 1 placeholder. The finished note replaces this when the later steps are built.
-  function renderResult(container, a, api) {
-    const head = el('div', 'result-head');
-    head.append(el('p', 'eyebrow', 'Your words'), el('h2', null, 'You named it'),
-      el('p', null, 'The next steps are still being built: how strong it is, what’s behind it, and what could help.'));
-    const list = el('ul', 'ew-result-list');
-    a.feelings.forEach(id => {
-      const li = el('li');
-      li.append(el('strong', null, lookup[id].word), document.createTextNode(' (' + lookup[id].core.name + ')'));
-      list.append(li);
-    });
-    const actions = el('div', 'result-actions');
-    const edit = el('button', 'btn primary', 'Change my words');
+  // ----- The finished note
+  const text = v => String(v || '').trim();
+  function section(title, step, api, label) {
+    const s = el('section', 'brief-section');
+    const head = el('div', 'brief-section-head');
+    head.append(el('h3', null, title));
+    const edit = el('button', 'btn brief-edit no-print', 'Edit');
     edit.type = 'button';
-    edit.addEventListener('click', () => api.goTo(0));
-    const again = el('button', 'btn', 'Start over');
+    edit.setAttribute('aria-label', 'Edit ' + label);
+    edit.addEventListener('click', () => api.goTo(step));
+    head.append(edit);
+    s.append(head);
+    return s;
+  }
+  function bullets(items) {
+    const ul = el('ul');
+    items.forEach(t => ul.append(el('li', null, t)));
+    return ul;
+  }
+  const newTab = (href, label) => {
+    const link = el('a', null, label);
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const arrow = el('span', null, ' ↗');
+    arrow.setAttribute('aria-hidden', 'true');
+    link.append(arrow, el('span', 'visually-hidden', ' (opens in a new tab)'));
+    return link;
+  };
+
+  function renderResult(container, a, api) {
+    const words = a.feelings.map(id => lookup[id].word);
+    const head = el('div', 'result-head no-print');
+    head.append(el('p', 'eyebrow', 'Your note'), el('h2', null, 'Your check-in note'),
+      el('p', null, 'This note is for you. Use Edit to change any section, then print it or save it as a PDF, or take a screenshot.'));
+    container.append(head);
+
+    const actions = el('div', 'result-actions no-print');
+    const print = el('button', 'btn primary', 'Print note');
+    print.type = 'button';
+    print.addEventListener('click', () => window.print());
+    const editAll = el('button', 'btn', 'Edit my answers');
+    editAll.type = 'button';
+    editAll.addEventListener('click', () => api.goTo(0));
+    const again = el('button', 'btn', 'Start a new check-in');
     again.type = 'button';
     again.addEventListener('click', () => api.restart());
-    actions.append(edit, again);
-    container.append(head, list, actions);
+    actions.append(print, editAll, again);
+    container.append(actions);
+
+    if (a.convo === 'lead' || a.convo === 'boss') {
+      const box = el('section', 'prep-notes no-print');
+      box.setAttribute('aria-labelledby', 'convo-title');
+      const h = el('h3', null, 'Before that conversation');
+      h.id = 'convo-title';
+      const p = el('p');
+      if (a.convo === 'lead') p.append(newTab('../feedback-conversation-planner/index.html', 'Open the Feedback Conversation Planner'), document.createTextNode(' to plan what you’ll say and ask.'));
+      else p.append(newTab('../executive-ask-builder/index.html', 'Open the Executive Ask Builder'), document.createTextNode(' to prepare what you’re asking for.'));
+      box.append(h, p, el('p', 'small', 'It opens in a new tab, and nothing from this note is carried over. This box doesn’t print.'));
+      container.append(box);
+    }
+
+    const brief = el('article', 'brief');
+    brief.setAttribute('aria-label', 'Check-in note');
+    const brand = el('div', 'brief-brand', 'Pivot Labs');
+    brand.append(el('span', null, 'Navigating Everyday Leadership'));
+    const top = el('div', 'brief-top');
+    const titleWrap = el('div');
+    titleWrap.append(el('p', 'eyebrow', 'Check-in note'), el('h3', 'brief-title', 'I’m feeling ' + words.join(', ').replace(/, ([^,]*)$/, ' and $1').toLowerCase() + '.'));
+    const editTop = el('button', 'btn brief-edit no-print', 'Edit');
+    editTop.type = 'button';
+    editTop.setAttribute('aria-label', 'Edit the words');
+    editTop.addEventListener('click', () => api.goTo(0));
+    top.append(titleWrap, editTop);
+    brief.append(brand, top);
+
+    if (text(a.situation)) {
+      const s = section('What’s going on', 0, api, 'what’s going on');
+      s.append(el('p', 'brief-text', text(a.situation)));
+      brief.append(s);
+    }
+
+    const feel = section('What I’m feeling', 1, api, 'how strong it is');
+    const rows = a.feelings.map(id => lookup[id].word + ' (' + lookup[id].core.name + ')');
+    feel.append(bullets(rows), el('p', null, 'Strength: ' + a.strength + ' of 5, ' + strengthWord(a.strength) + '.'));
+    brief.append(feel);
+
+    const why = labelsFor(behind, a.behind);
+    if (why.length || text(a.behindNote)) {
+      const s = section('What might be behind it', 2, api, 'what might be behind it');
+      if (why.length) s.append(bullets(why));
+      if (text(a.behindNote)) s.append(el('p', 'brief-text', text(a.behindNote)));
+      brief.append(s);
+    }
+
+    const next = labelsFor(help, a.help);
+    if (next.length || text(a.first)) {
+      const s = section('What could help', 3, api, 'what could help');
+      if (next.length) s.append(bullets(next));
+      if (text(a.first)) s.append(el('h4', null, 'My first step'), el('p', 'brief-text', text(a.first)));
+      brief.append(s);
+    }
+
+    const notes = el('section', 'brief-section');
+    notes.append(el('h3', null, 'Notes'), el('p', 'small no-print', 'Space to write on the printout.'));
+    const lines = el('div', 'brief-lines');
+    lines.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 3; i++) lines.append(el('div'));
+    notes.append(lines);
+    brief.append(notes);
+
+    const foot = el('footer', 'brief-foot');
+    foot.append(el('p', null, 'A quick check-in with yourself, not therapy or a diagnosis. If a feeling stays heavy, talk with someone you trust or a professional.'));
+    foot.append(el('p', null, 'Made with the Pivot Labs Emotion Wheel · ' + new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })));
+    brief.append(foot);
+    container.append(brief);
   }
 
-  return { steps, initialAnswers, isDirty, renderResult, resultTitle: 'Your note', finishLabel: 'Continue',
+  return { steps, initialAnswers, isDirty, renderResult, resultTitle: 'Your note', finishLabel: 'See my note',
     // Exposed for testing.
     cores, lookup, wordId, MAX };
 })();
