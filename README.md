@@ -54,7 +54,7 @@ To add a tool to a card: add the tool to `TOOLS` in `home.js`, add it to the car
 
 ## Adding a guided planner
 
-Guided planners (for example the Executive Ask Builder and the Role Clarity Builder) reuse the Delegation Planner's setup. For fields the engine doesn't have, use a `custom` field: the Root Cause Finder's numbered why chain and fishbone areas show how, and the Role Clarity Builder's repeating rows (add, remove, and a limit) show another.
+Guided planners (for example the Executive Ask Builder and the Role Clarity Builder) reuse the Delegation Planner's setup. The engine adds one speaking tip per step after the first typed field ("tap the microphone on your keyboard"); it shows only on touch screens (`.voice-tip`, `pointer: coarse`). The Eisenhower Matrix and Team Development Map are standalone pages and do not have it. For fields the engine doesn't have, use a `custom` field: the Root Cause Finder's numbered why chain and fishbone areas show how, and the Role Clarity Builder's repeating rows (add, remove, and a limit) show another.
 
 1. Copy `tools/delegation-planner/index.html` as a starting point. Keep `class="planner-page"` on `<body>` and the element ids the engine uses (listed at the top of `assets/js/guided-planner.js`).
 2. Write a `content.js` for the new tool: its steps, questions, suggestions, and how to build the finished brief. Set `finishLabel` if the last button should say something other than "Review my brief."

@@ -208,6 +208,12 @@ const GuidedPlanner = (() => {
           dom.fields.append(wrap);
         } else dom.fields.append(standardField(f));
       });
+      // One speaking tip per step, after the first typed field. Shown only on touch screens (see CSS).
+      const firstTyped = dom.fields.querySelector('textarea, input[type="text"]');
+      if (firstTyped) {
+        const tip = el('p', 'small voice-tip no-print', 'Tip: on a phone or tablet, tap the microphone on your keyboard to speak instead of type.');
+        firstTyped.closest('.planner-field').after(tip);
+      }
       dom.back.hidden = current === 0;
       dom.next.textContent = current === total - 1 ? (cfg.finishLabel || 'Review my brief') : 'Continue';
       refresh();
