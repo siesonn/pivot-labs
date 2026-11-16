@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A one-page visual guide to supporting someone on a task: two questions about skill and will, four ways to help, and what might be behind hesitation. From Pivot Labs."><title>Skill and will | Visual guide | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Skill and will | Visual guide | Pivot Labs"><meta property="og:description" content="A one-page visual guide to supporting someone on a task: two questions about skill and will, four ways to help, and what might be behind hesitation. From Pivot Labs."><meta property="og:url" content="https://pivotlabsleadership.com/guides/skill-and-will/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<style>
+/* Shared fonts, colors, header, buttons, and the About section come from assets/css/pivot-labs.css. Styles below are for this guide. */
+.topbar,.site-footer>div{max-width:1320px}
+.site-footer>div{margin:0 auto;padding:24px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px;font-size:15px}
+.site-footer{border-top:1px solid var(--line)}
+.site-footer em{font-family:var(--display)}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+h1{margin:8px 0 16px}
+.lede{margin:0;max-width:640px;font-size:18px}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.guide-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.guide-section h2{margin:0 0 8px}
+.guide-section>p{margin:0;max-width:640px}
+h3{font-size:18px;line-height:1.3;margin:0 0 8px}
+.example-label{margin:24px 0 12px!important;font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal)}
+
+/* Cards used by Two questions, What might be behind the hesitation, and Three things to watch */
+.cards{display:grid;gap:16px;margin-top:24px}
+.cards.two{grid-template-columns:1fr 1fr}
+.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cards>div{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.cards p{margin:0}
+.after-cards{margin-top:16px!important}
+
+/* The grid. Colors and positions match the Team Development Map: Guide (Dusty Teal tint, top left), Stretch (solid Navy, top right),
+   Direct (Mocha tint, bottom left), Re-engage (Slate Blue tint, bottom right). Skill increases left to right and willingness bottom to top.
+   Every box has its name and a tag in words, so meaning never depends on color or position. */
+.matrix{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr 1fr;gap:12px}
+.axis{font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;text-align:center;align-self:center}
+.axis.row{justify-self:center}
+.boxes{display:contents;margin:0;padding:0;list-style:none}
+.box{margin:0;padding:20px 24px;border:1px solid var(--card-line);border-radius:var(--radius);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.box h3{font-size:24px;margin:0 0 4px}
+.box p{margin:0}
+.box .box-tag{font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.box .step{margin-top:12px;font-size:17px}
+.box .example{margin-top:12px;padding-top:12px;border-top:1px solid currentColor;font-size:15px}
+.box.guide{grid-area:2/2;background:var(--teal-tint);border-color:var(--teal)}
+.box.stretch{grid-area:2/3;background:var(--navy);border-color:var(--navy);color:var(--ivory)}
+.box.direct{grid-area:3/2;background:var(--mocha-tint)}
+.box.reengage{grid-area:3/3;background:var(--slate-tint);border-color:var(--slate)}
+
+.cta-band{margin-top:48px;padding:24px;border-radius:var(--radius);background:var(--navy-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cta-band p{margin:0;max-width:640px}
+.cta-band .cta{margin-top:16px}
+
+@media screen and (max-width:899px){
+  .cards.three{grid-template-columns:1fr}
+}
+@media screen and (max-width:719px){
+  main{padding:32px 16px 40px}
+  .topbar,.site-footer>div{padding-inline:16px}
+  h1{font-size:32px}
+  .cards.two{grid-template-columns:1fr}
+  /* On phones the grid becomes four cards in reading order. The tag in each card carries what the axis labels did. */
+  .matrix{display:block}
+  .axis{display:none}
+  .boxes{display:grid;gap:12px}
+  .boxes .box{grid-area:auto;padding:16px 20px}
+}
+@media print{
+  html,body{background:#fff}
+  .site-header,.cta,.cta-band{display:none!important}
+  main{max-width:none;padding:0}
+  .guide-section{margin-top:20px;padding-top:16px}
+  .matrix{gap:8px}.box{padding:12px 16px}.box h3{font-size:20px}.box .step,.box .example{margin-top:8px}.box .example{padding-top:8px}
+  .cards{margin-top:12px}.example-label{margin-top:12px!important}
+  .about{margin-top:24px;padding-top:16px}
+  .guide-section,.about,.box{break-inside:avoid}
+  .site-footer{break-before:avoid}
+}
+</style></head>
+<body>
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../index.html#browse">Tools</a><a href="../index.html" aria-current="page">Visual guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <p class="eyebrow">Visual guide</p>
+  <h1>Skill and will</h1>
+  <p class="lede">Skill is the knowledge and experience to do a task well. Will is the motivation and confidence to take it on right now. Two questions about one task point to one of four ways to support someone.</p>
+  <div class="cta"><a class="btn primary" href="../../tools/team-development-map/">Plan support with the Team Development Map</a></div>
+
+  <section class="guide-section" aria-labelledby="questions-title">
+    <h2 id="questions-title">Two questions</h2>
+    <p>Ask them about one task, one at a time, because the answers can differ.</p>
+    <div class="cards two">
+      <div><h3>How ready are they to do this task well?</h3><p>Think about work you have seen them do, not their title, how long they have been here, or how confident they sound.</p></div>
+      <div><h3>How willing are they to take it on right now?</h3><p>Think about this task and this moment. Willingness can shift with workload, interest, and confidence.</p></div>
+    </div>
+    <p class="after-cards">Skill and will are separate. Someone can be very skilled and not want the work, or want it a lot and still be learning.</p>
+  </section>
+
+  <section class="guide-section" aria-labelledby="steps-title">
+    <h2 id="steps-title">Four ways to support</h2>
+    <p>Put the two answers together and the task lands in one of four boxes. Each box suggests a way to help. Move a task when things change.</p>
+    <p class="example-label">Example: four tasks on one manager’s team</p>
+    <div class="matrix">
+      <div class="axis" style="grid-area:1/2" aria-hidden="true">Building skill</div>
+      <div class="axis" style="grid-area:1/3" aria-hidden="true">Skilled</div>
+      <div class="axis row" style="grid-area:2/1" aria-hidden="true">Willing</div>
+      <div class="axis row" style="grid-area:3/1" aria-hidden="true">Hesitant</div>
+      <ul class="boxes" role="list">
+        <li class="box guide"><h3>Guide</h3><p class="box-tag">Willing, still building skill</p><p class="step">Show how it is done, let them try a piece, and give feedback soon after.</p><p class="example"><strong>Example:</strong> a teammate who asked to run the weekly status meeting and has never run one.</p></li>
+        <li class="box stretch"><h3>Stretch</h3><p class="box-tag">Skilled and willing</p><p class="step">Hand over ownership. Agree on the outcome and the check-ins, then step back.</p><p class="example"><strong>Example:</strong> a teammate who leads team meetings well and wants to lead the quarterly review.</p></li>
+        <li class="box direct"><h3>Direct</h3><p class="box-tag">Building skill, hesitant</p><p class="step">Give clear steps and a short first goal. Check in often.</p><p class="example"><strong>Example:</strong> a new hire asked to build a monthly report in a tool they have not used, and unsure about it.</p></li>
+        <li class="box reengage"><h3>Re-engage</h3><p class="box-tag">Skilled, hesitant</p><p class="step">Find out what is in the way before changing anything.</p><p class="example"><strong>Example:</strong> an experienced teammate who used to own the monthly report and has gone quiet about it.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="guide-section" aria-labelledby="behind-title">
+    <h2 id="behind-title">A third question: what is behind the hesitation?</h2>
+    <p>Direct and Re-engage both start with hesitation, and the cause changes the first step. Choose the closest fit.</p>
+    <div class="cards two">
+      <div><h3>A full workload or competing priorities</h3><p>Ask what would need to move to make room, and agree on priorities together.</p></div>
+      <div><h3>Not sure they can do it well</h3><p>Start with a smaller piece, point to related work they have done well, and stay available for questions.</p></div>
+      <div><h3>Unclear why it matters or what is expected</h3><p>Explain why the task matters and what a good result looks like.</p></div>
+      <div><h3>Not interested in this kind of work</h3><p>Ask what would make the work worth their effort, or whether someone else is a better fit.</p></div>
+    </div>
+    <p class="after-cards">If you do not know, ask what is getting in the way, and listen before suggesting changes.</p>
+  </section>
+
+  <section class="guide-section" aria-labelledby="watch-title">
+    <h2 id="watch-title">Three things to watch</h2>
+    <div class="cards three">
+      <div><h3>One task, not the whole person</h3><p>A placement describes this task at this moment. The same person can be a Stretch on one task and a Guide on another.</p></div>
+      <div><h3>Willingness can change</h3><p>Workload, interest, and how the task is set up can all shift it. Check again when things change.</p></div>
+      <div><h3>Not sure? Find out first</h3><p>If you have not seen them do the work, watch a small part of it or ask how they would approach it. If you have not asked how they feel about it, ask.</p></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <p>The Team Development Map lets you add a person and a task. It asks about skill, willingness, and what might be behind hesitation, then suggests where the task fits. You can print the result.</p>
+    <div class="cta"><a class="btn primary" href="../../tools/team-development-map/">Plan support with the Team Development Map</a></div>
+  </div>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this guide</h2>
+    <p>This guide is a one-page picture of the idea behind the Team Development Map. The idea of matching how you support someone to their skill and will for a specific task comes from the Skill/Will Matrix that Max Landsberg describes in <cite>The Tao of Coaching</cite> (1996). Pivot Labs renamed two of his four approaches, Delegate and Excite, as Stretch and Re-engage, and added the question about what might be behind hesitation. The drawing and wording are Pivot Labs’ own.</p>
+    <p class="small sources"><strong>Source:</strong> Landsberg, M. (1996). <cite>The Tao of Coaching.</cite> HarperCollins.</p>
+  </section>
+</main>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>A visual guide to the Team Development Map.</span><span><a href="../index.html">All guides</a> · <a href="../../about/index.html">About</a></span></div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>
