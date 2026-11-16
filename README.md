@@ -84,7 +84,7 @@ google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --w
 
 The card under the opening question always shows the **newest** guide, and its tag says "Newest visual guide." That is the whole rule, so the card is never an unexplained pick. When a new guide goes live, change the card in the same commit as the hub entry: the image (make a 520 px wide `.webp` copy beside the guide's shareable image, as `urgent-vs-important-share-520.webp` does), the title, the link, and the one-line reason. Keep the tag. Later, once there are several guides and a few weeks of visitor data, the rule could change, for example to the most viewed guide, with a matching tag.
 
-Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
+The same command works for any guide: change the folder and file names (for example `guides/skill-and-will/skill-and-will-share.png` and `guides/skill-and-will/share-source.html`). Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
 
 ## Share previews
 
