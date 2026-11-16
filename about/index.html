@@ -17,6 +17,17 @@ h1{margin:8px 0 8px}
 .about-section ul{padding-left:22px}
 .about-section li{margin-bottom:6px}
 .lede{margin:24px 0 0;max-width:680px;font-size:18px}
+.about-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.about-side{margin-top:40px;padding:24px;background:var(--teal-tint);border:1px solid var(--line);border-top:6px solid var(--navy);border-radius:8px}
+.about-side img{display:block;width:200px;height:200px;margin:0 auto 12px}
+.about-side h2{margin:0 0 12px;font-size:22px;text-align:center}
+.about-side .btn{display:flex;align-items:center;justify-content:center;min-height:44px;margin:0 0 10px;text-align:center}
+.about-side p{margin:12px 0 0;font-size:15px;text-align:center;overflow-wrap:anywhere}
+@media screen and (min-width:900px){
+  .about-layout{grid-template-columns:minmax(0,1fr) 320px;gap:0 64px;align-items:start}
+  .about-side{position:sticky;top:24px;margin-top:40px}
+}
+@media print{.about-side{display:none}}
 @media screen and (max-width:719px){
   main{padding:32px 16px 40px}
   .topbar,.site-footer>div{padding-inline:16px}
@@ -30,6 +41,8 @@ h1{margin:8px 0 8px}
   <h1>About Pivot Labs</h1>
   <p class="tagline">Navigating Everyday Leadership</p>
 
+  <div class="about-layout">
+  <div>
   <section class="about-section" aria-labelledby="what-title">
     <h2 id="what-title">What this is</h2>
     <p>Pivot Labs is a set of free tools and visual guides for everyday leadership. Each tool walks you through a real situation, such as a conversation you need to have, a decision to make, or a problem that keeps coming back. It ends with something you can use: a short plan, a brief, or a picture you can share.</p>
@@ -60,6 +73,15 @@ h1{margin:8px 0 8px}
     <h2 id="contact-title">Get in touch</h2>
     <p>Questions, ideas, or corrections: <a href="mailto:hello@pivotlabsleadership.com">hello@pivotlabsleadership.com</a></p>
   </section>
+  </div>
+  <aside class="about-side" aria-labelledby="side-title">
+    <picture><source type="image/webp" srcset="../assets/img/pivot-labs-seal-560.webp 560w, ../assets/img/pivot-labs-seal-800.webp 800w" sizes="200px"><img src="../assets/img/pivot-labs-seal-560.png" width="200" height="200" alt="Pivot Labs seal" loading="lazy"></picture>
+    <h2 id="side-title">Start here</h2>
+    <a class="btn primary" href="../index.html#browse">Browse the tools</a>
+    <a class="btn" href="../guides/index.html">Browse the visual guides</a>
+    <p>Questions or ideas?<br><a href="mailto:hello@pivotlabsleadership.com">hello@pivotlabsleadership.com</a></p>
+  </aside>
+  </div>
 </main>
 <footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span><a href="../index.html">Home</a> · <a href="../guides/index.html">Visual guides</a></span></div></footer>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>
