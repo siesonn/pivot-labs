@@ -1,6 +1,6 @@
 # Third-party notices
 
-The home page icons (cards and browse list) are copied from Tabler Icons (https://tabler.io/icons), outline set, version 3.52.0, and drawn inline in index.html. Tabler Icons is released under the MIT license:
+The All tools page icons are copied from Tabler Icons (https://tabler.io/icons), outline set, version 3.52.0, and drawn inline in tools/index.html. Tabler Icons is released under the MIT license:
 
 MIT License
 

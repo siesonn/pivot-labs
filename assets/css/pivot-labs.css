@@ -171,7 +171,7 @@ cite{font-style:italic}
 /*
   Situation picker: a suggested option with the reason it fits, and the other options to
   choose instead. Used by the Feedback Conversation Planner, the Root Cause Finder, the
-  Coaching Approach Picker, the Decision Approach Picker, and the home page starter cards.
+  Coaching Approach Picker, the Decision Approach Picker, and the Find pages.
   The logic is in assets/js/situation-picker.js.
 */
 .picker-card{max-width:680px;padding:20px 24px;background:var(--ivory);border:1px solid var(--card-line);border-left:6px solid var(--teal);border-radius:var(--radius)}

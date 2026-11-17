@@ -24,7 +24,7 @@
       suggestion and why it fits, then every option as a choice. answers[id] holds the chosen
       option's id. answers[pickedKey] is true when the leader chose something other than the suggestion,
       so a later change to their answers doesn't overwrite their choice.
-    On its own page (for example the home page starter cards):
+    On its own page (for example the Find pages):
       picker.mount(container, options) shows the questions, then the suggestion and the
       other options. Options with an href become links. Others call options.onChoose(option, answers).
       Optional mount options:

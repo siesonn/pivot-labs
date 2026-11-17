@@ -2,7 +2,7 @@
 /*
   Pivot Labs starter situations: the questions, the tools each answer leads to, and why each fits.
 
-  One copy, used by the home page starter cards (home.js) and by the Find pages (find/<name>/index.html,
+  One copy, used by the Find pages (find/<name>/index.html,
   through assets/js/find-page.js). Each key in STARTERS is one situation. The questions run on the shared
   situation picker (assets/js/situation-picker.js).
 
