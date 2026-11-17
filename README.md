@@ -7,7 +7,10 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 | Path | What it is |
 | --- | --- |
 | `index.html` | Home page. Starts with "What do you need help with?", then a featured visual guide card (today, Skill and will, with a 520 px web copy of its shareable image), then six starter cards, then lists every tool by category under "Or browse every tool." On phones (740 px and narrower) the starter cards show titles only and the browse list is a closed section that opens on tap, to keep the page short; on wider screens the descriptions show and the list stays open. A link to #browse opens it. Shows the Pivot Labs seal. |
-| `home.js` | The home page's starter cards: their questions, which tool each answer suggests, and why it fits. Runs on the shared situation picker. It also opens and closes the browse list by screen width. See "Home page starter cards" below. |
+| `home.js` | The home page's starter cards: opens and closes them in place and runs their questions on the shared situation picker. It also opens and closes the browse list by screen width. The questions themselves are in `assets/js/starters.js`. See "Home page starter cards" below. |
+| `find/` | The Find pages, one folder per situation (for example `find/too-much-on-my-plate/`). Each page asks that situation's questions, suggests a tool, and says why it fits. Built from the redesign plan in the project docs. Today: "too much on my plate". The home page card for each finished Find page is a plain link to it. |
+| `assets/js/starters.js` | The questions, the tools each answer leads to, and the reason each fits, for every starter situation. One copy, used by `home.js` and by the Find pages. |
+| `assets/js/find-page.js` | Shows one situation's questions on a Find page. The page marks its question area with `data-find="<situation>"`. |
 | `tools/` | One folder per tool. Each tool's page is the `index.html` inside its folder. |
 | `tools/index.html` | The All tools page (`/tools/`): every tool by category, with the same icons and one-line descriptions as the home page's browse list. The "Tools" link in the header menu on every page goes here. |
 | `tools/eisenhower-matrix/` | The Eisenhower Matrix. `recommendations.js` holds the logic for the guided questions. |
@@ -33,7 +36,7 @@ Interactive tools for everyday leadership. *Navigating Everyday Leadership.*
 2. Put the tool's `index.html`, and any script files it needs, in that folder.
 3. Link the shared stylesheet before the page's own styles: `<link rel="stylesheet" href="../../assets/css/pivot-labs.css">`. It brings in the fonts, colors, header, buttons, and form styles. Add the three browser-tab icon `<link>` tags after `</title>` (see "Brand" below). Add the share preview tags (see "Share previews" below). Copy the header from another tool page, including its `<nav class="site-nav">` menu, which marks Tools as the current section with `aria-current="page"`.
 4. Add the tool to the home page's browse list in `index.html`, under the category that matches what the leader is trying to do: its name as a link and one short line about what it's for. Add a new category group only when it has a tool to show. Add the same entry to `tools/index.html` too (the paths there are shorter: `eisenhower-matrix/index.html`, not `tools/eisenhower-matrix/index.html`). Until the home page browse list is removed, the two lists must match.
-5. Decide which starter card it belongs on, and add it there in `home.js` (see below). A tool doesn't have to be on a card, but most should be.
+5. Decide which starter card it belongs on, and add it there in `assets/js/starters.js` (see below). A tool doesn't have to be on a card, but most should be.
 
 Add to the shared stylesheet only what more than one page will use. Styles for one page stay on that page.
 
@@ -41,7 +44,7 @@ Add to the shared stylesheet only what more than one page will use. Styles for o
 
 Each starter card is written in the leader's words ("Something keeps going wrong"). Clicking it opens a question or two right on the card. The answers suggest one tool, say why it fits, show the answers the suggestion rests on, and list the card's other tools. A card with only one fitting tool is a plain link instead (today, "I have a decision to make" goes straight to its tool). "I have a decision to make" will become a question card when the Role Risk Map is built. "I have a conversation to prepare for" asks "Who's the conversation with?" (someone I lead, my manager or senior leaders, or I'm not sure). "I need help with my team" starts with "Is this about one person or the whole team?" (one person, the whole team, or I'm not sure). The whole team leads to "People aren't sure who owns what" and the Role Clarity Builder; the other two show the questions below. On that card, the "I want to help someone grow" answer asks "Where are you starting from?" with four answers: a task in mind leads to the Team Development Map, ideas to share lead to the Feedback Conversation Planner, and "we haven't talked about it yet" or "I'm not sure" lead to the Coaching Approach Picker.
 
-The cards are in `index.html` (one `<li class="starter">` each, with a `data-starter` name). Their questions and routing are in `home.js` under the same name.
+The cards are in `index.html` (one `<li class="starter">` each, with a `data-starter` name). Their questions and routing are in `assets/js/starters.js` under the same name.
 
 Rules that keep the page from needing a redesign as tools are added:
 
@@ -51,7 +54,11 @@ Rules that keep the page from needing a redesign as tools are added:
 - **The same answers always give the same suggestion,** whoever the person is. Answers describe the situation, never the person.
 - **A card shows only when it has a live tool.** Planned cards and where future tools fit are in the project's tool roadmap.
 
-To add a tool to a card: add the tool to `TOOLS` in `home.js`, add it to the card's `options` with a one-line `bestFor`, add an answer that leads to it, and return it from the card's `suggest()` with a "why it fits" reason. To add a card: copy a starter `<li>` in `index.html`, give it a new `data-starter` name and ids, and add a matching entry to `STARTERS` in `home.js`.
+To add a tool to a card: add the tool to `TOOLS` in `assets/js/starters.js`, add it to the card's `options` with a one-line `bestFor`, add an answer that leads to it, and return it from the card's `suggest()` with a "why it fits" reason. To add a card: copy a starter `<li>` in `index.html`, give it a new `data-starter` name and ids, and add a matching entry to `STARTERS` in `assets/js/starters.js`.
+
+### Find pages
+
+Each starter situation is getting its own page, so the questions are not squeezed onto the home page. To make one: copy `find/too-much-on-my-plate/index.html` into a new folder, change the title, description, `og:` tags (including `og:url`), the heading and intro line, and `data-find` (a key in `STARTERS`). Then turn that situation's home page card into a plain link (copy the "I have a decision to make" card and keep its "1 question" label). The page's questions run from `assets/js/starters.js`, so a tool added there shows on the home card and the Find page together. The "Not quite your situation?" line at the bottom stays.
 
 ## Adding a guided planner
 
