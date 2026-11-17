@@ -150,7 +150,7 @@ cite{font-style:italic}
 .planner-note{margin:12px 0 0;padding:12px 16px;background:var(--teal-tint);border-left:4px solid var(--teal);border-radius:var(--radius);font-size:15px}
 .planner-note:empty{display:none}
 .planner-tip{margin:12px 0 0;font-size:15px}
-.voice-tip{display:none;margin:-8px 0 16px}
+.voice-tip{display:none;margin:10px 0 16px}
 @media(pointer:coarse){.voice-tip{display:block}}
 .field-error{display:flex;gap:8px;align-items:flex-start;margin:8px 0 0;padding:8px 12px;background:var(--terracotta-tint);border-left:4px solid var(--terracotta);border-radius:4px;color:var(--espresso);font-size:15px;font-weight:600}
 .field-error-icon{flex:0 0 auto;display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border:2px solid var(--espresso);border-radius:50%;font-size:12px;line-height:1}
