@@ -289,3 +289,19 @@ cite{font-style:italic}
   .brief-top,.brief-section-head{flex-wrap:wrap}
   .prep-notes{padding:16px}
 }
+
+/* Footer at the end of each tool page: related tools, a feedback link, and a few page links.
+   It never prints, and it is hidden in the Eisenhower Matrix and Team Development Map screenshot view. */
+.tool-footer{max-width:1320px;margin:0 auto;padding:8px 48px 40px}
+.tool-footer.wide{max-width:1440px}
+.tool-footer .related{padding-top:24px;border-top:1px solid var(--line)}
+.tool-footer h2{margin:0 0 8px;font-size:22px}
+.tool-footer .related ul{margin:0;padding-left:20px}
+.tool-footer .related li{margin:6px 0;max-width:720px}
+.tool-footer .feedback-line{margin:20px 0 8px}
+.tool-footer .footer-links{margin:0}
+.tool-footer .why{display:block}
+@media(max-width:1000px){.tool-footer{padding-inline:24px}}
+@media(max-width:740px){.tool-footer{padding:8px 16px 32px}}
+@media print{.tool-footer{display:none!important}.btn.primary{background:#fff;color:var(--navy);border:2px solid var(--navy)}}
+.capture-mode .tool-footer{display:none}
