@@ -21,7 +21,7 @@ const EmotionWheel = (() => {
 
   // Clockwise from the top of the wheel. Colors alternate and carry no meaning.
   // `points` and `move` are the same lines as the second shareable image
-  // (share-source-feelings.html). Keep the two in step.
+  // (share-source-feelings.html). Keep the two in step. They also show in step 3 and in the finished note.
   const cores = [
     { id: 'joy', name: 'Joy', words: ['Hopeful', 'Proud', 'Energized', 'Confident', 'Satisfied', 'Relieved'],
       points: 'Something is working or matters to you.',
@@ -334,6 +334,24 @@ const EmotionWheel = (() => {
   ];
   const labelsFor = (list, values) => list.filter(o => (values || []).includes(o.value)).map(o => o.label);
 
+  // Step 3: the same lines as the second shareable image, once per core feeling picked in step 1.
+  function renderPoints(wrap, api) {
+    const seen = [];
+    api.answers.feelings.forEach(id => { const c = lookup[id].core; if (!seen.includes(c)) seen.push(c); });
+    if (!seen.length) return;
+    const box = el('div', 'ew-points');
+    box.append(el('h3', null, 'What feelings like yours often point to'));
+    seen.forEach(c => {
+      const row = el('p', 'ew-points-row');
+      const first = el('span');
+      first.append(el('strong', null, c.name), document.createTextNode(': ' + c.points));
+      row.append(first, el('span', null, 'A next move: ' + c.move));
+      box.append(row);
+    });
+    box.append(el('p', 'small', 'These are starting points for reflection, not a diagnosis. You know your situation best.'));
+    wrap.append(box);
+  }
+
   const steps = [
     {
       id: 'name',
@@ -360,6 +378,7 @@ const EmotionWheel = (() => {
       title: 'What might be behind it?',
       intro: 'Feelings often point to something you need or something you care about. Nothing here is a diagnosis. These are things to consider.',
       fields: [
+        { id: 'points', type: 'custom', render: renderPoints },
         { id: 'behind', type: 'multi', optional: true, label: 'Which of these might be part of it?', hint: 'Choose any that fit.', options: behind },
         { id: 'behindNote', type: 'text', maxlength: 300, optional: true, label: 'In a sentence, what do you think is behind it?',
           hint: 'Example: I want this to go well, and I’m not sure I have the numbers I need' }
@@ -476,7 +495,7 @@ const EmotionWheel = (() => {
     seenCores.forEach(c => {
       const row = el('p', 'often-row');
       const first = el('span');
-      first.append(el('strong', null, c.name), document.createTextNode(': often points to ' + c.points.charAt(0).toLowerCase() + c.points.slice(1)));
+      first.append(el('strong', null, c.name), document.createTextNode(': ' + c.points));
       row.append(first, el('span', null, 'A next move: ' + c.move));
       feel.append(row);
     });
