@@ -95,7 +95,7 @@ The last section of the home page, "New on Pivot Labs," always shows the **newes
 
 The same command works for any guide: change the folder and file names (for example `guides/skill-and-will/skill-and-will-share.png` and `guides/skill-and-will/share-source.html`). Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
 
-The Emotion Wheel tool has its own pair of shareable images, kept in `tools/emotion-wheel/`: `emotion-wheel-share.png` (source `share-source.html`) and `emotion-wheel-feelings-share.png` (source `share-source-feelings.html`). Both are linked as downloads in the "Share the wheel" section of the tool page. Remake them with the same command, using those folder and file names. Keep the words in step with `content.js`. The six "often points to" and "next move" lines in image 2 are the same lines the tool's finished note shows (the `points` and `move` fields in `content.js`), so change them in both places.
+The Emotion Wheel tool has its own pair of shareable images, kept in `tools/emotion-wheel/`: `emotion-wheel-share.png` (source `share-source.html`) and `emotion-wheel-feelings-share.png` (source `share-source-feelings.html`). Both are linked as downloads in the "Share the wheel" section of the tool page. Remake them with the same command, using those folder and file names. Keep the words in step with `content.js`. The six "often points to" and "next move" lines in image 2 are the same lines the tool shows in step 3 and in its finished note (the `points` and `move` fields in `content.js`), so change them in both places.
 
 ## Share previews
 
