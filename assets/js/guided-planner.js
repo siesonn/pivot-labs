@@ -378,6 +378,8 @@ const GuidedPlanner = (() => {
     });
 
     render();
+    // The first step is drawn. Show what was held back below it (see .planner-page in the stylesheet).
+    document.body.classList.add('planner-ready');
     return api;
   }
 

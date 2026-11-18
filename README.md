@@ -112,6 +112,14 @@ google-chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --w
 
 LinkedIn keeps a copy of each link's preview for a while. After a change, clear it with the LinkedIn Post Inspector (linkedin.com/post-inspector) by entering the page's address.
 
+## Rules learned from real visitors
+
+About 70 percent of visits so far are on phones, so these matter.
+
+- **Link to the home page as the folder, not `index.html`.** Use `../../` (or `../`, or `./`), never `../../index.html`. People arrive at `/`, and a link to `index.html` makes analytics count the home page twice. Other pages (`tools/index.html` and so on) keep `index.html` in their links.
+- **Planner pages hold back what sits below the form until it is drawn.** `guided-planner.js` adds `planner-ready` to the body after it draws the first step. Until then the stylesheet hides the Back/Continue row, the "Share the wheel" section, About, and the footer, so nothing visible jumps down when the form appears (this was a layout shift Cloudflare reported). Each planner page has a `<noscript>` rule that keeps Share, About, and the footer visible if script does not run. If you add something new below the form on a planner page, add it to that rule in `pivot-labs.css` and to the `<noscript>` line.
+- **Footer links get a thumb-sized tap area on phones** (a rule at the end of `pivot-labs.css`). Links inside a sentence are left alone on purpose.
+
 ## How the tools handle entries
 
 The tools run in the browser. There is no server or login, and each page blocks network requests except to Cloudflare Web Analytics, which counts page visits. Entries are not sent anywhere. Entries clear when the page is refreshed or closed.

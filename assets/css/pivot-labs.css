@@ -305,3 +305,15 @@ cite{font-style:italic}
 @media(max-width:740px){.tool-footer{padding:8px 16px 32px}}
 @media print{.tool-footer{display:none!important}.btn.primary{background:#fff;color:var(--navy);border:2px solid var(--navy)}}
 .capture-mode .tool-footer{display:none}
+
+/* Phones: small text links in footers get a thumb-sized tap area.
+   The negative side margin keeps the text where it was; only the tappable area grows. */
+@media(max-width:740px){
+  .site-footer a:not(.btn),.tool-footer .footer-links a,.tool-footer .feedback-line a{display:inline-block;padding:11px 6px;margin-inline:-6px}
+}
+
+/* Planner pages: the form is drawn by script. Until the first step is drawn, hold back the parts below it
+   (Back/Continue, Share, About, footer) so nothing visible jumps down when the form appears. The script adds
+   .planner-ready to the body once the first step is drawn. Each planner page has a <noscript> rule that
+   keeps Share, About and the footer visible if script does not run. */
+.planner-page:not(.planner-ready) .planner-nav,.planner-page:not(.planner-ready) .share,.planner-page:not(.planner-ready) .about,.planner-page:not(.planner-ready) .tool-footer{display:none}
