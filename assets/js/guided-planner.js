@@ -31,7 +31,7 @@
     render(container, api) and validate(answers) for custom fields;
       validate returns [{ errorId, focusId, message }]
 
-  label, hint, intro, title, after, and option labels can be text or a function of the answers.
+  label, hint, intro, title, after, option labels, and a field's options list can be text (or an array) or a function of the answers.
 
   Required markup (ids): planner-steps, planner-count, planner-title, planner-intro,
   planner-step-head, planner-form, planner-fields, planner-back, planner-next,
@@ -146,7 +146,7 @@ const GuidedPlanner = (() => {
         if (hint) { const h = el('p', 'hint', hint); h.id = hintId; set.append(h); described.push(hintId); }
         const opts = el('div', 'guide-options');
         const value = answers[f.id];
-        f.options.forEach((o, i) => {
+        resolve(f.options, answers).forEach((o, i) => {
           const lab = el('label');
           const input = el('input');
           input.type = f.type === 'choice' ? 'radio' : 'checkbox';

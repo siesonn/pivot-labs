@@ -332,6 +332,31 @@ const EmotionWheel = (() => {
     { value: 'lead', label: 'Yes, with someone I lead.' },
     { value: 'boss', label: 'Yes, with my manager or senior leaders.' }
   ];
+  // Steps 3 and 4 fit the feelings picked. Good feelings point to something too: what is working, who helped, what to repeat.
+  // Surprise is split by word: Curious and Impressed count as good feelings, the rest as hard ones.
+  const behindGood = [
+    { value: 'worked', label: 'Something I worked toward paid off.' },
+    { value: 'came', label: 'Someone helped me or came through.' },
+    { value: 'values', label: 'Something I value is showing up.' },
+    { value: 'progress', label: 'I can see real progress.' },
+    { value: 'eased', label: 'A worry just eased.' },
+    { value: 'unsure', label: 'I’m not sure yet.' }
+  ];
+  const helpGood = [
+    { value: 'notice', label: 'Notice what made it work.' },
+    { value: 'thank', label: 'Thank someone specifically.' },
+    { value: 'tell', label: 'Tell someone what this meant to me.' },
+    { value: 'repeat', label: 'Write down what to repeat.' },
+    { value: 'enjoy', label: 'Take a moment to enjoy it.' }
+  ];
+  const goodWords = ['Curious', 'Impressed'];
+  const isGood = id => { const { core, word } = lookup[id]; return core.id === 'joy' || core.id === 'connection' || goodWords.includes(word); };
+  const hasGood = a => a.feelings.some(isGood);
+  const hasHard = a => a.feelings.some(id => !isGood(id));
+  const goodOnly = a => hasGood(a) && !hasHard(a);
+  const both = (good, hard) => a => (goodOnly(a) ? good : hasGood(a) ? good.filter(o => o.value !== 'unsure').concat(hard) : hard);
+  const behindFor = both(behindGood, behind);
+  const helpFor = both(helpGood, help);
   const labelsFor = (list, values) => list.filter(o => (values || []).includes(o.value)).map(o => o.label);
 
   // Step 3: the same lines as the second shareable image, once per core feeling picked in step 1.
@@ -366,7 +391,7 @@ const EmotionWheel = (() => {
     {
       id: 'strength',
       title: 'How strong is it?',
-      intro: 'A feeling that’s barely there asks for something different than one that’s taking over.',
+      intro: a => goodOnly(a) ? 'A small spark and a big surge of good feeling can ask for different things.' : 'A feeling that’s barely there asks for something different than one that’s taking over.',
       fields: [
         { id: 'strength', type: 'choice', options: strengths,
           label: a => 'Overall, how strong is ' + (a.feelings.length > 1 ? 'this mix of feelings' : 'this feeling') + ' right now?',
@@ -376,22 +401,22 @@ const EmotionWheel = (() => {
     {
       id: 'behind',
       title: 'What might be behind it?',
-      intro: 'Feelings often point to something you need or something you care about. Nothing here is a diagnosis. These are things to consider.',
+      intro: a => goodOnly(a) ? 'Good feelings point to something too: what’s working, what you value, who helped. Nothing here is a diagnosis. These are things to consider.' : 'Feelings often point to something you need or something you care about. Nothing here is a diagnosis. These are things to consider.',
       fields: [
         { id: 'points', type: 'custom', render: renderPoints },
-        { id: 'behind', type: 'multi', optional: true, label: 'Which of these might be part of it?', hint: 'Choose any that fit.', options: behind },
+        { id: 'behind', type: 'multi', optional: true, label: 'Which of these might be part of it?', hint: 'Choose any that fit.', options: behindFor },
         { id: 'behindNote', type: 'text', maxlength: 300, optional: true, label: 'In a sentence, what do you think is behind it?',
-          hint: 'Example: I want this to go well, and I’m not sure I have the numbers I need' }
+          hint: a => goodOnly(a) ? 'Example: The team pulled together on short notice, and it showed' : 'Example: I want this to go well, and I’m not sure I have the numbers I need' }
       ]
     },
     {
       id: 'help',
-      title: 'What could help?',
-      intro: 'You don’t need to fix the feeling. You just need a sensible next move.',
+      title: a => goodOnly(a) ? 'What could you do with it?' : 'What could help?',
+      intro: a => goodOnly(a) ? 'You don’t have to do anything with a good feeling. Noticing it, and what caused it, can help you get more of it.' : 'You don’t need to fix the feeling. You just need a sensible next move.',
       fields: [
-        { id: 'help', type: 'multi', optional: true, label: 'What could help right now?', hint: 'Choose any that fit.', options: help },
+        { id: 'help', type: 'multi', optional: true, label: a => goodOnly(a) ? 'What would you like to do with this feeling?' : 'What could help right now?', hint: 'Choose any that fit.', options: helpFor },
         { id: 'first', type: 'text', maxlength: 300, optional: true, label: 'What will you do first?',
-          hint: 'Example: Take a ten-minute walk before the 2:00 meeting' },
+          hint: a => goodOnly(a) ? 'Example: Send the team a thank-you note before lunch' : 'Example: Take a ten-minute walk before the 2:00 meeting' },
         { id: 'convo', type: 'choice', label: 'Is there a conversation coming up because of this?', default: () => 'none', options: convo }
       ]
     }
@@ -500,7 +525,7 @@ const EmotionWheel = (() => {
       feel.append(row);
     });
 
-    const why = labelsFor(behind, a.behind);
+    const why = labelsFor(behindFor(a), a.behind);
     if (why.length || text(a.behindNote)) {
       const s = section('What might be behind it', 2, api, 'what might be behind it');
       if (why.length) s.append(bullets(why));
@@ -508,9 +533,9 @@ const EmotionWheel = (() => {
       brief.append(s);
     }
 
-    const next = labelsFor(help, a.help);
+    const next = labelsFor(helpFor(a), a.help);
     if (next.length || text(a.first)) {
-      const s = section('What could help', 3, api, 'what could help');
+      const s = section(goodOnly(a) ? 'What I could do with it' : 'What could help', 3, api, 'what could help');
       if (next.length) s.append(bullets(next));
       if (text(a.first)) s.append(el('h4', null, 'My first step'), el('p', 'brief-text', text(a.first)));
       brief.append(s);
