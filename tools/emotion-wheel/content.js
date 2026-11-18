@@ -20,13 +20,27 @@ const EmotionWheel = (() => {
   const MAX = 3;
 
   // Clockwise from the top of the wheel. Colors alternate and carry no meaning.
+  // `points` and `move` are the same lines as the second shareable image
+  // (share-source-feelings.html). Keep the two in step.
   const cores = [
-    { id: 'joy', name: 'Joy', words: ['Hopeful', 'Proud', 'Energized', 'Confident', 'Satisfied', 'Relieved'] },
-    { id: 'connection', name: 'Connection', words: ['Appreciated', 'Valued', 'Trusted', 'Supported', 'Included', 'Grateful'] },
-    { id: 'surprise', name: 'Surprise', words: ['Caught off guard', 'Blindsided', 'Confused', 'Stunned', 'Curious', 'Impressed'] },
-    { id: 'fear', name: 'Fear', words: ['Anxious', 'Worried', 'Overwhelmed', 'Unsure', 'Exposed', 'Out of my depth'] },
-    { id: 'sadness', name: 'Sadness', words: ['Disappointed', 'Discouraged', 'Let down', 'Hurt', 'Lonely', 'Regretful'] },
-    { id: 'anger', name: 'Anger', words: ['Impatient', 'Frustrated', 'Resentful', 'Disrespected', 'Defensive', 'Fed up'] }
+    { id: 'joy', name: 'Joy', words: ['Hopeful', 'Proud', 'Energized', 'Confident', 'Satisfied', 'Relieved'],
+      points: 'Something is working or matters to you.',
+      move: 'Notice what made it happen, and say so to the people involved.' },
+    { id: 'connection', name: 'Connection', words: ['Appreciated', 'Valued', 'Trusted', 'Supported', 'Included', 'Grateful'],
+      points: 'Trust or belonging is building.',
+      move: 'Thank someone specifically, and protect what is building it.' },
+    { id: 'surprise', name: 'Surprise', words: ['Caught off guard', 'Blindsided', 'Confused', 'Stunned', 'Curious', 'Impressed'],
+      points: 'A gap between what you expected and what happened.',
+      move: 'Get the facts and ask a question before you react.' },
+    { id: 'fear', name: 'Fear', words: ['Anxious', 'Worried', 'Overwhelmed', 'Unsure', 'Exposed', 'Out of my depth'],
+      points: 'Uncertainty, or something you care about feels at risk.',
+      move: 'Name the one thing you don’t know, then ask for it or ask for support.' },
+    { id: 'sadness', name: 'Sadness', words: ['Disappointed', 'Discouraged', 'Let down', 'Hurt', 'Lonely', 'Regretful'],
+      points: 'A loss, or a hope that didn’t happen.',
+      move: 'Name what you hoped for, then decide what is still in your hands.' },
+    { id: 'anger', name: 'Anger', words: ['Impatient', 'Frustrated', 'Resentful', 'Disrespected', 'Defensive', 'Fed up'],
+      points: 'A standard, a boundary, or a need wasn’t respected.',
+      move: 'Pause before you respond. Then name the standard and make a clear request.' }
   ];
   const wordId = (core, word) => core.id + ':' + word.toLowerCase().replace(/[^a-z]+/g, '-');
   const lookup = {};
@@ -453,6 +467,19 @@ const EmotionWheel = (() => {
     const rows = a.feelings.map(id => lookup[id].word + ' (' + lookup[id].core.name + ')');
     feel.append(bullets(rows), el('p', null, 'Strength: ' + a.strength + ' of 5, ' + strengthWord(a.strength) + '.'));
     brief.append(feel);
+
+    // The same lines as the second shareable image, once per core feeling, kept inside this section so the note stays on one page.
+    const seenCores = [];
+    a.feelings.forEach(id => { const c = lookup[id].core; if (!seenCores.includes(c)) seenCores.push(c); });
+    if (seenCores.length > 2) brief.classList.add('three-cores');
+    feel.append(el('h4', null, 'What feelings like these often point to'));
+    seenCores.forEach(c => {
+      const row = el('p', 'often-row');
+      const first = el('span');
+      first.append(el('strong', null, c.name), document.createTextNode(': often points to ' + c.points.charAt(0).toLowerCase() + c.points.slice(1)));
+      row.append(first, el('span', null, 'A next move: ' + c.move));
+      feel.append(row);
+    });
 
     const why = labelsFor(behind, a.behind);
     if (why.length || text(a.behindNote)) {
