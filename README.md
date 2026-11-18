@@ -95,6 +95,8 @@ The last section of the home page, "New on Pivot Labs," always shows the **newes
 
 The same command works for any guide: change the folder and file names (for example `guides/skill-and-will/skill-and-will-share.png` and `guides/skill-and-will/share-source.html`). Keep the wording in `share-source.html` in step with the guide page. The guide 1 image ("Find the real cause") has no source file in the repository.
 
+The Emotion Wheel tool has its own pair of shareable images, kept in `tools/emotion-wheel/`: `emotion-wheel-share.png` (source `share-source.html`) and `emotion-wheel-feelings-share.png` (source `share-source-feelings.html`). Both are linked as downloads in the "Share the wheel" section of the tool page. Remake them with the same command, using those folder and file names. Keep the words in step with `content.js`.
+
 ## Share previews
 
 When a Pivot Labs link is posted on LinkedIn or elsewhere, the site shows a title, a short description, and a picture. Every page has these tags right after its `</title>`: `og:type`, `og:site_name`, `og:title`, `og:description`, `og:url`, `og:image` (with width, height, and alt text), and `twitter:card`. The title and description repeat the page's own `<title>` and `description`, and `og:url` is the page's folder address, for example `https://pivotlabsleadership.com/tools/eisenhower-matrix/`. Every page uses the same picture, `assets/img/pivot-labs-share-1200x630.png` (1200 x 630 px, the shape link previews use). Link previews need full web addresses, so `og:image` and `og:url` start with `https://pivotlabsleadership.com`.

@@ -93,6 +93,15 @@ h1{margin:8px 0 16px}
   h1{font-size:32px}
   .intro{gap:16px}
 }
+.share{max-width:760px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.share>p{margin:8px 0 0}
+.share-grid{display:grid;grid-template-columns:repeat(2,minmax(0,240px));gap:28px;margin-top:20px}
+.share-item img{display:block;width:100%;height:auto;border:1px solid var(--card-line);border-radius:var(--radius)}
+.share-item .btn{margin-top:12px}
+.share-item p{margin:10px 0 0}
+@media(max-width:560px){.share-grid{grid-template-columns:minmax(0,300px)}}
+@media print{.share{display:none!important}}
+.capture-mode .share{display:none}
 </style></head><body class="planner-page">
 <header class="site-header"><div class="topbar"><a class="brand-name" href="../../index.html">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html" aria-current="page">Tools</a><a href="../../guides/index.html">Visual guides</a><a href="../../about/index.html">About</a></nav></div></header>
 <main>
@@ -120,6 +129,22 @@ h1{margin:8px 0 16px}
       <div id="planner-result" hidden></div>
     </section>
   </div>
+  <section class="share" aria-labelledby="share-title">
+    <h2 id="share-title">Share the wheel</h2>
+    <p>Two pictures you can save and post. The first helps someone name a feeling. The second says what that feeling might be telling them.</p>
+    <div class="share-grid">
+      <div class="share-item">
+        <img src="emotion-wheel-share.png" width="1080" height="1350" loading="lazy" alt="The Pivot Labs Emotion Wheel. Six core feelings (Joy, Connection, Surprise, Fear, Sadness, Anger), each with six more exact words.">
+        <p><strong>1. The wheel</strong></p>
+        <a class="btn" href="emotion-wheel-share.png" download="pivot-labs-emotion-wheel.png">Download the wheel<span class="visually-hidden"> (PNG image)</span></a>
+      </div>
+      <div class="share-item">
+        <img src="emotion-wheel-feelings-share.png" width="1080" height="1350" loading="lazy" alt="What is your feeling telling you? A table of the six core feelings, what each often points to, and a next move.">
+        <p><strong>2. What it might be telling you</strong></p>
+        <a class="btn" href="emotion-wheel-feelings-share.png" download="pivot-labs-what-your-feeling-is-telling-you.png">Download the guide<span class="visually-hidden"> (PNG image)</span></a>
+      </div>
+    </div>
+  </section>
   <section class="about" aria-labelledby="about-title">
     <h2 id="about-title">About this tool</h2>
     <p>The Emotion Wheel helps you put a word to what you’re feeling, think about what might be behind it, and choose a next step. It follows the idea behind feeling wheels: a few basic feelings, with more exact words under each. Well-known versions include Robert Plutchik’s wheel of emotions (1980), Gloria Willcox’s Feeling Wheel (1982), and the Junto Institute’s Emotion &amp; Feeling Wheel. Research on how people group emotion words, such as the work of Shaver and colleagues (1987), points to a similar shape. The wheel, the word list, and the questions here are our own. This is a reflection tool, not therapy or a diagnosis.</p>
