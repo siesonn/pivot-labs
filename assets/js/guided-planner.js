@@ -293,8 +293,16 @@ const GuidedPlanner = (() => {
       render();
       if (focus) {
         const heading = current === total ? dom.result.querySelector('h2') : dom.title;
-        if (heading) { heading.tabIndex = -1; heading.focus(); }
+        if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+        showTop();
       }
+    }
+
+    // Steps differ in height, so the page can end up scrolled past the new step (phones jumped to the footer).
+    // Bring the step list and the new step to the top of the screen on every move between steps.
+    function showTop() {
+      const target = current === total ? dom.result : (dom.steps.closest('nav') || dom.steps);
+      target.scrollIntoView({ block: 'start', behavior: 'auto' });
     }
 
     function render() {
@@ -348,7 +356,8 @@ const GuidedPlanner = (() => {
       dom.undoLabel.textContent = 'Answers cleared.';
       dom.undoBar.hidden = false;
       dom.title.tabIndex = -1;
-      dom.title.focus();
+      dom.title.focus({ preventScroll: true });
+      showTop();
       announce('Answers cleared. Undo is available.');
     });
     dom.undo.addEventListener('click', () => {
