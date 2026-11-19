@@ -169,7 +169,9 @@ const EmotionWheel = (() => {
     set.hidden = true;
     const legend = el('legend', 'ew-legend');
     legend.tabIndex = -1;
-    const hint = el('p', 'hint', 'Pick any that fit. You can choose up to three in total, from anywhere on the wheel.');
+    const HINT_NARROW = 'Pick any that fit. You can choose up to three in total, from anywhere on the wheel.';
+    const HINT_ROOMY = 'Pick any that fit. You can tap a word on the wheel or tick it in this list. Either works, and they stay in step. You can choose up to three in total, from anywhere on the wheel.';
+    const hint = el('p', 'hint', HINT_ROOMY);
     hint.id = 'ew-hint';
     set.setAttribute('aria-describedby', 'ew-hint');
     const options = el('div', 'guide-options ew-options');
@@ -283,6 +285,8 @@ const EmotionWheel = (() => {
     const measure = width => {
       const size = width < 520 ? 'compact' : width >= 800 ? 'wide' : 'full';
       root.dataset.size = size;
+      // The words show on the wheel only when there is room, so the hint says so only then.
+      hint.textContent = size === 'compact' ? HINT_NARROW : HINT_ROOMY;
       if (size === 'compact') art.setAttribute('transform', 'scale(2)');
       else art.removeAttribute('transform');
     };
