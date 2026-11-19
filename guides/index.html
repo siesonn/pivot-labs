@@ -24,8 +24,13 @@ h1{margin:8px 0 16px}
   main{padding:32px 16px 40px}
   .topbar,.site-footer>div{padding-inline:16px}
   h1{font-size:32px}
-  .guide-card{grid-template-columns:1fr}
-  .guide-card img{max-width:280px}
+  .guide-card{grid-template-columns:1fr;gap:0}
+  .guide-card>div{display:contents}
+  .guide-card h2{order:1}
+  .guide-card>div>p{order:2}
+  .guide-card>div>p.tool-name{order:3}
+  .guide-card img{order:4;max-width:280px;margin-top:16px}
+  .guide-card .cta{order:5}
 }
 </style></head>
 <body>
@@ -41,7 +46,7 @@ h1{margin:8px 0 16px}
         <h2><a href="find-the-real-cause/index.html">Find the real cause</a></h2>
         <p>The 5 Whys and the fishbone diagram, with one example you can follow from the problem to its root cause.</p>
         <p class="tool-name">Goes with the <a href="../tools/root-cause-finder/index.html">Root Cause Finder</a>.</p>
-        <div class="cta"><a class="btn primary" href="find-the-real-cause/index.html">Open the guide</a><a class="btn" href="find-the-real-cause/find-the-real-cause-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+        <div class="cta"><a class="btn primary" href="find-the-real-cause/index.html">Open the guide</a><a class="btn" href="find-the-real-cause/find-the-real-cause-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
     <li class="guide-card">
@@ -50,7 +55,7 @@ h1{margin:8px 0 16px}
         <h2><a href="urgent-vs-important/index.html">Urgent vs important</a></h2>
         <p>Two questions sort a full list into four next steps, with an example for each and a third question about who can do the work.</p>
         <p class="tool-name">Goes with the <a href="../tools/eisenhower-matrix/index.html">Eisenhower Matrix</a>.</p>
-        <div class="cta"><a class="btn primary" href="urgent-vs-important/index.html">Open the guide</a><a class="btn" href="urgent-vs-important/urgent-vs-important-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+        <div class="cta"><a class="btn primary" href="urgent-vs-important/index.html">Open the guide</a><a class="btn" href="urgent-vs-important/urgent-vs-important-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
     <li class="guide-card">
@@ -59,7 +64,7 @@ h1{margin:8px 0 16px}
         <h2><a href="skill-and-will/index.html">Skill and will</a></h2>
         <p>Two questions about skill and will point to one of four ways to support someone, with an example for each and a third question about what is behind hesitation.</p>
         <p class="tool-name">Goes with the <a href="../tools/team-development-map/index.html">Team Development Map</a>.</p>
-        <div class="cta"><a class="btn primary" href="skill-and-will/index.html">Open the guide</a><a class="btn" href="skill-and-will/skill-and-will-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+        <div class="cta"><a class="btn primary" href="skill-and-will/index.html">Open the guide</a><a class="btn" href="skill-and-will/skill-and-will-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
     <li class="guide-card">
@@ -68,7 +73,7 @@ h1{margin:8px 0 16px}
         <h2><a href="../tools/emotion-wheel/index.html">Emotion Wheel: name the feeling</a></h2>
         <p>Six core feelings, with six more exact words under each, so you can name what you feel more precisely than “stressed.”</p>
         <p class="tool-name">Goes with the <a href="../tools/emotion-wheel/index.html">Emotion Wheel</a>.</p>
-        <div class="cta"><a class="btn primary" href="../tools/emotion-wheel/index.html">Try the Emotion Wheel</a><a class="btn" href="../tools/emotion-wheel/emotion-wheel-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+        <div class="cta"><a class="btn primary" href="../tools/emotion-wheel/index.html">Try the Emotion Wheel</a><a class="btn" href="../tools/emotion-wheel/emotion-wheel-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
     <li class="guide-card">
@@ -77,11 +82,11 @@ h1{margin:8px 0 16px}
         <h2><a href="../tools/emotion-wheel/index.html">What is your feeling telling you?</a></h2>
         <p>For each core feeling, what it often points to and one next move. It is for reflection, not a diagnosis.</p>
         <p class="tool-name">Goes with the <a href="../tools/emotion-wheel/index.html">Emotion Wheel</a>.</p>
-        <div class="cta"><a class="btn primary" href="../tools/emotion-wheel/index.html">Try the Emotion Wheel</a><a class="btn" href="../tools/emotion-wheel/emotion-wheel-feelings-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+        <div class="cta"><a class="btn primary" href="../tools/emotion-wheel/index.html">Try the Emotion Wheel</a><a class="btn" href="../tools/emotion-wheel/emotion-wheel-feelings-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
   </ul>
   <p class="more">This collection is growing. New guides are added regularly.</p>
 </main>
-<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>Visual guides to the Pivot Labs tools.</span><span><a href="../">Home</a> · <a href="../about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>Visual guides to the Pivot Labs tools.</span><span><a href="../">Home</a> · <a href="../about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>

@@ -449,7 +449,7 @@ const EmotionWheel = (() => {
     link.href = href;
     link.target = '_blank';
     link.rel = 'noopener';
-    const arrow = el('span', null, ' ↗');
+    const arrow = el('span', null, ' ↗︎');
     arrow.setAttribute('aria-hidden', 'true');
     link.append(arrow, el('span', 'visually-hidden', ' (opens in a new tab)'));
     return link;
