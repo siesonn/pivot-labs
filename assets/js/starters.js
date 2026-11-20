@@ -25,6 +25,7 @@ window.PivotStarters = (() => {
     },
     feedback: {
       title: 'Feedback Conversation Planner', href: 'tools/feedback-conversation-planner/index.html',
+      guide: { title: 'Six ways to start the conversation', href: 'guides/six-ways-to-start/index.html' },
       summary: 'Prepare one feedback conversation. Describe what happened, get a suggested approach, and print a plan to bring with you.'
     },
     development: {
