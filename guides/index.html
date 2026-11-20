@@ -19,6 +19,9 @@ h1{margin:8px 0 16px}
 .guide-card p{margin:0;max-width:640px}
 .guide-card .tool-name{margin-top:8px;font-size:15px}
 .cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+/* Cards follow the category order of the All tools page. Guides about yourself sit apart, under their own heading. */
+.group-head{margin:48px 0 0;padding-top:32px;border-top:1px solid var(--line);font-size:26px}
+.guide-list.group{margin-top:20px}
 .more{margin-top:32px;font-size:15px}
 @media screen and (max-width:719px){
   main{padding:32px 16px 40px}
@@ -41,21 +44,21 @@ h1{margin:8px 0 16px}
   <p class="lede">A one-page picture of the method behind each tool. Read it on the page, print it, or open the image to share. To save an image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p>
   <ul class="guide-list">
     <li class="guide-card">
-      <img src="find-the-real-cause/find-the-real-cause-share.png" alt="Preview of the Find the real cause guide: a 5 Whys chain and a fishbone diagram of why a weekly report went out late." width="1080" height="1350" loading="lazy">
-      <div>
-        <h2><a href="find-the-real-cause/index.html">Find the real cause</a></h2>
-        <p>The 5 Whys and the fishbone diagram, with one example you can follow from the problem to its root cause.</p>
-        <p class="tool-name">Goes with the <a href="../tools/root-cause-finder/index.html">Root Cause Finder</a>.</p>
-        <div class="cta"><a class="btn primary" href="find-the-real-cause/index.html">Open the guide</a><a class="btn" href="find-the-real-cause/find-the-real-cause-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
-      </div>
-    </li>
-    <li class="guide-card">
       <img src="urgent-vs-important/urgent-vs-important-share.png" alt="Preview of the Urgent vs important guide: a four-box grid of urgent and important work, with Do now, Schedule, Delegate or discuss, and Reconsider, and a strip asking who can do it." width="1080" height="1350" loading="lazy">
       <div>
         <h2><a href="urgent-vs-important/index.html">Urgent vs important</a></h2>
         <p>Two questions sort a full list into four next steps, with an example for each and a third question about who can do the work.</p>
         <p class="tool-name">Goes with the <a href="../tools/eisenhower-matrix/index.html">Eisenhower Matrix</a>.</p>
         <div class="cta"><a class="btn primary" href="urgent-vs-important/index.html">Open the guide</a><a class="btn" href="urgent-vs-important/urgent-vs-important-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+      </div>
+    </li>
+    <li class="guide-card">
+      <img src="who-decides-what/who-decides-what-share.png" alt="Preview of the Who decides what guide: three decision levels from more up to them to more with you. They decide, They decide, then tell you, and Check with you first, each with the decisions it often fits." width="1080" height="1350" loading="lazy">
+      <div>
+        <h2><a href="who-decides-what/index.html">Who decides what</a></h2>
+        <p>Three levels for who makes which calls in a handoff, with a starting point for common decisions and an example.</p>
+        <p class="tool-name">Goes with the <a href="../tools/delegation-planner/index.html">Delegation Planner</a>.</p>
+        <div class="cta"><a class="btn primary" href="who-decides-what/index.html">Open the guide</a><a class="btn" href="who-decides-what/who-decides-what-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
     <li class="guide-card">
@@ -67,6 +70,18 @@ h1{margin:8px 0 16px}
         <div class="cta"><a class="btn primary" href="skill-and-will/index.html">Open the guide</a><a class="btn" href="skill-and-will/skill-and-will-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
       </div>
     </li>
+    <li class="guide-card">
+      <img src="find-the-real-cause/find-the-real-cause-share.png" alt="Preview of the Find the real cause guide: a 5 Whys chain and a fishbone diagram of why a weekly report went out late." width="1080" height="1350" loading="lazy">
+      <div>
+        <h2><a href="find-the-real-cause/index.html">Find the real cause</a></h2>
+        <p>The 5 Whys and the fishbone diagram, with one example you can follow from the problem to its root cause.</p>
+        <p class="tool-name">Goes with the <a href="../tools/root-cause-finder/index.html">Root Cause Finder</a>.</p>
+        <div class="cta"><a class="btn primary" href="find-the-real-cause/index.html">Open the guide</a><a class="btn" href="find-the-real-cause/find-the-real-cause-share.png" target="_blank" rel="noopener">Open the image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a></div>
+      </div>
+    </li>
+  </ul>
+  <h2 class="group-head" id="self-title">Know yourself as a leader</h2>
+  <ul class="guide-list group" aria-labelledby="self-title">
     <li class="guide-card">
       <img src="../tools/emotion-wheel/emotion-wheel-share.png" alt="Preview of the Emotion Wheel guide: six core feelings (Joy, Connection, Surprise, Fear, Sadness, Anger), each with six more exact words." width="1080" height="1350" loading="lazy">
       <div>

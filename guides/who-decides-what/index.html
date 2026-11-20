@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A one-page visual guide to who decides what in a handoff: three decision levels, a starting point for common decisions, and an example. From Pivot Labs."><title>Who decides what | Visual guide | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Who decides what | Visual guide | Pivot Labs"><meta property="og:description" content="A one-page visual guide to who decides what in a handoff: three decision levels, a starting point for common decisions, and an example. From Pivot Labs."><meta property="og:url" content="https://pivotlabsleadership.com/guides/who-decides-what/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<style>
+/* Shared fonts, colors, header, buttons, and the About section come from assets/css/pivot-labs.css. Styles below are for this guide. */
+.topbar,.site-footer>div{max-width:1320px}
+.site-footer>div{margin:0 auto;padding:24px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px;font-size:15px}
+.site-footer{border-top:1px solid var(--line)}
+.site-footer em{font-family:var(--display)}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+h1{margin:8px 0 16px}
+.lede{margin:0;max-width:640px;font-size:18px}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.guide-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.guide-section h2{margin:0 0 8px}
+.guide-section>p{margin:0;max-width:640px}
+h3{font-size:18px;line-height:1.3;margin:0 0 8px}
+.example-label{margin:24px 0 12px!important;font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal)}
+
+/* The three levels. Colors come from the Delegation Planner: solid Navy (its current step) for They decide,
+   Dusty Teal tint (its Suggested tag and finished steps) for They decide, then tell you,
+   and Amber tint (its prep notes) for Check with you first. Every box has its name in words, so meaning never depends on color. */
+.scale{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-bottom:8px;border-bottom:2px solid var(--card-line);font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:16px 0 0;padding:0;list-style:none}
+.level{margin:0;padding:20px 24px;border:1px solid var(--card-line);border-radius:var(--radius);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.level h3{font-size:24px;margin:0 0 8px}
+.level p{margin:0}
+.level ul{margin:0;padding-left:20px;list-style:disc}
+.level li+li{margin-top:6px}
+.level.decide{background:var(--navy);border-color:var(--navy);color:var(--ivory)}
+.level.tell{background:var(--teal-tint);border-color:var(--teal)}
+.level.check{background:var(--amber-tint);border-color:var(--amber)}
+.levels.lists .level h3{font-size:20px}
+.after-cards{margin-top:16px!important}
+
+/* Cards used by Three things to watch */
+.cards{display:grid;gap:16px;margin-top:24px}
+.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cards>div{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.cards p{margin:0}
+
+.cta-band{margin-top:48px;padding:24px;border-radius:var(--radius);background:var(--navy-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cta-band p{margin:0;max-width:640px}
+.cta-band .cta{margin-top:16px}
+
+@media screen and (max-width:899px){
+  .levels,.cards.three{grid-template-columns:1fr}
+  .scale{display:none}
+}
+@media screen and (max-width:719px){
+  main{padding:32px 16px 40px}
+  .topbar,.site-footer>div{padding-inline:16px}
+  h1{font-size:32px}
+  .level{padding:16px 20px}
+  .level h3{font-size:22px}
+}
+@media print{
+  html,body{background:#fff}
+  .site-header,.cta,.cta-band{display:none!important}
+  main{max-width:none;padding:0}
+  .guide-section{margin-top:14px;padding-top:10px}
+  h1{font-size:30px;margin:4px 0 8px}.lede{font-size:16px}.guide-section>p{font-size:14px}
+  .scale{margin-top:10px;font-size:11px}
+  .levels{margin-top:8px;gap:10px}.level{padding:10px 14px}.level h3{font-size:17px;margin-bottom:4px}.levels.lists .level h3{font-size:16px}.level p,.level li{font-size:13px}.level li+li{margin-top:2px}
+  .cards{margin-top:12px;gap:10px}.cards>div{padding:10px 14px}.cards h3{font-size:16px;margin-bottom:4px}.cards p{font-size:14px}.example-label{margin:8px 0!important}
+  .after-cards{margin-top:8px!important}
+  .about{margin-top:20px;padding-top:12px}.about p{font-size:13px}
+  .guide-section,.about,.level{break-inside:avoid}
+  .site-footer{break-before:avoid}
+}
+</style></head>
+<body>
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html">Tools</a><a href="../index.html" aria-current="page">Visual guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <p class="eyebrow">Visual guide</p>
+  <h1>Who decides what</h1>
+  <p class="lede">You handed something off, and the questions still come back to you. Or you find out later about a call you’d have wanted a say in. Usually nobody agreed on who decides what. This guide gives you three levels to sort that out before the work starts.</p>
+  <div class="cta"><a class="btn primary" href="../../tools/delegation-planner/">Plan a handoff with the Delegation Planner</a><a class="btn" href="who-decides-what-share.png" target="_blank" rel="noopener">Open this guide as an image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a><p class="small" style="flex-basis:100%;margin:0">To save the image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p></div>
+
+  <section class="guide-section" aria-labelledby="levels-title">
+    <h2 id="levels-title">Three levels</h2>
+    <p>For each decision that might come up, pick one level. Agree on it together, so you both know where the line is.</p>
+    <div class="scale" aria-hidden="true"><span>More up to them</span><span>More with you</span></div>
+    <ul class="levels" role="list">
+      <li class="level decide"><h3>They decide</h3><p>They make the call and keep going. Their way may be different from yours, and that can still be a good way. It comes up at your regular check-in if it matters.</p></li>
+      <li class="level tell"><h3>They decide, then tell you</h3><p>They make the call, then let you know soon after, so you’re not caught off guard.</p></li>
+      <li class="level check"><h3>Check with you first</h3><p>They come to you before acting. It helps if they bring what they’d suggest.</p></li>
+    </ul>
+  </section>
+
+  <section class="guide-section" aria-labelledby="start-title">
+    <h2 id="start-title">A starting point</h2>
+    <p>These are the choices the Delegation Planner starts with. They’re the same for everyone, so change any that don’t fit the work.</p>
+    <ul class="levels lists" role="list">
+      <li class="level decide"><h3>They decide</h3><ul><li>How to do the work: methods, tools, and order of steps</li><li>Day-to-day priorities within the work</li></ul></li>
+      <li class="level tell"><h3>They decide, then tell you</h3><ul><li>Asking others for help</li><li>Updates to senior leaders, clients, or other teams</li></ul></li>
+      <li class="level check"><h3>Check with you first</h3><ul><li>Spending money</li><li>Changing the deadline</li><li>Changing what done looks like</li></ul></li>
+    </ul>
+    <p class="after-cards">If you’re comfortable with some spending, set an amount. Up to that amount, they decide. Over it, they check with you. Leave out anything that won’t come up, and add anything that’s missing.</p>
+  </section>
+
+  <section class="guide-section" aria-labelledby="example-title">
+    <h2 id="example-title">An example</h2>
+    <p class="example-label">Example: handing off the monthly vendor report</p>
+    <p>You’re handing the monthly vendor report to Jordan. Jordan has done parts of it before, with help.</p>
+    <ul class="levels" role="list">
+      <li class="level decide"><h3>They decide</h3><p>Which vendors to follow up with first, how to lay out the report, and what to work on each day.</p></li>
+      <li class="level tell"><h3>They decide, then tell you</h3><p>Asking finance for a missing number, and sending the finished report to the team.</p></li>
+      <li class="level check"><h3>Check with you first</h3><p>Moving the due date past the 5th, dropping the late-vendor flags, or spending any money.</p></li>
+    </ul>
+    <p class="after-cards">After a few months of reports going well, you might move spending up to $500 to “They decide, then tell you.” Start where you’re both comfortable, then loosen.</p>
+  </section>
+
+  <section class="guide-section" aria-labelledby="watch-title">
+    <h2 id="watch-title">Three things to watch</h2>
+    <div class="cards three">
+      <div><h3>The level fits the decision, not the person</h3><p>It says how this call gets made right now. It isn’t a verdict on how capable someone is.</p></div>
+      <div><h3>Loosen it as it goes well</h3><p>Starting with more “check with you first” is fine. Look again at your check-ins and move a decision up a level when it makes sense.</p></div>
+      <div><h3>If decisions keep coming back to you</h3><p>Maybe the line isn’t clear yet, or they don’t have the access or authority to act. Ask what’s getting in the way before you step back in.</p></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <p>The Delegation Planner walks you through one handoff in six short steps: the handoff, getting ready, the outcome, who decides what, staying on track, and check-ins. It ends with a short brief you can print and go over together. Your entries clear when you close the page.</p>
+    <div class="cta"><a class="btn primary" href="../../tools/delegation-planner/">Plan a handoff with the Delegation Planner</a><a class="btn" href="who-decides-what-share.png" target="_blank" rel="noopener">Open this guide as an image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a><p class="small" style="flex-basis:100%;margin:0">To save the image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p></div>
+  </div>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this guide</h2>
+    <p>This guide is a one-page picture of one step in the Delegation Planner. Its three levels are a simpler version of the five degrees of initiative that William Oncken, Jr. and Donald L. Wass describe in “Management Time: Who’s Got the Monkey?” They write that every handoff needs an agreed level of initiative and a set time for the next check-in. The suggested starting points, the drawing, and the wording are Pivot Labs’ own.</p>
+    <p class="small sources"><strong>Source:</strong> Oncken, W., Jr., &amp; Wass, D. L. (1974). Management time: Who’s got the monkey? <cite>Harvard Business Review.</cite></p>
+  </section>
+</main>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>A visual guide to the Delegation Planner.</span><span><a href="../index.html">All guides</a> · <a href="../../about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="robots" content="noindex"><meta name="viewport" content="width=1080"><title>Source for the Who decides what shareable image | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<!--
+  This file is the source for who-decides-what-share.png (1080 x 1350 px). It is not a page for visitors.
+  To change the image: edit this file, then remake the PNG. The README section "Visual guides" has the command.
+  Keep the wording here in step with index.html in this folder, and the levels in step with tools/delegation-planner/content.js.
+-->
+<style>
+/* Fonts and colors come from assets/css/pivot-labs.css. Sizes are fixed in px because the output is a fixed-size picture.
+   Level colors match the guide page and the Delegation Planner: solid Navy, Dusty Teal tint, Amber tint. */
+html,body{margin:0;width:1080px;height:1350px;overflow:hidden}
+body{display:flex;flex-direction:column;border-top:14px solid var(--navy);box-sizing:border-box;background:var(--ivory);color:var(--navy);font-family:var(--body)}
+main{flex:1;display:flex;flex-direction:column;padding:34px 60px 0}
+.eyebrow{margin:0;font-size:18px;font-weight:700;letter-spacing:3.6px;text-transform:uppercase;color:var(--navy)}
+h1{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:78px;line-height:1.1;letter-spacing:-1px}
+.sub{margin:10px 0 0;font-size:25px;line-height:1.3;color:var(--espresso)}
+
+.ladder{flex:1;display:grid;grid-template-columns:30px 1fr;gap:0 14px;margin-top:30px}
+.axis{display:flex;flex-direction:column;align-items:center;justify-content:space-between}
+.axis span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:16px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase}
+.axis i{flex:1;width:3px;margin:10px 0;background:var(--card-line)}
+.bands{display:grid;grid-auto-rows:1fr;gap:16px}
+.band{display:grid;grid-template-columns:360px 1fr;gap:32px;align-items:center;padding:28px 32px;border:2px solid var(--card-line);border-radius:10px}
+.band h2{margin:0;font-family:var(--display);font-weight:600;font-size:42px;line-height:1.12}
+.band .means{margin:12px 0 0;font-size:24px;line-height:1.3}
+.band ul{margin:0;padding:0 0 0 0;list-style:none;align-self:center}
+.band li{position:relative;padding-left:26px;font-size:26px;line-height:1.3;font-weight:500}
+.band li+li{margin-top:12px}
+.band li::before{content:"";position:absolute;left:0;top:13px;width:11px;height:11px;border-radius:50%;background:currentColor}
+.band .often{display:block;margin-bottom:10px;font-size:16px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.band.decide{background:var(--navy);border-color:var(--navy);color:var(--ivory)}
+.band.tell{background:var(--teal-tint);border-color:var(--teal)}
+.band.check{background:var(--amber-tint);border-color:var(--amber)}
+.band .list{align-self:center}
+
+.loosen{margin:30px 0 34px;padding-top:22px;border-top:3px solid var(--teal)}
+.loosen h2{margin:0;font-family:var(--display);font-weight:600;font-size:36px;line-height:1.2}
+.loosen p{margin:8px 0 0;font-size:24px;line-height:1.3}
+
+footer{display:flex;justify-content:space-between;align-items:center;gap:40px;padding:22px 60px 24px;background:var(--navy);color:var(--ivory)}
+footer .credit{margin:0;max-width:690px;font-size:17px;line-height:1.4}
+footer .brand{text-align:right;white-space:nowrap}
+footer .brand strong{display:block;font-family:var(--display);font-weight:700;font-size:28px;line-height:1.2}
+footer .brand span{font-size:20px}
+</style></head>
+<body>
+<main>
+  <p class="eyebrow">Visual guide</p>
+  <h1>Who decides what</h1>
+  <p class="sub">Agree on it before you hand it off.</p>
+
+  <div class="ladder">
+    <div class="axis"><span>More up to them</span><i></i><span>More with you</span></div>
+    <div class="bands">
+      <div class="band decide"><div><h2>They decide</h2><p class="means">They make the call and keep going.</p></div><div class="list"><span class="often">Often fits</span><ul><li>How to do the work</li><li>Day-to-day priorities</li></ul></div></div>
+      <div class="band tell"><div><h2>They decide, then tell you</h2><p class="means">They make the call, then let you know soon after.</p></div><div class="list"><span class="often">Often fits</span><ul><li>Asking others for help</li><li>Updates to senior leaders, clients, or other teams</li></ul></div></div>
+      <div class="band check"><div><h2>Check with you first</h2><p class="means">They come to you before acting, with what they’d suggest.</p></div><div class="list"><span class="often">Often fits</span><ul><li>Spending money</li><li>Changing the deadline</li><li>Changing what done looks like</li></ul></div></div>
+    </div>
+  </div>
+
+  <div class="loosen">
+    <h2>Start where you’re both comfortable.</h2>
+    <p>Loosen it as it goes well. The level fits the decision, not the person.</p>
+  </div>
+</main>
+<footer>
+  <p class="credit">Idea: William Oncken, Jr. and Donald L. Wass, “Management Time: Who’s Got the Monkey?” (1974). Pivot Labs uses three levels. The drawing and wording are Pivot Labs’ own.</p>
+  <p class="brand"><strong>Pivot Labs</strong><span>pivotlabsleadership.com</span></p>
+</footer>
+</body></html>
