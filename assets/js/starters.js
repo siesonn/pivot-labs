@@ -15,10 +15,12 @@ window.PivotStarters = (() => {
   const TOOLS = {
     eisenhower: {
       title: 'Eisenhower Matrix', href: 'tools/eisenhower-matrix/index.html',
+      guide: { title: 'Urgent vs important', href: 'guides/urgent-vs-important/index.html' },
       summary: 'Work through your priorities. Add your tasks, consider urgency and importance, and decide what to do, schedule, delegate, or reconsider.'
     },
     delegation: {
       title: 'Delegation Planner', href: 'tools/delegation-planner/index.html',
+      guide: { title: 'Who decides what', href: 'guides/who-decides-what/index.html' },
       summary: 'Plan one handoff. Agree on what done looks like, who decides what, and when you’ll check in, then print a brief to review together.'
     },
     feedback: {
@@ -27,10 +29,12 @@ window.PivotStarters = (() => {
     },
     development: {
       title: 'Team Development Map', href: 'tools/team-development-map/index.html',
+      guide: { title: 'Skill and will', href: 'guides/skill-and-will/index.html' },
       summary: 'Plan how to support someone on a specific task. Add a person and a task, consider their skill and willingness, and decide whether to guide, stretch, re-engage, or direct.'
     },
     rootCause: {
       title: 'Root Cause Finder', href: 'tools/root-cause-finder/index.html',
+      guide: { title: 'Find the real cause', href: 'guides/find-the-real-cause/index.html' },
       summary: 'Work through one problem. Describe what happened, get a suggested method to find the cause, and print a summary of the fix and how you’ll check it worked.'
     },
     executiveAsk: {
@@ -48,7 +52,7 @@ window.PivotStarters = (() => {
   };
 
   // A tool as a card option. bestFor is the line shown under "Other options".
-  const tool = (id, bestFor) => ({ id, title: TOOLS[id].title, summary: TOOLS[id].summary, href: TOOLS[id].href, bestFor });
+  const tool = (id, bestFor) => ({ id, title: TOOLS[id].title, summary: TOOLS[id].summary, href: TOOLS[id].href, guide: TOOLS[id].guide, bestFor });
   const pick = (id, reason) => ({ id, reason });
 
   const WHY = {

@@ -16,7 +16,8 @@
   if (!found) return;
   // Tool addresses in starters.js are written from the home page. A Find page sits two folders down.
   const up = root.dataset.up || '../../';
-  const config = Object.assign({}, found, { options: found.options.map(o => Object.assign({}, o, { href: up + o.href })) });
+  const config = Object.assign({}, found, { options: found.options.map(o => Object.assign({}, o, { href: up + o.href },
+    o.guide ? { guide: { title: o.guide.title, href: up + o.guide.href } } : {})) });
   SituationPicker.create(config).mount(root, {
     idPrefix: 'find-' + key,
     headingLevel: 2,

@@ -11,7 +11,10 @@
   config
     questions         fields in the guided planner's shape (see assets/js/guided-planner.js):
                       { id, type: 'choice' | 'multi', label, hint, options, showIf, optional, error }
-    options           [{ id, title, summary, bestFor, href }] the things that can be suggested.
+    options           [{ id, title, summary, bestFor, href, guide }] the things that can be suggested.
+                      guide (optional) is { title, href } for the option's visual guide. When it is there, the
+                      suggestion card adds "Want the picture first? See the visual guide" and "Other options"
+                      adds "Visual guide: (title)". Both open in a new tab.
                       href is optional: set it when choosing an option opens another page, such as a tool.
     suggest(answers)  returns { id, reason } for the best fit, or null while answers are missing.
                       The same answers must always give the same suggestion, whoever the person is.
@@ -63,6 +66,18 @@ const SituationPicker = (() => {
     };
     const visible = (q, answers) => !q.showIf || q.showIf(answers);
 
+    // A link to an option's visual guide, opening in a new tab like the tool pages' guide links.
+    function guideLink(guide, label) {
+      const a = el('a', null, label);
+      a.href = guide.href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      const arrow = el('span', null, '\u00a0\u2197\ufe0e');
+      arrow.setAttribute('aria-hidden', 'true');
+      a.append(arrow, el('span', 'visually-hidden', ' (opens in a new tab)'));
+      return a;
+    }
+
     // The suggested option: what it is and why it fits.
     function card(option, reason, eyebrow, answers, level) {
       const box = el('section', 'picker-card');
@@ -75,6 +90,11 @@ const SituationPicker = (() => {
         const p = el('p', 'picker-why');
         p.append(el('strong', null, 'Why it fits: '), reason);
         box.append(p);
+      }
+      if (option.guide) {
+        const g = el('p', 'small guide-link', 'Want the picture first? ');
+        g.append(guideLink(option.guide, 'See the visual guide'));
+        box.append(g);
       }
       return box;
     }
@@ -295,6 +315,11 @@ const SituationPicker = (() => {
             text.append(el('p', 'picker-option-title', resolve(o.title, answers)));
             const detail = resolve(o.bestFor, answers);
             if (detail) text.append(el('p', 'picker-option-detail', detail));
+            if (o.guide) {
+              const g = el('p', 'picker-option-detail', 'Visual guide: ');
+              g.append(guideLink(o.guide, o.guide.title));
+              text.append(g);
+            }
             li.append(text, action(o, false));
             list.append(li);
           });
