@@ -67,6 +67,38 @@ h1{margin:0 0 16px}
 .new{margin-top:56px}.new>h2{margin:0 0 16px;font-size:28px}.new .band{margin-top:0}
 @media(max-width:740px){.new{margin-top:40px}.new>h2{font-size:26px}}
 @media print{.tile .go svg{display:none}}
+/* Intro infographic: three steps from a picture to a plan. Drawings are decorative; every word is live HTML text at 14 px or larger. Left out of print: it guides people on screen. */
+.intro{margin-top:48px;padding:32px 32px 28px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.intro h2{margin:0 0 8px;font-size:28px}
+.intro-hook{margin:0 0 28px;font-size:18px;max-width:none}
+.intro-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:48px;align-items:start}
+.intro-step{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.intro-pic{position:relative;width:168px;height:168px;border-radius:50%;display:grid;place-items:center;background:var(--navy-tint);margin-bottom:16px}
+.intro-step:nth-child(2) .intro-pic{background:var(--teal-tint)}.intro-step:nth-child(3) .intro-pic{background:var(--mocha-tint)}
+.intro-pic svg{width:128px;height:auto;display:block}
+.intro-num{position:absolute;top:2px;left:2px;width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--ivory);display:grid;place-items:center;font:700 17px/1 var(--body)}
+.intro-step h3{margin:0 0 6px;font-size:21px;line-height:1.25}
+.intro-step p{margin:0 auto;font-size:16px;max-width:280px}
+.intro-step:not(:last-child)::after{content:"\2192\FE0E";position:absolute;top:62px;right:-40px;width:32px;text-align:center;color:var(--teal);font:700 32px/1 var(--body)}
+.intro-foot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:center}
+.intro-go{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--teal);text-decoration:none;font-size:16px}
+.intro-go:hover{text-decoration:underline}
+.intro-go svg{width:20px;height:20px}
+@media(max-width:900px){.intro-pic{width:136px;height:136px}.intro-pic svg{width:104px}.intro-step:not(:last-child)::after{top:46px}}
+@media(max-width:740px){
+  .intro{margin-top:32px;padding:20px 16px 16px}
+  .intro h2{font-size:26px}.intro-hook{font-size:17px;margin-bottom:20px}
+  .intro-steps{grid-template-columns:minmax(0,1fr);gap:16px}
+  .intro-step::after{display:none}
+  .intro-step{flex-direction:row;align-items:center;text-align:left;gap:16px}
+  .intro-pic{flex:0 0 88px;width:88px;height:88px;margin:0}
+  .intro-pic svg{width:66px}
+  .intro-num{width:28px;height:28px;font-size:15px;top:-4px;left:-4px}
+  .intro-txt{min-width:0}
+  .intro-step h3{font-size:19px;margin-bottom:2px}.intro-step p{font-size:16px;max-width:none}
+  .intro-foot{margin-top:20px;padding-top:14px;justify-content:flex-start}
+}
+@media print{.intro{display:none}}
 </style></head><body>
 <header class="site-header"><div class="topbar"><span class="brand-name">Pivot Labs</span><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="tools/index.html">Tools</a><a href="guides/index.html">Visual guides</a><a href="about/index.html">About</a></nav></div></header>
 <main>
@@ -79,9 +111,46 @@ h1{margin:0 0 16px}
     <div class="hero-seal"><picture><source type="image/webp" srcset="assets/img/pivot-labs-seal-560.webp 560w, assets/img/pivot-labs-seal-800.webp 800w" sizes="266px"><img src="assets/img/pivot-labs-seal-560.png" width="266" height="266" alt="Pivot Labs"></picture></div>
   </section>
 
+  <section class="intro" aria-labelledby="intro-title">
+    <h2 id="intro-title">From a picture to a plan</h2>
+    <p class="lead intro-hook">You’ve probably seen leadership frameworks as pictures in your feed. Here, each one is a tool you fill in with your own work.</p>
+    <ol class="intro-steps">
+      <li class="intro-step"><div class="intro-pic"><span class="intro-num" aria-hidden="true">1</span><svg viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<rect x="30" y="6" width="100" height="108" rx="9" fill="var(--ivory)" stroke="var(--navy)" stroke-width="2.5"/>
+<path d="M31.25 15a7.75 7.75 0 0 1 7.75-7.75h82a7.75 7.75 0 0 1 7.75 7.75v53H31.25z" fill="var(--navy-tint)"/>
+<line x1="31" y1="68" x2="129" y2="68" stroke="var(--card-line)" stroke-width="1.5"/>
+<g fill="var(--ivory)" stroke="var(--navy)" stroke-width="1.75"><rect x="46" y="16" width="32" height="22" rx="4"/><rect x="82" y="16" width="32" height="22" rx="4"/><rect x="46" y="42" width="32" height="22" rx="4"/><rect x="82" y="42" width="32" height="22" rx="4"/></g>
+<rect x="42" y="80" width="62" height="7" rx="3.5" fill="var(--navy)"/><rect x="42" y="94" width="40" height="7" rx="3.5" fill="var(--slate)"/>
+<circle cx="112" cy="98" r="14" fill="var(--teal)" fill-opacity=".25"/><circle cx="112" cy="98" r="6" fill="var(--teal)"/>
+</svg></div><div class="intro-txt"><h3>Start with what’s going on</h3><p>Pick the tile below that sounds closest, like “I have too much on my plate.”</p></div></li>
+      <li class="intro-step"><div class="intro-pic"><span class="intro-num" aria-hidden="true">2</span><svg viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<rect x="18" y="8" width="124" height="104" rx="9" fill="var(--ivory)" stroke="var(--navy)" stroke-width="2.5"/>
+<rect x="32" y="22" width="84" height="7" rx="3.5" fill="var(--navy)"/><rect x="32" y="34" width="54" height="7" rx="3.5" fill="var(--navy)"/>
+<rect x="32" y="52" width="96" height="22" rx="11" fill="var(--navy)"/>
+<path d="M41 63l4 4 8-8" fill="none" stroke="var(--ivory)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="60" y="60" width="54" height="6" rx="3" fill="var(--ivory)"/>
+<rect x="32" y="80" width="96" height="22" rx="11" fill="var(--ivory)" stroke="var(--slate)" stroke-width="1.75"/>
+<circle cx="47" cy="91" r="5" fill="none" stroke="var(--slate)" stroke-width="1.75"/>
+<rect x="60" y="88" width="42" height="6" rx="3" fill="var(--slate)"/>
+</svg></div><div class="intro-txt"><h3>Answer a question or two</h3><p>Most tiles ask first, then suggest a tool and tell you why it fits.</p></div></li>
+      <li class="intro-step"><div class="intro-pic"><span class="intro-num" aria-hidden="true">3</span><svg viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<path d="M38 6h70l18 18v82a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8V14a8 8 0 0 1 8-8z" fill="var(--ivory)" stroke="var(--navy)" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M108 6v12a6 6 0 0 0 6 6h12" fill="none" stroke="var(--navy)" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="42" y="24" width="34" height="26" rx="4" fill="var(--navy)"/><rect x="80" y="28" width="34" height="22" rx="4" fill="var(--teal-tint)" stroke="var(--navy)" stroke-width="1.5"/>
+<rect x="42" y="54" width="34" height="24" rx="4" fill="var(--slate-tint)" stroke="var(--navy)" stroke-width="1.5"/><rect x="80" y="54" width="34" height="24" rx="4" fill="var(--mocha-tint)" stroke="var(--navy)" stroke-width="1.5"/>
+<g stroke-width="3" stroke-linecap="round"><g stroke="var(--ivory)"><line x1="48" y1="32" x2="70" y2="32"/><line x1="48" y1="41" x2="62" y2="41"/></g><g stroke="var(--navy)"><line x1="86" y1="36" x2="108" y2="36"/><line x1="86" y1="43" x2="100" y2="43"/><line x1="48" y1="62" x2="70" y2="62"/><line x1="48" y1="70" x2="60" y2="70"/><line x1="86" y1="62" x2="104" y2="62"/></g></g>
+<g fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M42 90l3 3 6-6"/><path d="M42 102l3 3 6-6"/></g>
+<rect x="58" y="87" width="50" height="6" rx="3" fill="var(--navy)"/><rect x="58" y="99" width="36" height="6" rx="3" fill="var(--navy)"/>
+</svg></div><div class="intro-txt"><h3>Leave with a plan</h3><p>Fill it in, then print it or save it as a PDF before you close the page.</p></div></li>
+    </ol>
+    <div class="intro-foot">
+      <a class="intro-go" href="#start-title">Pick a tile below to start<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+    </div>
+  </section>
+
   <section class="start" aria-labelledby="start-title">
     <h2 id="start-title">What can we help you with?</h2>
-    <p class="lead start-lead">These six are places to start, not everything we have. Pick what sounds closest, answer a question or two, and we’ll point you to the right tool or visual guide. There are 12 tools and 7 guides so far, and the list keeps growing.</p>
+    <p class="lead start-lead">These six are places to start, not everything we have. There are 12 tools and 7 guides so far, and the list keeps growing.</p>
     <p class="latest"><strong>Latest:</strong> <a href="tools/managing-or-leading-check/index.html">Managing or Leading Check</a>, a new tool.</p>
     <ul class="tiles">
       <li class="tile"><a href="find/too-much-on-my-plate/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
