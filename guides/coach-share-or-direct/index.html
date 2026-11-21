@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A one-page visual guide to choosing how to help someone grow: coach, share your experience, or give direction, with seven approaches and an example. From Pivot Labs."><title>Coach, share, or direct | Visual guide | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Coach, share, or direct | Visual guide | Pivot Labs"><meta property="og:description" content="A one-page visual guide to choosing how to help someone grow: coach, share your experience, or give direction, with seven approaches and an example. From Pivot Labs."><meta property="og:url" content="https://pivotlabsleadership.com/guides/coach-share-or-direct/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<style>
+/* Shared fonts, colors, header, buttons, and the About section come from assets/css/pivot-labs.css. Styles below are for this guide. */
+.topbar,.site-footer>div{max-width:1320px}
+.site-footer>div{margin:0 auto;padding:24px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px;font-size:15px}
+.site-footer{border-top:1px solid var(--line)}
+.site-footer em{font-family:var(--display)}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+h1{margin:8px 0 16px}
+.lede{margin:0;max-width:none;font-size:18px}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.guide-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.guide-section h2{margin:0 0 8px}
+.guide-section>p{margin:0;max-width:none}
+h3{font-size:18px;line-height:1.3;margin:0 0 8px}
+.example-label{margin:24px 0 12px!important;font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal)}
+.after-cards{margin-top:16px!important}
+
+/* Plain cards: Three things to watch */
+.cards{display:grid;gap:16px;margin-top:24px}
+.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cards>div{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.cards p{margin:0}
+
+/* The approaches. Colors come from the Coaching Approach Picker and the planner palette, and run from most asking to most
+   telling: Dusty Teal tint (the planner's Suggested tag) for coaching, Ivory with a Navy edge (the picker's "As you ask" box)
+   for Reconnect, Mocha tint (from the team tile picture) for sharing, and solid Navy for direction. Every box is named in words, and the headings say the
+   order, so meaning never depends on color. */
+.group-title{margin:32px 0 4px;font-size:20px}
+.group-note{margin:0;max-width:none}
+.scale{display:flex;justify-content:space-between;gap:16px;margin-top:20px;padding-bottom:8px;border-bottom:2px solid var(--card-line);font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.ways{display:grid;gap:16px;margin:16px 0 0;padding:0;list-style:none}
+.ways.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ways.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ways.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ways.one{grid-template-columns:minmax(0,1fr)}
+.way{margin:0;padding:20px 24px;border:1px solid var(--card-line);border-radius:var(--radius);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.way h3,.way h4{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.25;margin:0 0 8px}
+.way p{margin:0}
+.way .quote{margin-top:8px}
+.way .best{margin-top:12px;padding-top:12px;border-top:1px solid currentColor;font-size:15px}
+.way.coach{background:var(--teal-tint);border-color:var(--teal)}
+.way.reconnect{background:var(--ivory);border-color:var(--navy);box-shadow:inset 6px 0 0 var(--navy)}
+.way.share{background:var(--mocha-tint);border-color:var(--mocha)}
+.way.direct{background:var(--navy);border-color:var(--navy);color:var(--ivory)}
+.after-ways{margin-top:12px!important}
+
+.cta-band{margin-top:48px;padding:24px;border-radius:var(--radius);background:var(--navy-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cta-band p{margin:0;max-width:none}
+.cta-band .cta{margin-top:16px}
+
+@media screen and (max-width:1099px){
+  .ways.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media screen and (max-width:899px){
+  .cards.three,.ways.three{grid-template-columns:1fr}
+}
+@media screen and (max-width:719px){
+  main{padding:32px 16px 40px}
+  .topbar,.site-footer>div{padding-inline:16px}
+  h1{font-size:32px}
+  .ways.two,.ways.four{grid-template-columns:1fr}
+  .scale{display:none}
+  .way{padding:16px 20px}
+}
+@media print{
+  html,body{background:#fff}
+  .site-header,.cta,.cta-band{display:none!important}
+  main{max-width:none;padding:0}
+  .guide-section{margin-top:12px;padding-top:8px}
+  h1{font-size:30px;margin:4px 0 8px}.lede{font-size:15px}.guide-section>p,.group-note{font-size:13px}
+  .group-title{margin:8px 0 2px;font-size:15px}
+  .scale{margin-top:6px;font-size:10px}
+  .ways{margin-top:6px;gap:8px}.ways.four{grid-template-columns:repeat(4,minmax(0,1fr))}.ways.three-up{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .way{padding:8px 12px}.way h3,.way h4{font-size:14px;margin-bottom:4px}.way p{font-size:12px}.way .best{margin-top:6px;padding-top:6px;font-size:11px}
+  .cards{margin-top:10px;gap:8px}.cards>div{padding:8px 12px}.cards h3{font-size:14px;margin-bottom:4px}.cards p{font-size:12px}.example-label{margin:6px 0!important}
+  .after-cards,.after-ways{margin-top:6px!important;font-size:12px}
+  .about{margin-top:14px;padding-top:8px}.about p{font-size:11px}
+  .guide-section,.about,.way,.cards>div{break-inside:avoid}
+  .site-footer{break-before:avoid}
+  .site-footer>div{padding:6px 0;font-size:12px;gap:4px 24px}
+}
+</style></head>
+<body>
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html">Tools</a><a href="../index.html" aria-current="page">Visual guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <p class="eyebrow">Visual guide</p>
+  <h1>Coach, share, or direct</h1>
+  <p class="lede">Someone on your team comes to you with something. Maybe they’re stuck, or deciding, or about to try something new. It’s tempting to jump in with the answer. Sometimes that’s right, and sometimes a good question helps more. This guide helps you choose, starting with what they need from you right now.</p>
+  <div class="cta"><a class="btn primary" href="../../tools/coaching-approach-picker/">Plan it with the Coaching Approach Picker</a><a class="btn" href="coach-share-or-direct-share.png" target="_blank" rel="noopener">Open this guide as an image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a><p class="small" style="flex-basis:100%;margin:0">To save the image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p></div>
+
+  <section class="guide-section" aria-labelledby="need-title">
+    <h2 id="need-title">Start with what they need</h2>
+    <p>Go by what they’ve asked for, or what has helped before, not a guess about them.</p>
+    <ul class="ways three" role="list">
+      <li class="way coach"><h3>Coach</h3><p>They need room to think it through and reach their own answer. You mostly ask.</p></li>
+      <li class="way share"><h3>Share</h3><p>They’ve asked how you, or others, handled something like this. You tell stories, not instructions, and they decide what fits.</p></li>
+      <li class="way direct"><h3>Direct</h3><p>The work is new to them, or something needs to change soon. You’re clear about what good looks like, then ask more as they find their feet.</p></li>
+    </ul>
+    <p class="after-ways">Not sure which? Ask them what would help most.</p>
+  </section>
+
+  <section class="guide-section" aria-labelledby="seven-title">
+    <h2 id="seven-title">Seven approaches, from most asking to most telling</h2>
+    <div class="scale" aria-hidden="true"><span>Most asking</span><span>Most telling</span></div>
+    <h3 class="group-title" id="coach-title">When they need room to think: four ways to coach</h3>
+    <p class="group-note">All four move through the same parts: what they want, where things stand, options, and a next step. Each one spends most of its time on a different part.</p>
+    <ul class="ways four" role="list" aria-labelledby="coach-title">
+      <li class="way coach"><h4>Find the goal</h4><p>Help them work out what they want to grow toward, then pick one first step.</p><p class="best">Best when they want to grow and the goal isn’t clear yet.</p></li>
+      <li class="way coach"><h4>Build on what’s working</h4><p>Look at times it went a little better, and build the next step from there.</p><p class="best">Best when they’re stuck on something.</p></li>
+      <li class="way coach"><h4>Weigh the options</h4><p>Lay out the choices, what each one gains and costs, and what matters most to them.</p><p class="best">Best when they have a decision to make.</p></li>
+      <li class="way coach"><h4>Turn it into action</h4><p>Agree on a first step, a date, and how they’ll know it’s done, in their words.</p><p class="best">Best when they know what they want to change and need to get started.</p></li>
+    </ul>
+    <h3 class="group-title" id="off-title">When something seems off</h3>
+    <ul class="ways one" role="list" aria-labelledby="off-title">
+      <li class="way reconnect"><h4>Reconnect with the work</h4><p>Say what you’ve noticed, ask what’s changed, and listen before you suggest anything.</p><p class="best">Best when someone doesn’t seem as engaged as usual.</p></li>
+    </ul>
+    <h3 class="group-title" id="tell-title">When they want your experience or your direction</h3>
+    <ul class="ways two" role="list" aria-labelledby="tell-title">
+      <li class="way share"><h4>Share what you’ve learned</h4><p>Ask what they want to know, share your experience as stories rather than instructions, and let them decide what fits.</p><p class="best">Best when they’ve asked how you or others handled something like this.</p></li>
+      <li class="way direct"><h4>Start with clear direction</h4><p>Explain what good looks like and the first steps, then shift to asking as they find their feet.</p><p class="best">Best when the work is new to them or something needs to change soon.</p></li>
+    </ul>
+  </section>
+
+  <section class="guide-section" aria-labelledby="example-title">
+    <h2 id="example-title">An example</h2>
+    <p class="example-label">Example: three weeks with Maya</p>
+    <p>The same person can need something different from one week to the next.</p>
+    <ul class="ways three-up" role="list" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <li class="way coach"><h3>Week 1: Build on what’s working</h3><p>Maya says the Acme proposal is stuck.</p><p class="quote">“When has this gone even a little better? What was different then?”</p></li>
+      <li class="way share"><h3>Week 2: Share what you’ve learned</h3><p>Maya asks how you handled your first client kickoff.</p><p class="quote">“Here’s what happened when I did mine, and what I’d do differently. Take what’s useful.”</p></li>
+      <li class="way direct"><h3>Week 3: Start with clear direction</h3><p>Maya is leading a kickoff for the first time next week.</p><p class="quote">“Let’s walk through what good looks like. After the first one, I’ll ask more and tell less.”</p></li>
+    </ul>
+  </section>
+
+  <section class="guide-section" aria-labelledby="watch-title">
+    <h2 id="watch-title">Three things to watch</h2>
+    <div class="cards three">
+      <div><h3>Ask one question, then wait</h3><p>Silence often means they’re thinking. Before you move on, ask “What else?” The first answer is rarely the whole story.</p></div>
+      <div><h3>Ask for their idea before you share yours</h3><p>Then offer yours as one option among theirs. If the decision is theirs, share your view last.</p></div>
+      <div><h3>The approach fits the moment, not the person</h3><p>Someone who needs direction on new work this week may need room to think next week.</p></div>
+    </div>
+    <p class="after-cards">If someone brings up something personal or health-related, listen, and point them to support such as an employee assistance program or HR. You don’t need to solve it.</p>
+  </section>
+
+  <div class="cta-band">
+    <p>The Coaching Approach Picker asks a few questions about the situation, suggests one of these seven approaches and why it fits, and helps you plan the questions you’ll ask. It ends with a short plan to bring with you. Your entries clear when you close the page.</p>
+    <div class="cta"><a class="btn primary" href="../../tools/coaching-approach-picker/">Plan it with the Coaching Approach Picker</a><a class="btn" href="coach-share-or-direct-share.png" target="_blank" rel="noopener">Open this guide as an image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a><p class="small" style="flex-basis:100%;margin:0">To save the image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p></div>
+  </div>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this guide</h2>
+    <p>This guide is a one-page picture of the idea behind the Coaching Approach Picker. Choosing between coaching, sharing your experience, and giving direction is adapted from infographics by Amy Gibson. The four parts of a coaching conversation draw on the GROW™ model, developed by Sir John Whitmore and colleagues. Build on what’s working draws on the solution-focused approach of Steve de Shazer, Insoo Kim Berg, and colleagues. Weigh the options draws on Irving Janis and Leon Mann’s decisional balance sheet. Turn it into action draws on Peter Hawkins’s CLEAR model. Reconnect with the work draws on Max Landsberg’s Skill/Will Matrix. The asking-before-telling idea draws on Edgar Schein’s <cite>Humble Inquiry</cite>, and the “What else?” tip comes from Michael Bungay Stanier’s <cite>The Coaching Habit</cite>®. The approach names, the drawing, and the wording are Pivot Labs’ own.</p>
+    <p class="small">GROW is a trademark of Performance Consultants International. The Coaching Habit is a registered trademark of Box of Crayons.</p>
+    <p class="small sources"><strong>Sources:</strong> Bungay Stanier, M. (2016). <cite>The coaching habit: Say less, ask more &amp; change the way you lead forever.</cite> Box of Crayons Press. · de Shazer, S. (1988). <cite>Clues: Investigating solutions in brief therapy.</cite> W. W. Norton. · Gibson, A. (n.d.). <cite>Coaching vs mentoring vs managing</cite> [Infographic]. · Gibson, A. (n.d.). <cite>How to coach your team</cite> [Infographic]. · Hawkins, P., &amp; Smith, N. (2006). <cite>Coaching, mentoring and organizational consultancy: Supervision and development.</cite> Open University Press. · Janis, I. L., &amp; Mann, L. (1977). <cite>Decision making: A psychological analysis of conflict, choice, and commitment.</cite> Free Press. · Landsberg, M. (1996). <cite>The Tao of coaching.</cite> HarperCollins. · Schein, E. H. (2013). <cite>Humble inquiry: The gentle art of asking instead of telling.</cite> Berrett-Koehler. · Whitmore, J. (1992). <cite>Coaching for performance.</cite> Nicholas Brealey.</p>
+  </section>
+</main>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>A visual guide to the Coaching Approach Picker.</span><span><a href="../index.html">All guides</a> · <a href="../../about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>

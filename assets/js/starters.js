@@ -44,6 +44,7 @@ window.PivotStarters = (() => {
     },
     coaching: {
       title: 'Coaching Approach Picker', href: 'tools/coaching-approach-picker/index.html',
+      guide: { title: 'Coach, share, or direct', href: 'guides/coach-share-or-direct/index.html' },
       summary: 'Plan one coaching conversation. Describe what’s going on, get a suggested approach and why it fits, plan the questions you’ll ask, and print a short plan.'
     },
     roleClarity: {
