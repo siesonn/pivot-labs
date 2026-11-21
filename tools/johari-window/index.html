@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Pick words that describe you, ask a few people to do the same, and see where you match with the Pivot Labs Johari Window. Nothing is saved."><title>Johari Window | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Johari Window | Pivot Labs"><meta property="og:description" content="Pick words that describe you, ask a few people to do the same, and see where you match with the Pivot Labs Johari Window. Nothing is saved."><meta property="og:url" content="https://pivotlabsleadership.com/tools/johari-window/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, and the guided planner layout come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1320px}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* Before you start */
+.jw-rules{max-width:760px;margin:0 0 32px;padding:16px 24px;background:var(--teal-tint);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:var(--radius)}
+.jw-rules h2{font-size:20px;margin:0 0 8px}
+.jw-rules ul{margin:0;padding-left:22px}
+.jw-rules li+li{margin-top:4px}
+
+/* Word picker: four groups of word chips */
+.jw-ask{margin:0 0 4px;font-weight:600}
+.jw-count{position:sticky;top:0;z-index:2;margin:0 0 8px;padding:8px 0;background:var(--ivory);border-bottom:1px solid var(--line);font-size:15px;font-weight:600}
+.jw-group{margin:16px 0 0}
+.jw-group legend{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:8px}
+.jw-words{display:flex;flex-wrap:wrap;gap:8px}
+.jw-word{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin:0;padding:8px 14px;border:1px solid var(--control);border-radius:999px;background:var(--ivory);font-size:16px;font-weight:500;cursor:pointer}
+.jw-word:hover{background:var(--hover-tint)}
+.jw-word input{width:18px;height:18px;min-height:0;margin:0;padding:0;flex-shrink:0;accent-color:var(--navy)}
+.jw-word:has(input:checked){border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy);background:var(--selected-tint);font-weight:700}
+.jw-team{max-width:680px;margin-top:28px;padding:16px 20px;border:1px dashed var(--card-line);border-radius:var(--radius)}
+.jw-team h3{font-size:18px;margin:0 0 4px}
+.jw-team p{margin:0 0 12px}
+
+/* Their words: the list of people, then the open picker */
+.jw-people{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:8px;max-width:680px}
+.jw-people li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding:8px 8px 8px 16px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.jw-person{font-weight:600}
+.jw-person-actions{display:flex;gap:8px}
+.jw-editor{margin:0 0 16px;padding:20px 24px;border:1px solid var(--card-line);border-left:6px solid var(--teal);border-radius:var(--radius);background:var(--ivory)}
+.jw-editor h3{font-size:22px;margin:0 0 4px}
+.jw-editor h3:focus{outline:none}
+.jw-editor .small{margin:0 0 8px}
+.jw-editor-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+
+/* The window: a 2 by 2 grid with axis labels on wide screens */
+.jw-brief{max-width:900px}
+.jw-window{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto;gap:8px;margin-top:12px}
+.jw-axis{font-size:14px;font-weight:700;letter-spacing:.02em}
+.jw-ax-top1{grid-column:2;grid-row:1;text-align:center}
+.jw-ax-top2{grid-column:3;grid-row:1;text-align:center}
+.jw-ax-side1,.jw-ax-side2{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;padding:0 2px}
+.jw-ax-side1{grid-column:1;grid-row:2}
+.jw-ax-side2{grid-column:1;grid-row:3}
+.jw-box{padding:16px;border:1px solid var(--card-line);border-radius:var(--radius);min-height:150px}
+.jw-box h4{margin:0;font-family:var(--display);font-size:20px}
+.jw-line{margin:2px 0 10px!important;font-size:15px}
+.jw-open{grid-column:2;grid-row:2;background:var(--teal-tint)}
+.jw-blind{grid-column:3;grid-row:2;background:var(--amber-tint)}
+.jw-hidden{grid-column:2;grid-row:3;background:var(--mocha-tint)}
+.jw-unknown{grid-column:3;grid-row:3;background:var(--ivory);border-style:dashed}
+.brief .jw-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.brief .jw-chips li{margin:0;padding:4px 10px;border:1px solid var(--card-line);border-radius:999px;background:var(--ivory);font-size:15px;font-weight:600}
+.jw-of{font-weight:400}
+.jw-empty{font-size:15px;font-style:italic}
+.jw-box details summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600;font-size:15px}
+.jw-box details p{font-size:15px}
+.jw-questions{list-style:none;padding-left:0!important}
+.jw-questions li+li{margin-top:8px!important}
+.jw-field{margin-top:16px;max-width:560px}
+.jw-field label{display:block;font-weight:600;margin-bottom:4px}
+.jw-field textarea{min-height:72px}
+.jw-printed dd{white-space:pre-wrap}
+.jw-blank{height:22pt;border-bottom:1px solid #a8a8a8}
+
+/* The printable word list is only shown when printing it */
+.jw-sheet{display:none}
+
+/* Status and undo float at the bottom of the screen so they stay visible on a long page */
+#status,#undo-bar{position:fixed;left:50%;transform:translateX(-50%);z-index:5;margin:0;box-shadow:0 8px 24px rgba(36,57,92,.25)}
+#status{bottom:16px}
+#undo-bar{bottom:64px}
+#status:empty+#undo-bar{bottom:16px}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .jw-rules{display:none}
+  .jw-window{gap:5pt}
+  .jw-box{min-height:0;padding:7pt 8pt;border-color:#a8a8a8;break-inside:avoid}
+  .jw-count{position:static}
+  .jw-box h4{font-size:13pt}
+  .jw-line{font-size:9.5pt;margin:1pt 0 5pt!important}
+  .jw-axis{font-size:9pt}
+  .brief .jw-chips li{font-size:10pt;padding:1pt 6pt;border-color:#a8a8a8}
+  .jw-empty,.jw-unknown-print{font-size:9.5pt}
+  /* A crowded window may break between its two rows; each box stays whole */
+  .planner-page .brief-section.jw-win{break-inside:auto}
+  .planner-page .jw-win .brief-section-head{break-after:avoid}
+  .jw-questions li+li{margin-top:2pt!important}
+  .planner-page .jw-brief .brief-section{margin-top:9pt;padding-top:6pt}
+  .planner-page .jw-brief .brief-title{font-size:18pt;margin:2pt 0 2pt}
+  .planner-page .jw-brief .brief-brand{margin-bottom:8pt}
+  .planner-page .jw-brief .brief-foot{margin-top:9pt;padding-top:5pt;font-size:9pt}
+  .planner-page .jw-brief .brief-foot p{margin-top:2pt}
+  .planner-page .jw-brief dt{margin-top:4pt}
+  .jw-window{margin-top:6pt}
+  /* Print the word list on its own */
+  body.print-words > *:not(.jw-sheet){display:none!important}
+  body.print-words .jw-sheet{display:block;color:#000;font-size:12pt}
+  .jw-sheet h2{font-size:22pt;margin:6pt 0}
+  .jw-sheet-for{font-size:13pt;margin:14pt 0 8pt}
+  .jw-sheet-groups{display:grid;grid-template-columns:1fr 1fr;gap:14pt 28pt;margin-top:14pt}
+  .jw-sheet h3{font-size:14pt;margin:0 0 4pt}
+  .jw-sheet ul{list-style:none;margin:0;padding:0;columns:2;column-gap:12pt}
+  .jw-sheet li{padding:3pt 0 3pt 20pt;position:relative;font-size:12pt;break-inside:avoid}
+  .jw-sheet li::before{content:"";position:absolute;left:0;top:4pt;width:11pt;height:11pt;border:1pt solid #000}
+  .jw-sheet-foot{margin-top:22pt;font-size:9.5pt}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .jw-rules{padding:16px;margin-bottom:24px}
+  .jw-editor{padding:16px}
+  .jw-word{padding:8px 12px}
+}
+/* Phones: the boxes stack and the axis labels hide; each box names itself */
+@media screen and (max-width:600px){
+  .jw-window{grid-template-columns:minmax(0,1fr)}
+  .jw-axis{display:none}
+  .jw-box{grid-column:1!important;grid-row:auto!important;min-height:0}
+}
+</style><noscript><style>.planner-page .share,.planner-page .about,.planner-page .tool-footer{display:block!important}</style></noscript></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html" aria-current="page">Tools</a><a href="../../guides/index.html">Visual guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Johari Window</p>
+      <h1>What do others see in you?</h1>
+      <p>Pick five or six words that describe how you work. Then ask a few people you work with to pick from the same list for you. Your window shows where you agree, what others see that you didn’t name, and what you might share more.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> To keep your window, print it or save it as a PDF.</div></div>
+  <section class="jw-rules" aria-labelledby="rules-title">
+    <h2 id="rules-title">Before you start</h2>
+    <ul>
+      <li>It’s your choice. Ask people you trust to be honest and kind.</li>
+      <li>Every word on the list is a strength. There are no wrong picks.</li>
+      <li>Everyone picks on their own, without seeing anyone else’s words.</li>
+      <li>It’s for conversation, not for reviews, ratings or hiring.</li>
+      <li>Nothing is saved. Print or save your window before you close the page.</li>
+    </ul>
+  </section>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>Based on the Johari Window, created by Joseph Luft and Harrington Ingham in 1955. The name joins their first names, Joe and Harry. The window has four boxes: what you and others both see (Open), what others see that you don’t (Blind spot), what you know that others don’t (Hidden), and what no one has noticed yet (Unknown). Luft described the Open box growing in two ways: when you share more about yourself, and when you ask others what they see. The word list, questions and wording are Pivot Labs’ own.</p>
+    <p class="small sources"><strong>Sources:</strong> Luft, J., &amp; Ingham, H. (1955). The Johari window, a graphic model of interpersonal awareness. <cite>Proceedings of the Western Training Laboratory in Group Development.</cite> University of California, Los Angeles. Luft, J. (1969). <cite>Of Human Interaction.</cite> National Press Books.</p>
+  </section>
+</main><footer class="tool-footer"><section class="related" aria-labelledby="related-title"><h2 id="related-title">Related tools</h2><ul><li><a href="../emotion-wheel/index.html">Emotion Wheel</a><span class="why">Put a name to what you’re feeling before you talk it through.</span></li><li><a href="../feedback-conversation-planner/index.html">Feedback Conversation Planner</a><span class="why">Plan a conversation about what you’ve noticed in someone’s work.</span></li></ul></section><p class="feedback-line">Did this help? Tell us what worked and what didn’t. <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></p><p class="footer-links small">Pivot Labs · <em>Navigating Everyday Leadership</em> · <a href="../../">Home</a> · <a href="../index.html">All tools</a> · <a href="../../guides/index.html">Visual guides</a></p></footer>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every word, including the other people’s picks, and your window. You can undo it until you start picking again.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear everything</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="content.js"></script><script>
+'use strict';
+document.body.append(JohariWindow.wordSheet());
+GuidedPlanner.create(JohariWindow);
+</script><!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>
