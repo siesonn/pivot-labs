@@ -26,6 +26,24 @@ h1{margin:8px 0 16px}
 .snap-note{margin:8px 0 0}
 .snap-keep ul{margin:8px 0 0}
 
+/* The lean picture: one row per area, a marker on a three-stop scale. Drawn in HTML so every word is live text. */
+.lean-pic{margin:12px 0 16px;padding:16px 20px;background:#fff;border:1px solid var(--card-line);border-radius:var(--radius)}
+.brief .lean-title{margin:0 0 8px;font-family:var(--display);font-size:18px;font-weight:700;color:var(--navy)}
+.lean-row{display:grid;grid-template-columns:190px minmax(0,1fr) 150px;gap:16px;align-items:center;padding:8px 6px;border-radius:6px}
+.lean-row+.lean-row{margin-top:2px}
+.lean-row.is-start{background:var(--teal-tint)}
+.lean-name{font-weight:700;color:var(--navy)}
+.lean-tag{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--navy);color:#fff;font-size:14px;font-weight:700;white-space:nowrap;vertical-align:1px}
+.lean-word{font-size:16px}
+.lean-stops,.lean-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.lean-scale{padding-top:0;padding-bottom:0}
+.lean-stops span{font-size:14px;text-align:center;color:var(--espresso);line-height:1.25}
+.lean-track{height:14px;border:1px solid var(--card-line);border-radius:999px;background:var(--ivory);overflow:visible}
+.lean-seg{position:relative}
+.lean-seg+.lean-seg{border-left:1px solid var(--card-line)}
+.lean-dot{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--navy);border:3px solid #fff;box-shadow:0 0 0 1px var(--navy)}
+.brief .lean-caption{margin:10px 0 0;font-size:14px}
+
 /* Status and undo float at the bottom of the screen so they stay visible on a long page */
 #status,#undo-bar{position:fixed;left:50%;transform:translateX(-50%);z-index:5;margin:0;box-shadow:0 8px 24px rgba(36,57,92,.25)}
 #status{bottom:16px}
@@ -47,6 +65,16 @@ h1{margin:8px 0 16px}
   .planner-page .brief dd{break-inside:avoid}
   .planner-page .brief dl{margin-top:2pt}
   .planner-page .brief-lines div{height:22pt}
+  .lean-pic{margin:4pt 0 6pt;padding:5pt 8pt;break-inside:avoid;border-color:#a8a8a8}
+  .planner-page .brief .lean-title{font-size:11pt;margin-bottom:2pt}
+  .lean-row{grid-template-columns:1.6in minmax(0,1fr) 1.25in;gap:8pt;padding:1.5pt 4pt}
+  .lean-row.is-start,.lean-tag,.lean-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .lean-name,.lean-word{font-size:10pt}
+  .lean-tag{font-size:8.5pt;padding:0 5pt;margin-left:4pt}
+  .lean-stops span{font-size:8.5pt}
+  .lean-track{height:9pt}
+  .lean-dot{width:13pt;height:13pt;margin:-6.5pt 0 0 -6.5pt;border-width:2pt}
+  .planner-page .brief .lean-caption{font-size:9pt;margin-top:2pt}
 }
 
 @media(max-width:1000px){
@@ -65,6 +93,15 @@ h1{margin:8px 0 16px}
 /* Narrow phones: a little less padding so "Most weeks" stays on one line */
 @media(max-width:420px){
   .planner-field fieldset:has(input[value="unsure"]) .guide-options label{padding:12px;gap:8px}
+}
+/* On narrow screens each lean row puts the name and the word on one line, with the scale under them. Screen only. */
+@media screen and (max-width:740px){
+  .lean-pic{padding:12px}
+  .lean-row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:8px}
+  .lean-track{grid-column:1/-1;grid-row:2}
+  .lean-scale{display:block;padding:0 8px 4px}
+  .lean-scale .lean-name,.lean-scale .lean-word{display:none}
+  .lean-word{text-align:right}
 }
 /* On narrow screens the snapshot table becomes labeled lines. Screen only. */
 @media screen and (max-width:740px){

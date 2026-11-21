@@ -201,6 +201,60 @@ const ManagingLeadingCheck = (() => {
     return dl;
   }
 
+  // The picture: one row per area, a marker on a three-stop scale, the lean in words, and a
+  // "Start here" tag on the start area. Built from the same totals as the table, so they always agree.
+  // Screen readers hear one summary sentence; the drawn rows are hidden from them (the table repeats it).
+  const scaleStops = ['Runs without you', 'A mix', 'Runs through you'];
+  function stopIndex(total) {
+    if (total >= 3) return 2;
+    if (total === 2) return 1;
+    return 0;
+  }
+  function joinNames(names) {
+    if (names.length < 2) return names.join('');
+    return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+  }
+  function leanSummary(a) {
+    const area = startArea(a);
+    const parts = scaleStops.map((label, i) => {
+      const names = areas.filter(ar => stopIndex(areaTotal(a, ar)) === i).map(ar => ar.name.toLowerCase());
+      return names.length ? label + ': ' + joinNames(names) + '.' : '';
+    }).filter(Boolean);
+    return 'Where things lean. ' + parts.join(' ') + (area ? ' Start here: ' + area.name.toLowerCase() + '.' : '');
+  }
+  function leanPicture(a) {
+    const start = startArea(a);
+    const fig = el('figure', 'lean-pic');
+    fig.append(el('p', 'visually-hidden', leanSummary(a)));
+    const drawn = el('div', 'lean-drawn');
+    drawn.setAttribute('aria-hidden', 'true');
+    drawn.append(el('p', 'lean-title', 'Where things lean, at a glance'));
+    const scale = el('div', 'lean-row lean-scale');
+    scale.append(el('span', 'lean-name'));
+    const stops = el('span', 'lean-stops');
+    scaleStops.forEach(label => stops.append(el('span', null, label)));
+    scale.append(stops, el('span', 'lean-word'));
+    drawn.append(scale);
+    areas.forEach(area => {
+      const total = areaTotal(a, area);
+      const row = el('div', 'lean-row' + (area === start ? ' is-start' : ''));
+      const name = el('span', 'lean-name', area.name);
+      if (area === start) name.append(el('span', 'lean-tag', 'Start here'));
+      const track = el('span', 'lean-track');
+      const at = stopIndex(total);
+      for (let i = 0; i < 3; i++) {
+        const seg = el('span', 'lean-seg');
+        if (i === at) seg.append(el('span', 'lean-dot'));
+        track.append(seg);
+      }
+      row.append(name, track, el('span', 'lean-word', leanLabel(total)));
+      drawn.append(row);
+    });
+    drawn.append(el('p', 'lean-caption', 'A picture of the last two weeks, not a grade.'));
+    fig.append(drawn);
+    return fig;
+  }
+
   function renderResult(container, a, api) {
     const head = el('div', 'result-head no-print');
     head.append(el('p', 'eyebrow', 'Your snapshot'), el('h2', null, 'Your managing and leading snapshot'),
@@ -249,6 +303,7 @@ const ManagingLeadingCheck = (() => {
 
     const lean = section('Where things lean', 1, api, 'your answers');
     lean.classList.add('snap-lean');
+    lean.append(leanPicture(a));
     const t = el('table', 'brief-table');
     const thead = el('thead');
     const hr = el('tr');
