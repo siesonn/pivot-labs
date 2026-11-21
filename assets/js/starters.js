@@ -54,6 +54,10 @@ window.PivotStarters = (() => {
     ninetyDay: {
       title: '90-Day Leader Plan', href: 'tools/90-day-leader-plan/index.html',
       summary: 'Plan your next 90 days in three parts: listen and learn, make sense of it together, then act and check in. Print a plan with dated check-ins.'
+    },
+    managingLeading: {
+      title: 'Managing or Leading Check', href: 'tools/managing-or-leading-check/index.html',
+      summary: 'Check where your work runs through you and where it runs without you. Answer ten quick statements about your last two weeks, then print a snapshot with one small thing to try.'
     }
   };
 
@@ -63,7 +67,8 @@ window.PivotStarters = (() => {
 
   const WHY = {
     matrix: 'Get everything in one place first. The Eisenhower Matrix helps you sort each task by urgency and importance, then decide what to do now, schedule, delegate, or reconsider.',
-    handoff: 'You already know what to hand off. The Delegation Planner helps you agree on what done looks like, who decides what, and when you’ll check in.'
+    handoff: 'You already know what to hand off. The Delegation Planner helps you agree on what done looks like, who decides what, and when you’ll check in.',
+    busy: 'When the work keeps coming back to you, it helps to see where it runs through you and where it doesn’t. The Managing or Leading Check asks ten quick questions about your last two weeks and suggests one small thing to try.'
   };
 
   const STARTERS = {
@@ -72,16 +77,19 @@ window.PivotStarters = (() => {
         { id: 'time', type: 'choice', label: 'Which sounds closest?', options: [
           { value: 'list', label: 'I have a long list and don’t know where to start.' },
           { value: 'handoff', label: 'I know what I want to hand off. I need to plan how.' },
+          { value: 'busy', label: 'I’m busy all the time, and the work keeps coming back to me.' },
           { value: 'unsure', label: 'I’m not sure.' }
         ] }
       ],
       options: [
         tool('eisenhower', 'When you have a list to sort.'),
-        tool('delegation', 'When you already know what you want to hand off.')
+        tool('delegation', 'When you already know what you want to hand off.'),
+        tool('managingLeading', 'When the work keeps coming back to you.')
       ],
       suggest(a) {
         if (a.time === 'list') return pick('eisenhower', WHY.matrix);
         if (a.time === 'handoff') return pick('delegation', WHY.handoff);
+        if (a.time === 'busy') return pick('managingLeading', WHY.busy);
         if (a.time === 'unsure') return pick('eisenhower', WHY.matrix + ' If a task could go to someone else, the matrix links you to the Delegation Planner.');
         return null;
       }
