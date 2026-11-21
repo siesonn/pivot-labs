@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="robots" content="noindex"><meta name="viewport" content="width=1080"><title>Source for the Johari Window shareable image | Pivot Labs</title><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<!--
+  This file is the source for johari-window-share.png (1080 x 1350 px). It is not a page for visitors.
+  To change the image: edit this file, then remake the PNG. The README section "Visual guides" has the command.
+  Keep the wording here in step with index.html in this folder, and the box names and lines in step with
+  tools/johari-window/content.js (the four boxes: name, line).
+-->
+<style>
+/* Fonts and colors come from assets/css/pivot-labs.css. Sizes are fixed in px because the output is a fixed-size picture.
+   Colors match the tool's window: Open Dusty Teal tint, Blind spot Amber tint, Hidden Mocha tint, Unknown Ivory dashed. */
+html,body{margin:0;width:1080px;height:1350px;overflow:hidden}
+body{display:flex;flex-direction:column;border-top:14px solid var(--navy);box-sizing:border-box;background:var(--ivory);color:var(--navy);font-family:var(--body)}
+main{flex:1;display:flex;flex-direction:column;padding:32px 60px 0}
+.eyebrow{margin:0;font-size:18px;font-weight:700;letter-spacing:3.6px;text-transform:uppercase;color:var(--navy)}
+h1{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:64px;line-height:1.08;letter-spacing:-1px}
+.sub{margin:12px 0 0;font-size:25px;line-height:1.3;color:var(--espresso)}
+
+.label{margin:30px 0 12px;font-size:16px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase}
+.window{display:grid;grid-template-columns:44px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:12px}
+.axis{font-size:16px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;text-align:center}
+.ax-top1{grid-column:2;grid-row:1}.ax-top2{grid-column:3;grid-row:1}
+.ax-side1,.ax-side2{writing-mode:vertical-rl;transform:rotate(180deg);align-self:center}
+.ax-side1{grid-column:1;grid-row:2}.ax-side2{grid-column:1;grid-row:3}
+.box{padding:22px 26px;border:2px solid var(--card-line);border-radius:10px}
+.box h2{margin:0;font-family:var(--display);font-weight:600;font-size:38px;line-height:1.15}
+.box p{margin:8px 0 0;font-size:22px;line-height:1.3}
+.open{grid-column:2;grid-row:2;background:var(--teal-tint);border-color:var(--teal)}
+.blind{grid-column:3;grid-row:2;background:var(--amber-tint);border-color:var(--amber)}
+.hidden{grid-column:2;grid-row:3;background:var(--mocha-tint);border-color:var(--mocha)}
+.unknown{grid-column:3;grid-row:3;background:var(--ivory);border:3px dashed var(--mocha)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two .box h2{font-size:34px}
+.two .quote{font-style:italic}
+.ask{background:var(--amber-tint);border-color:var(--amber)}
+.share{background:var(--mocha-tint);border-color:var(--mocha)}
+
+.watch{margin-top:auto;margin-bottom:auto;padding-top:18px;border-top:3px solid var(--teal)}
+.watch h2{margin:0;font-family:var(--display);font-weight:600;font-size:32px;line-height:1.2}
+.watch p{margin:6px 0 0;font-size:22px;line-height:1.3}
+
+footer{display:flex;justify-content:space-between;align-items:center;gap:40px;padding:20px 60px 22px;background:var(--navy);color:var(--ivory)}
+footer .credit{margin:0;max-width:700px;font-size:16px;line-height:1.4}
+footer .brand{text-align:right;white-space:nowrap}
+footer .brand strong{display:block;font-family:var(--display);font-weight:700;font-size:28px;line-height:1.2}
+footer .brand span{font-size:20px}
+</style></head>
+<body>
+<main>
+  <p class="eyebrow">Visual guide · Johari Window</p>
+  <h1>What others see,<br>and what you share</h1>
+  <p class="sub">You pick five or six words. A few people pick words for you, from the same list of strengths.</p>
+
+  <p class="label">Four boxes</p>
+  <div class="window">
+    <div class="axis ax-top1">Known to you</div>
+    <div class="axis ax-top2">Not known to you</div>
+    <div class="axis ax-side1">Known to others</div>
+    <div class="axis ax-side2">Not known to others</div>
+    <div class="box open"><h2>Open</h2><p>You and others picked these. What people already see in you.</p></div>
+    <div class="box blind"><h2>Blind spot</h2><p>Others picked these. You didn’t. A strength you may not count.</p></div>
+    <div class="box hidden"><h2>Hidden</h2><p>You picked these. Others didn’t, yet. A strength people haven’t seen much.</p></div>
+    <div class="box unknown"><h2>Unknown</h2><p>No one picked these this time. That doesn’t mean they’re missing.</p></div>
+  </div>
+
+  <p class="label">Two ways to grow the Open box</p>
+  <div class="two">
+    <div class="box ask"><h2>Ask</h2><p>Ask people what they see. Your Blind spot gets smaller.</p><p class="quote">“When have you seen me be calm?”</p></div>
+    <div class="box share"><h2>Share</h2><p>Tell people how you work. Your Hidden box gets smaller.</p><p class="quote">“Bring me the numbers work.”</p></div>
+  </div>
+
+  <div class="watch">
+    <h2>It’s a conversation, not a rating.</h2>
+    <p>Pick on your own, then talk.</p>
+  </div>
+</main>
+<footer>
+  <p class="credit">Idea: the Johari Window, Joseph Luft and Harrington Ingham (1955). Word list, drawing and wording are Pivot Labs’ own.</p>
+  <p class="brand"><strong>Pivot Labs</strong><span>pivotlabsleadership.com</span></p>
+</footer>
+</body></html>

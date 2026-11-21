@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A one-page visual guide to the Johari Window: how you see yourself, how others see you, the four boxes, and how to run it safely with a team. From Pivot Labs."><title>What others see, and what you share | Visual guide | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="What others see, and what you share | Visual guide | Pivot Labs"><meta property="og:description" content="A one-page visual guide to the Johari Window: how you see yourself, how others see you, the four boxes, and how to run it safely with a team. From Pivot Labs."><meta property="og:url" content="https://pivotlabsleadership.com/guides/johari-window/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css">
+<style>
+/* Shared fonts, colors, header, buttons, and the About section come from assets/css/pivot-labs.css. Styles below are for this guide. */
+.topbar,.site-footer>div{max-width:1320px}
+.site-footer>div{margin:0 auto;padding:24px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px;font-size:15px}
+.site-footer{border-top:1px solid var(--line)}
+.site-footer em{font-family:var(--display)}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+h1{margin:8px 0 16px}
+.lede{margin:0;max-width:none;font-size:18px}
+.cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.guide-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.guide-section h2{margin:0 0 8px}
+.guide-section>p{margin:0;max-width:none}
+h3{font-size:18px;line-height:1.3;margin:0 0 8px}
+.example-label{margin:24px 0 12px!important;font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal)}
+
+/* Plain cards: One list, two views; the example; Three things to watch */
+.cards{display:grid;gap:16px;margin-top:24px}
+.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cards>div{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.cards p{margin:0}
+.cards p+p{margin-top:8px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;margin-bottom:8px;border-radius:50%;background:var(--navy);color:var(--ivory);font-weight:700;font-size:16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+/* The window. Colors match the Johari Window tool: Open Dusty Teal tint, Blind spot Amber tint, Hidden Mocha tint,
+   Unknown Ivory with a dashed edge. Every box is named in words and carries a tag that says what it holds, so meaning
+   never depends on color or position. */
+.window{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:24px}
+.axis{font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.ax-top1{grid-column:2;grid-row:1;text-align:center}
+.ax-top2{grid-column:3;grid-row:1;text-align:center}
+.ax-side1,.ax-side2{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+.ax-side1{grid-column:1;grid-row:2}
+.ax-side2{grid-column:1;grid-row:3}
+.pane{margin:0;padding:20px 24px;border:1px solid var(--card-line);border-radius:var(--radius);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pane h3{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.2;margin:0 0 4px}
+.pane .box-tag{margin:0 0 10px;font-size:14px;font-weight:700;letter-spacing:.4px}
+.pane p{margin:0}
+.pane p+p{margin-top:6px}
+.pane.open{grid-column:2;grid-row:2;background:var(--teal-tint);border-color:var(--teal)}
+.pane.blind{grid-column:3;grid-row:2;background:var(--amber-tint);border-color:var(--amber)}
+.pane.hidden{grid-column:2;grid-row:3;background:var(--mocha-tint);border-color:var(--mocha)}
+.pane.unknown{grid-column:3;grid-row:3;background:var(--ivory);border:2px dashed var(--mocha)}
+.window ul{margin:0;padding:0;list-style:none;display:contents}
+
+/* Two ways to grow the Open box */
+.grow{display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);gap:32px;align-items:center;margin-top:24px}
+.grow svg{width:100%;height:auto;display:block}
+.grow .ways{display:grid;gap:16px}
+.grow .pane.ask{background:var(--amber-tint);border-color:var(--amber)}
+.grow .pane.share{background:var(--mocha-tint);border-color:var(--mocha)}
+.grow .quote{margin-top:8px}
+
+/* Running it with a team */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:24px 0 0;padding:0;list-style:none}
+.steps li{padding:16px 20px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.steps p{margin:0}
+
+/* The example window: the same four colors, small */
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.mini div{padding:8px 10px;border:1px solid var(--card-line);border-radius:6px;font-size:15px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.mini strong{display:block}
+.mini .open{background:var(--teal-tint);border-color:var(--teal)}
+.mini .blind{background:var(--amber-tint);border-color:var(--amber)}
+.mini .hidden{background:var(--mocha-tint);border-color:var(--mocha)}
+.mini .unknown{background:var(--ivory);border:2px dashed var(--mocha)}
+
+.cta-band{margin-top:48px;padding:24px;border-radius:var(--radius);background:var(--navy-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cta-band p{margin:0;max-width:none}
+.cta-band .cta{margin-top:16px}
+
+@media screen and (max-width:1099px){
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media screen and (max-width:899px){
+  .cards.three{grid-template-columns:1fr}
+  .grow{grid-template-columns:1fr}
+  .grow svg{max-width:460px}
+}
+@media screen and (max-width:719px){
+  main{padding:32px 16px 40px}
+  .topbar,.site-footer>div{padding-inline:16px}
+  h1{font-size:32px}
+  .window{grid-template-columns:1fr}
+  .axis{display:none}
+  .pane.open,.pane.blind,.pane.hidden,.pane.unknown{grid-column:1;grid-row:auto}
+  .pane{padding:16px 20px}
+  .steps{grid-template-columns:1fr}
+}
+@media print{
+  html,body{background:#fff}
+  .site-header,.cta,.cta-band{display:none!important}
+  main{max-width:none;padding:0}
+  .guide-section{margin-top:12px;padding-top:8px}
+  h1{font-size:30px;margin:4px 0 8px}.lede{font-size:14px}.guide-section>p{font-size:13px}
+  .guide-section h2{font-size:20px;margin-bottom:4px}
+  .cards{margin-top:8px;gap:8px}.cards>div{padding:8px 12px}.cards h3{font-size:14px;margin-bottom:4px}.cards p{font-size:12px}
+  .num{width:22px;height:22px;font-size:12px;margin-bottom:4px}
+  .example-label{margin:6px 0!important;font-size:11px}
+  .window{gap:6px;margin-top:8px}.axis{font-size:10px}
+  .pane{padding:8px 12px}.pane h3{font-size:16px}.pane .box-tag{font-size:11px;margin-bottom:4px}.pane p{font-size:12px}
+  .grow{grid-template-columns:240px minmax(0,1fr);gap:16px;margin-top:8px}.grow .ways{gap:8px}
+  .steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}.steps li{padding:8px 12px}.steps p{font-size:12px}
+  .mini div{font-size:11px;padding:4px 6px}
+  .about{margin-top:14px;padding-top:8px}.about p{font-size:11px}
+  .guide-section,.about,.pane,.cards>div,.steps li{break-inside:avoid}
+  .site-footer{break-before:avoid}
+  .site-footer>div{padding:6px 0;font-size:12px;gap:4px 24px}
+}
+</style></head>
+<body>
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html">Tools</a><a href="../index.html" aria-current="page">Visual guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <p class="eyebrow">Visual guide · Johari Window</p>
+  <h1>What others see, and what you share</h1>
+  <p class="lede">You think you’re known for being organized. Your team thinks you’re the calm one when things go sideways. Both may be true, and nobody has said either out loud. The Johari Window is a simple way to compare how you see yourself with how others see you. Everyone uses the same list of words, then you talk about what you find.</p>
+  <div class="cta"><a class="btn primary" href="../../tools/johari-window/">Make your own window with the Johari Window tool</a><a class="btn" href="johari-window-share.png" target="_blank" rel="noopener">Open this guide as an image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a><p class="small" style="flex-basis:100%;margin:0">To save the image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p></div>
+
+  <section class="guide-section" aria-labelledby="list-title">
+    <h2 id="list-title">One list, two views</h2>
+    <div class="cards three">
+      <div><span class="num" aria-hidden="true">1</span><p>You pick five or six words that describe you at work.</p></div>
+      <div><span class="num" aria-hidden="true">2</span><p>A few people you trust each pick five or six words for you, from the same list, on their own.</p></div>
+      <div><span class="num" aria-hidden="true">3</span><p>Every word on the list is a strength, so there are no wrong picks.</p></div>
+    </div>
+  </section>
+
+  <section class="guide-section" aria-labelledby="boxes-title">
+    <h2 id="boxes-title">Four boxes</h2>
+    <p>Where each word lands depends on who picked it.</p>
+    <div class="window">
+      <div class="axis ax-top1" aria-hidden="true">Known to you</div>
+      <div class="axis ax-top2" aria-hidden="true">Not known to you</div>
+      <div class="axis ax-side1" aria-hidden="true">Known to others</div>
+      <div class="axis ax-side2" aria-hidden="true">Not known to others</div>
+      <ul role="list">
+        <li class="pane open"><h3>Open</h3><p class="box-tag">Known to you and to others</p><p>You and others picked these.</p><p>It’s what people already see in you.</p></li>
+        <li class="pane blind"><h3>Blind spot</h3><p class="box-tag">Known to others, not to you</p><p>Others picked these. You didn’t.</p><p>It’s a strength people notice that you may not count.</p></li>
+        <li class="pane hidden"><h3>Hidden</h3><p class="box-tag">Known to you, not to others</p><p>You picked these. Others didn’t, yet.</p><p>It’s a strength you know about that people haven’t seen much.</p></li>
+        <li class="pane unknown"><h3>Unknown</h3><p class="box-tag">Not picked by anyone</p><p>No one picked these this time.</p><p>That doesn’t mean they’re missing.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="guide-section" aria-labelledby="grow-title">
+    <h2 id="grow-title">Two ways to grow the Open box</h2>
+    <div class="grow">
+      <svg viewBox="0 0 480 260" aria-hidden="true" focusable="false">
+        <!-- Before: four equal boxes. After: Open is larger, because asking shrinks the Blind spot and sharing shrinks Hidden. -->
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#24395C"/></marker></defs>
+        <g style="font-family:var(--body)" font-weight="700" font-size="20" fill="#24395C" text-anchor="middle">
+          <text x="80" y="20">Before</text>
+          <text x="305" y="20">After</text>
+        </g>
+        <g stroke-width="2">
+          <rect x="10" y="34" width="70" height="70" fill="#D8E0DF" stroke="#4F7B8C"/>
+          <rect x="80" y="34" width="70" height="70" fill="#F1E6D8" stroke="#BB895E"/>
+          <rect x="10" y="104" width="70" height="70" fill="#ECE5DD" stroke="#A79083"/>
+          <rect x="80" y="104" width="70" height="70" fill="#FFFDF7" stroke="#A79083" stroke-dasharray="6 4"/>
+          <rect x="200" y="34" width="150" height="110" fill="#D8E0DF" stroke="#4F7B8C"/>
+          <rect x="350" y="34" width="60" height="110" fill="#F1E6D8" stroke="#BB895E"/>
+          <rect x="200" y="144" width="150" height="40" fill="#ECE5DD" stroke="#A79083"/>
+          <rect x="350" y="144" width="60" height="40" fill="#FFFDF7" stroke="#A79083" stroke-dasharray="6 4"/>
+        </g>
+        <path d="M160 104 H188" stroke="#24395C" stroke-width="2.5" marker-end="url(#ah)"/>
+        <text x="275" y="96" style="font-family:var(--display)" font-weight="600" font-size="26" fill="#24395C" text-anchor="middle">Open</text>
+        <g stroke="#24395C" stroke-width="2.5" fill="none">
+          <path d="M472 110 H418" marker-end="url(#ah)"/>
+          <path d="M275 222 V194" marker-end="url(#ah)"/>
+        </g>
+        <g style="font-family:var(--body)" font-weight="700" font-size="21" fill="#24395C" text-anchor="middle">
+          <text x="446" y="96">Ask</text>
+          <text x="275" y="248">Share</text>
+        </g>
+      </svg>
+      <div class="ways">
+        <div class="pane ask"><h3>Ask</h3><p>Ask people what they see. Your Blind spot gets smaller.</p><p class="quote">“When have you seen me be calm?”</p></div>
+        <div class="pane share"><h3>Share</h3><p>Tell people something about how you work. Your Hidden box gets smaller.</p><p class="quote">“I like digging into the numbers. Bring me that kind of work.”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" aria-labelledby="team-title">
+    <h2 id="team-title">Running it with a team</h2>
+    <ol class="steps">
+      <li><span class="num" aria-hidden="true">1</span><p>Everyone picks their own words first, without looking at anyone else’s.</p></li>
+      <li><span class="num" aria-hidden="true">2</span><p>Each person picks words for a few teammates, on their own.</p></li>
+      <li><span class="num" aria-hidden="true">3</span><p>Enter the picks on one screen, where each set hides once it’s added, or print the word list and pick on paper.</p></li>
+      <li><span class="num" aria-hidden="true">4</span><p>Each person looks at their window, then talks through one box with the group or a partner.</p></li>
+    </ol>
+  </section>
+
+  <section class="guide-section" aria-labelledby="example-title">
+    <h2 id="example-title">An example</h2>
+    <p class="example-label">Example: Sam’s window</p>
+    <div class="cards three">
+      <div><h3>The picks</h3><p>Sam picks organized, dependable, thorough, analytical and prepared.</p><p>Three teammates pick words for Sam. Two of them choose calm, and one chooses steady and approachable.</p></div>
+      <div><h3>The window</h3>
+        <div class="mini">
+          <div class="open"><strong>Open</strong>organized, dependable</div>
+          <div class="blind"><strong>Blind spot</strong>calm, steady, approachable</div>
+          <div class="hidden"><strong>Hidden</strong>thorough, analytical, prepared</div>
+          <div class="unknown"><strong>Unknown</strong>the rest of the list</div>
+        </div>
+      </div>
+      <div><h3>The talk</h3><p>Sam asks, “When have you seen me be calm?” A teammate names the week a big launch slipped.</p><p>Sam shares that the prep work is the part Sam enjoys most, and offers to help others get ready for big meetings.</p></div>
+    </div>
+  </section>
+
+  <section class="guide-section" aria-labelledby="watch-title">
+    <h2 id="watch-title">Three things to watch</h2>
+    <div class="cards three">
+      <div><h3>It’s a conversation, not a rating</h3><p>Don’t use it for reviews, ratings or hiring decisions.</p></div>
+      <div><h3>Pick on your own, then talk</h3><p>Seeing other people’s picks first changes your own.</p></div>
+      <div><h3>An empty box isn’t a gap</h3><p>An empty Open box is common, and it’s a good place to start talking.</p></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <p>The Johari Window tool has the full list of 48 words. You pick yours, add what others picked, and see your window with questions to talk about. You can print the word list for a team. Nothing is saved, so print or save your window before you close the page.</p>
+    <div class="cta"><a class="btn primary" href="../../tools/johari-window/">Make your own window with the Johari Window tool</a><a class="btn" href="johari-window-share.png" target="_blank" rel="noopener">Open this guide as an image<span aria-hidden="true"> ↗︎</span><span class="visually-hidden"> (image, opens in a new tab)</span></a><p class="small" style="flex-basis:100%;margin:0">To save the image, open it, then press and hold it (or use your device’s Share or right-click menu) and choose the save option.</p></div>
+  </div>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this guide</h2>
+    <p>This guide is a one-page picture of the idea behind the Johari Window tool. The Johari Window was created by Joseph Luft and Harrington Ingham in 1955; the name joins their first names, Joe and Harry. Luft described the Open box growing in two ways: when you share more about yourself, and when you ask others what they see. The word list, the drawing, the example and the wording are Pivot Labs’ own.</p>
+    <p class="small sources"><strong>Sources:</strong> Luft, J., &amp; Ingham, H. (1955). <cite>The Johari window, a graphic model of interpersonal awareness.</cite> Proceedings of the Western Training Laboratory in Group Development. University of California, Los Angeles. · Luft, J. (1969). <cite>Of human interaction.</cite> National Press Books.</p>
+  </section>
+</main>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span>A visual guide to the Johari Window.</span><span><a href="../index.html">All guides</a> · <a href="../../about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>

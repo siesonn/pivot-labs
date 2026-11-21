@@ -61,6 +61,7 @@ window.PivotStarters = (() => {
     },
     johari: {
       title: 'Johari Window', href: 'tools/johari-window/index.html',
+      guide: { title: 'What others see, and what you share', href: 'guides/johari-window/index.html' },
       summary: 'Pick five or six words that describe you, then a few people pick words for you from the same list. See where you match, what others see that you didn’t name, and what you might share more.'
     }
   };
