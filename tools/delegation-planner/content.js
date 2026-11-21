@@ -355,14 +355,19 @@ const DelegationPlanner = (() => {
 
     const decide = section('Who decides what', 3, api, 'who decides what');
     const groups = decisionGroups(a);
+    // The picture: three columns on a scale from "more up to you" to "more with me", in the
+    // Who decides what guide's colors. Every level shows, so an empty one reads "None for now".
+    const scale = el('p', 'level-scale');
+    scale.append(el('span', null, 'More up to you'), el('span', 'level-arrow'), el('span', null, 'More with me'));
+    scale.querySelector('.level-arrow').setAttribute('aria-hidden', 'true');
     const groupWrap = el('div', 'brief-groups');
     levels.slice(0, 3).forEach(l => {
-      if (!groups[l.value].length) return;
-      const g = el('div');
-      g.append(el('h4', null, l.brief), list(groups[l.value]));
+      const g = el('div', 'level-col level-' + l.value);
+      g.append(el('h4', null, l.brief));
+      g.append(groups[l.value].length ? list(groups[l.value]) : el('p', 'level-none', 'None for now.'));
       groupWrap.append(g);
     });
-    decide.append(groupWrap.children.length ? groupWrap : el('p', null, 'No decisions listed yet.'));
+    decide.append(scale, groupWrap);
     brief.append(decide);
 
     const track = section('How we’ll know it’s on track', 4, api, 'how you’ll know it’s on track');
