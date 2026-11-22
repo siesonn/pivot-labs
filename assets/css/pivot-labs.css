@@ -290,6 +290,29 @@ cite{font-style:italic}
   .prep-notes{padding:16px}
 }
 
+/* Page header band (All tools, Visual guides): the heading and intro beside a spread of our own pages, on Navy.
+   The spread is one WebP (assets/img/*-header-spread.webp), decorative, so alt="". On phones the text comes first
+   and the spread sits under it, keeping the band under about two-thirds of a screen. In print the spread is left
+   out and the heading prints plain, as before. */
+.page-hero{background:var(--navy);color:var(--ivory)}
+.page-hero-inner{max-width:1200px;margin:0 auto;padding:40px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:32px;align-items:center}
+.page-hero .eyebrow{color:var(--teal-tint)}
+.page-hero h1{margin:8px 0 16px;color:var(--ivory)}
+.page-hero .lede{margin:0;max-width:520px;font-size:18px;color:var(--ivory)}
+.page-hero-art{display:block;width:100%;height:auto}
+@media screen and (max-width:740px){
+  .page-hero-inner{grid-template-columns:minmax(0,1fr);gap:16px;padding:28px 16px 20px}
+  .page-hero h1{font-size:32px}
+  .page-hero-art{max-width:440px;margin:0 auto}
+}
+@media print{
+  .page-hero{background:none;color:var(--navy)}
+  .page-hero-inner{display:block;padding:0 0 16px}
+  .page-hero h1,.page-hero .lede{color:var(--navy)}
+  .page-hero .eyebrow{color:var(--teal)}
+  .page-hero-art{display:none}
+}
+
 /* Footer at the end of each tool page: related tools, a feedback link, and a few page links.
    It never prints, and it is hidden in the Eisenhower Matrix and Team Development Map screenshot view. */
 .tool-footer{max-width:1320px;margin:0 auto;padding:8px 48px 40px}
