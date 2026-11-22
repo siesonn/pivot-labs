@@ -222,7 +222,7 @@ const ManagingLeadingCheck = (() => {
     }).filter(Boolean);
     return 'Where things lean. ' + parts.join(' ') + (area ? ' Start here: ' + area.name.toLowerCase() + '.' : '');
   }
-  function leanPicture(a) {
+  function leanPicture(a, api) {
     const start = startArea(a);
     const fig = el('figure', 'lean-pic');
     fig.append(el('p', 'visually-hidden', leanSummary(a)));
@@ -252,7 +252,212 @@ const ManagingLeadingCheck = (() => {
     });
     drawn.append(el('p', 'lean-caption', 'A picture of the last two weeks, not a grade.'));
     fig.append(drawn);
+    // Save this picture: a square image of the picture only, previewed first. Not printed.
+    const save = el('div', 'lean-save no-print');
+    const button = el('button', 'btn', 'Save this picture');
+    button.type = 'button';
+    button.addEventListener('click', () => openPicture(a, button, api));
+    save.append(button, el('p', 'small', 'Makes an image to keep or send. Nothing you typed is in it.'));
+    fig.append(save);
     return fig;
+  }
+
+  // The shareable image: the same picture drawn on a 1080 by 1080 canvas from the same totals, so the
+  // image, the picture and the table always agree. It uses only the area totals and the start area, never
+  // a typed answer. It is made on the device; nothing is sent or stored. The preview (#picture-dialog in
+  // the page) shows the exact image before it is saved: the share menu on phones, a download on computers.
+  const IMG = 1080;
+  const imageName = 'pivot-labs-where-things-lean.png';
+  const ink = { navy: '#24395C', teal: '#4F7B8C', tealTint: '#D8E0DF', ivory: '#FFFDF7', line: '#E0D7CE',
+    cardLine: '#CABCB1', espresso: '#4A3F3B', mocha: '#A79083', white: '#FFFFFF' };
+  const sans = '"Source Sans 3", system-ui, sans-serif';
+  const serif = '"Playfair Display", Georgia, serif';
+  function loadFonts() {
+    if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    const faces = ['400 30px ' + sans, '600 30px ' + sans, '700 30px ' + sans, '700 30px ' + serif, 'italic 400 30px ' + serif];
+    return Promise.all(faces.map(f => document.fonts.load(f).catch(() => null)));
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function drawLeanImage(canvas, a) {
+    const ctx = canvas.getContext('2d');
+    const M = 80;
+    const W = IMG - 2 * M;
+    const third = W / 3;
+    const spacing = value => { if ('letterSpacing' in ctx) ctx.letterSpacing = value; };
+    ctx.fillStyle = ink.ivory;
+    ctx.fillRect(0, 0, IMG, IMG);
+    ctx.fillStyle = ink.navy;
+    ctx.fillRect(0, 0, IMG, 14);
+    ctx.textBaseline = 'alphabetic';
+
+    ctx.fillStyle = ink.teal;
+    ctx.font = '700 26px ' + sans;
+    spacing('3px');
+    ctx.fillText('MANAGING OR LEADING CHECK', M, 118);
+    spacing('0px');
+    ctx.fillStyle = ink.navy;
+    ctx.font = '700 56px ' + serif;
+    ctx.fillText('Where things lean, at a glance', M, 186);
+
+    ctx.fillStyle = ink.espresso;
+    ctx.font = '400 24px ' + sans;
+    ctx.textAlign = 'center';
+    scaleStops.forEach((label, i) => ctx.fillText(label, M + third * (i + 0.5), 258));
+    ctx.textAlign = 'left';
+
+    const start = startArea(a);
+    const rowH = 108;
+    areas.forEach((area, n) => {
+      const top = 280 + n * (rowH + 8);
+      const total = areaTotal(a, area);
+      if (area === start) {
+        ctx.fillStyle = ink.tealTint;
+        roundRect(ctx, M - 20, top, W + 40, rowH, 12);
+        ctx.fill();
+      }
+      const base = top + 46;
+      ctx.fillStyle = ink.navy;
+      ctx.font = '700 34px ' + sans;
+      ctx.fillText(area.name, M, base);
+      if (area === start) {
+        const x = M + ctx.measureText(area.name).width + 16;
+        ctx.font = '700 22px ' + sans;
+        const w = ctx.measureText('Start here').width + 28;
+        ctx.fillStyle = ink.navy;
+        roundRect(ctx, x, base - 29, w, 36, 18);
+        ctx.fill();
+        ctx.fillStyle = ink.white;
+        ctx.fillText('Start here', x + 14, base - 4);
+      }
+      ctx.fillStyle = ink.navy;
+      ctx.font = '400 30px ' + sans;
+      ctx.textAlign = 'right';
+      ctx.fillText(leanLabel(total), M + W, base);
+      ctx.textAlign = 'left';
+
+      const trackY = top + 64;
+      const trackH = 26;
+      ctx.fillStyle = ink.white;
+      roundRect(ctx, M, trackY, W, trackH, trackH / 2);
+      ctx.fill();
+      ctx.strokeStyle = ink.cardLine;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.beginPath();
+      [1, 2].forEach(i => { ctx.moveTo(M + third * i, trackY); ctx.lineTo(M + third * i, trackY + trackH); });
+      ctx.stroke();
+      const cx = M + third * (stopIndex(total) + 0.5);
+      const cy = trackY + trackH / 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 22, 0, Math.PI * 2);
+      ctx.fillStyle = ink.navy;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 19, 0, Math.PI * 2);
+      ctx.fillStyle = ink.white;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 15, 0, Math.PI * 2);
+      ctx.fillStyle = ink.navy;
+      ctx.fill();
+    });
+
+    ctx.fillStyle = ink.navy;
+    ctx.font = '400 26px ' + sans;
+    ctx.fillText('A picture of the last two weeks, not a grade.', M, 906);
+
+    ctx.strokeStyle = ink.line;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(M, 948);
+    ctx.lineTo(M + W, 948);
+    ctx.stroke();
+    ctx.fillStyle = ink.navy;
+    ctx.font = '700 32px ' + serif;
+    ctx.fillText('Pivot Labs', M, 1004);
+    const brandEnd = M + ctx.measureText('Pivot Labs').width + 18;
+    ctx.strokeStyle = ink.mocha;
+    ctx.beginPath();
+    ctx.moveTo(brandEnd, 978);
+    ctx.lineTo(brandEnd, 1010);
+    ctx.stroke();
+    ctx.font = 'italic 400 26px ' + serif;
+    ctx.fillText('Navigating Everyday Leadership', brandEnd + 18, 1003);
+    ctx.font = '600 26px ' + sans;
+    ctx.textAlign = 'right';
+    ctx.fillText('pivotlabsleadership.com', M + W, 1003);
+    ctx.textAlign = 'left';
+  }
+
+  // The preview window. Wired once; each open makes a fresh image from the current answers.
+  const picture = { url: '', file: null, wired: false };
+  const $id = id => document.getElementById(id);
+  function wirePicture() {
+    if (picture.wired) return;
+    picture.wired = true;
+    $id('picture-close').addEventListener('click', () => $id('picture-dialog').close());
+    $id('picture-save').addEventListener('click', savePicture);
+    $id('picture-dialog').addEventListener('close', () => {
+      if (picture.url) URL.revokeObjectURL(picture.url);
+      picture.url = '';
+      picture.file = null;
+      $id('picture-preview').removeAttribute('src');
+    });
+  }
+  async function openPicture(a, opener, api) {
+    const dialog = $id('picture-dialog');
+    if (!dialog) return;
+    wirePicture();
+    opener.disabled = true;
+    try {
+      await loadFonts();
+      const canvas = document.createElement('canvas');
+      canvas.width = IMG;
+      canvas.height = IMG;
+      drawLeanImage(canvas, a);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      if (!blob) throw new Error('No image');
+      if (picture.url) URL.revokeObjectURL(picture.url);
+      picture.url = URL.createObjectURL(blob);
+      picture.file = typeof File === 'function' ? new File([blob], imageName, { type: 'image/png' }) : null;
+      const img = $id('picture-preview');
+      img.src = picture.url;
+      img.alt = 'The image to save. ' + leanSummary(a);
+      $id('picture-saved').textContent = '';
+      dialog.showModal();
+    } catch (err) {
+      api.announce('The picture couldn’t be made in this browser. You can print the snapshot or save it as a PDF instead.');
+    } finally {
+      opener.disabled = false;
+    }
+  }
+  function downloadPicture() {
+    const link = document.createElement('a');
+    link.href = picture.url;
+    link.download = imageName;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    $id('picture-saved').textContent = 'Saved. Check your downloads folder.';
+  }
+  // Phones and tablets get the share menu (Save Image, Messages and so on). Computers get a download.
+  function savePicture() {
+    if (!picture.url) return;
+    const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    const files = picture.file ? [picture.file] : null;
+    if (touch && files && navigator.canShare && navigator.canShare({ files })) {
+      navigator.share({ files }).catch(err => { if (!err || err.name !== 'AbortError') downloadPicture(); });
+      return;
+    }
+    downloadPicture();
   }
 
   function renderResult(container, a, api) {
@@ -303,7 +508,7 @@ const ManagingLeadingCheck = (() => {
 
     const lean = section('Where things lean', 1, api, 'your answers');
     lean.classList.add('snap-lean');
-    lean.append(leanPicture(a));
+    lean.append(leanPicture(a, api));
     const t = el('table', 'brief-table');
     const thead = el('thead');
     const hr = el('tr');
