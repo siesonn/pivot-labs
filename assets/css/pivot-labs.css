@@ -297,7 +297,7 @@ cite{font-style:italic}
 .page-hero{background:var(--navy);color:var(--ivory)}
 .page-hero-inner{max-width:1200px;margin:0 auto;padding:40px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:32px;align-items:center}
 .page-hero .eyebrow{color:var(--teal-tint)}
-.page-hero h1{margin:8px 0 16px;color:var(--ivory)}
+.page-hero h1{margin:0 0 16px;color:var(--ivory)}
 .page-hero .lede{margin:0;max-width:520px;font-size:18px;color:var(--ivory)}
 .page-hero-art{display:block;width:100%;height:auto}
 @media screen and (max-width:740px){
