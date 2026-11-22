@@ -99,6 +99,17 @@ h1{margin:0 0 16px}
   .intro-foot{margin-top:20px;padding-top:14px;justify-content:flex-start}
 }
 @media print{.intro{display:none}}
+
+/* Navy hero band (since November 22, 2026), matching the page header band on All tools and Visual guides.
+   The hero stays inside <main>; the band runs edge to edge as one painted layer (border-image with an outset).
+   The negative top margin cancels main's top padding so the band starts right under the site header. */
+.hero{color:var(--ivory);margin-top:-40px;padding:40px 0;border-image:linear-gradient(var(--navy),var(--navy)) fill 0/0/0 100vmax}
+.hero h1,.hero .lead,.hero .small{color:var(--ivory)}
+@media(max-width:740px){.hero{margin-top:-24px;padding:24px 0}}
+@media print{
+  .hero{border-image:none;color:var(--navy);margin-top:0;padding:0}
+  .hero h1,.hero .lead,.hero .small{color:var(--navy)}
+}
 </style></head><body>
 <header class="site-header"><div class="topbar"><span class="brand-name">Pivot Labs</span><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="tools/index.html">Tools</a><a href="guides/index.html">Visual guides</a><a href="about/index.html">About</a></nav></div></header>
 <main>
