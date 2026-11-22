@@ -9,7 +9,6 @@
 .site-footer{border-top:1px solid var(--line)}
 .site-footer em{font-family:var(--display)}
 main{max-width:1200px;margin:auto;padding:40px 48px 48px}
-h1{margin:8px 0 8px}
 .tagline{margin:0;font-family:var(--display);font-style:italic;font-size:20px}
 .about-section{margin-top:40px;padding-top:28px;border-top:1px solid var(--line);max-width:680px}
 .about-section h2{margin:0 0 8px}
@@ -19,13 +18,12 @@ h1{margin:8px 0 8px}
 .lede{margin:24px 0 0;max-width:680px;font-size:18px}
 .about-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
 .about-side{margin-top:40px;padding:24px;background:var(--teal-tint);border:1px solid var(--line);border-top:6px solid var(--navy);border-radius:8px}
-.about-side img{display:block;width:200px;height:200px;margin:0 auto 12px}
 .about-side h2{margin:0 0 12px;font-size:22px;text-align:center}
 .about-side .btn{display:flex;align-items:center;justify-content:center;min-height:44px;margin:0 0 10px;text-align:center}
 .about-side p{margin:12px 0 0;font-size:15px;text-align:center;overflow-wrap:anywhere}
 @media screen and (min-width:900px){
   .about-layout{grid-template-columns:minmax(0,1fr) 320px;gap:0 64px;align-items:start}
-  .about-side{position:sticky;top:24px;margin-top:40px}
+  .about-side{position:sticky;top:24px;margin-top:0}
 }
 @media print{.about-side{display:none}}
 @media screen and (max-width:719px){
@@ -33,15 +31,27 @@ h1{margin:8px 0 8px}
   .topbar,.site-footer>div{padding-inline:16px}
   h1{font-size:32px}
 }
+
+/* Navy title band (since November 22, 2026), the shared .page-hero with the seal in place of a spread.
+   The seal moved here from the "Start here" card. On phones the seal sits small above the heading, as on the home page. */
+.page-hero .tagline{color:var(--ivory)}
+.page-hero-seal .page-hero-inner{grid-template-columns:minmax(0,1fr) 240px;padding-block:32px}
+.page-hero-seal .page-hero-art{width:240px;height:240px}
+@media screen and (max-width:740px){
+  .page-hero-seal .page-hero-inner{grid-template-columns:minmax(0,1fr);padding-block:24px}
+  .page-hero-seal picture{order:-1}
+  .page-hero-seal .page-hero-art{width:140px;height:140px;margin:0}
+}
+@media print{.page-hero .tagline{color:var(--navy)}}
+/* The band now separates the heading from the text, so the first section needs no divider above it. */
+.about-layout>div>.about-section:first-child{margin-top:0;padding-top:0;border-top:0}
+
 </style></head>
 <body>
 <header class="site-header"><div class="topbar"><a class="brand-name" href="../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../tools/index.html">Tools</a><a href="../guides/index.html">Visual guides</a><a href="../about/index.html" aria-current="page">About</a></nav></div></header>
+<section class="page-hero page-hero-seal" aria-labelledby="page-title"><div class="page-hero-inner"><div><p class="eyebrow">About</p><h1 id="page-title">About Pivot Labs</h1><p class="tagline">Navigating Everyday Leadership</p></div><picture><source type="image/webp" srcset="../assets/img/pivot-labs-seal-560.webp 560w, ../assets/img/pivot-labs-seal-800.webp 800w" sizes="(max-width:740px) 140px, 240px"><img class="page-hero-art" src="../assets/img/pivot-labs-seal-560.png" width="240" height="240" alt="Pivot Labs seal"></picture></div></section>
 <main>
-  <p class="eyebrow">About</p>
-  <h1>About Pivot Labs</h1>
-  <p class="tagline">Navigating Everyday Leadership</p>
-
-  <div class="about-layout">
+<div class="about-layout">
   <div>
   <section class="about-section" aria-labelledby="what-title">
     <h2 id="what-title">What this is</h2>
@@ -77,7 +87,6 @@ h1{margin:8px 0 8px}
   </section>
   </div>
   <aside class="about-side" aria-labelledby="side-title">
-    <picture><source type="image/webp" srcset="../assets/img/pivot-labs-seal-560.webp 560w, ../assets/img/pivot-labs-seal-800.webp 800w" sizes="200px"><img src="../assets/img/pivot-labs-seal-560.png" width="200" height="200" alt="Pivot Labs seal" loading="lazy"></picture>
     <h2 id="side-title">Start here</h2>
     <a class="btn primary" href="../tools/index.html">Browse the tools</a>
     <a class="btn" href="../guides/index.html">Browse the visual guides</a>
