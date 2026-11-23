@@ -99,6 +99,31 @@ h1{margin:0 0 16px}
   .intro-foot{margin-top:20px;padding-top:14px;justify-content:flex-start}
 }
 @media print{.intro{display:none}}
+/* Intro video: a compact row in the intro box (poster, play mark, one line) that opens the video in a pop-up. Nothing loads or plays until it is tapped. Files live in assets/video/; the README says how to replace them. */
+.intro-video{margin-top:28px}
+.intro-watch{display:flex;align-items:center;gap:20px;padding:12px;border:1px solid var(--control);border-radius:var(--radius);background:var(--ivory);color:var(--navy);text-decoration:none;max-width:720px;margin:0 auto}
+.intro-watch:hover{background:var(--hover-tint)}
+.intro-thumb{position:relative;flex:0 0 160px;width:160px;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--navy)}
+.intro-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.intro-play{position:absolute;inset:0;display:grid;place-items:center}
+.intro-play svg{width:44px;height:44px;filter:drop-shadow(0 2px 6px rgba(26,43,71,.45))}
+.intro-watch-txt{display:flex;flex-direction:column;gap:4px;font-size:16px;line-height:1.4}
+.intro-watch-txt strong{font-size:18px;color:var(--teal)}
+.intro-watch:hover .intro-watch-txt strong{text-decoration:underline}
+dialog.video-dialog{max-width:1000px;width:calc(100% - 32px);padding:16px 16px 20px}
+.video-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.video-dialog h2{margin:0;font-size:22px}
+.video-dialog video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--navy);border-radius:6px}
+@media(max-width:740px){
+  .intro-video{margin-top:20px}
+  .intro-watch{gap:14px;padding:10px}
+  .intro-thumb{flex-basis:112px;width:112px}
+  .intro-play svg{width:36px;height:36px}
+  .intro-watch-txt{font-size:15px}.intro-watch-txt strong{font-size:17px}
+  dialog.video-dialog{width:calc(100% - 16px);padding:12px 12px 16px}
+  .video-dialog h2{font-size:19px}
+}
+@media print{.video-dialog{display:none!important}}
 
 /* Navy hero band (since November 22, 2026), matching the page header band on All tools and Visual guides.
    The hero stays inside <main>; the band runs edge to edge as one painted layer (border-image with an outset).
@@ -154,6 +179,9 @@ h1{margin:0 0 16px}
 <rect x="58" y="87" width="50" height="6" rx="3" fill="var(--navy)"/><rect x="58" y="99" width="36" height="6" rx="3" fill="var(--navy)"/>
 </svg></div><div class="intro-txt"><h3>Leave with a plan</h3><p>Fill it in, then print it or save it as a PDF before you close the page.</p></div></li>
     </ol>
+    <div class="intro-video">
+      <a class="intro-watch" id="intro-watch" href="assets/video/pivot-labs-intro.mp4" aria-haspopup="dialog"><span class="intro-thumb"><img src="assets/video/pivot-labs-intro-thumb.webp" width="480" height="270" alt="" loading="lazy"><span class="intro-play" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="23" fill="var(--ivory)"/><path d="M19 15.5v17l14-8.5z" fill="var(--navy)"/></svg></span></span><span class="intro-watch-txt"><strong>Watch how it works (51 seconds)</strong><span>One tile, one question and one tool, filled in with made-up answers. Captions included.</span></span></a>
+    </div>
     <div class="intro-foot">
       <a class="intro-go" href="#start-title">Pick a tile below to start<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
     </div>
@@ -224,4 +252,12 @@ h1{margin:0 0 16px}
   </section>
 </main>
 <footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span class="footer-about">Free tools and guides for the everyday parts of leading.</span><span><a href="guides/index.html">Visual Guides</a> · <a href="about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
+<dialog id="intro-video-dialog" class="video-dialog" aria-labelledby="intro-video-title">
+  <div class="video-dialog-head"><h2 id="intro-video-title">How Pivot Labs works</h2><button class="btn" type="button" id="intro-video-close">Close</button></div>
+  <video id="intro-video" controls preload="none" width="1280" height="720" poster="assets/video/pivot-labs-intro-poster.jpg">
+    <source src="assets/video/pivot-labs-intro.mp4" type="video/mp4">
+    <track kind="captions" src="assets/video/pivot-labs-intro.vtt" srclang="en" label="English" default>
+  </video>
+</dialog>
+<script src="assets/js/intro-video.js" defer></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>
