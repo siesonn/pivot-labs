@@ -4,7 +4,8 @@
   The step engine is shared: assets/js/guided-planner.js.
 
   Adapted from Cicely Simpson's "How to Present to Senior Leadership as a Leader."
-  The structure and wording here are our own. The brief is for the leader. Concerns are
+  The time split and the stall line draw on Alvin Huang's "How To Walk Out Of Any Senior
+  Meeting With A Decision" (added November 23, 2026). The structure and wording here are our own. The brief is for the leader. Concerns are
   described by type (cost, timing, capacity, risk), never by guesses about a person.
 */
 const ExecutiveAskBuilder = (() => {
@@ -51,6 +52,23 @@ const ExecutiveAskBuilder = (() => {
     const ask = bare(a.ask), outcome = bare(a.outcome), consequence = bare(a.consequence);
     if (!ask || !outcome || !consequence) return '';
     return 'Here’s the decision I need from you: ' + ask + '. That lets us ' + outcome + ' and keeps us from ' + consequence + '.';
+  }
+  // How the time in the conversation can be split: minutes for the ask, the context,
+  // their concerns, and asking again. The rest is left open. "Not sure" (or no answer)
+  // keeps the order and shows no times. The same length always gives the same split.
+  const timeSlots = [
+    { value: '15', label: '15 minutes', total: 15, split: [2, 4, 5, 2] },
+    { value: '30', label: '30 minutes', total: 30, split: [3, 8, 12, 3] },
+    { value: '60', label: '1 hour', total: 60, split: [5, 15, 25, 5] },
+    { value: 'unsure', label: 'Not sure' }
+  ];
+  function timing(a) {
+    const slot = timeSlots.find(s => s.value === a.timeSlot);
+    if (!slot || !slot.split) return '';
+    const [ask, context, concerns, again] = slot.split;
+    const left = slot.total - (ask + context + concerns + again);
+    return 'Timing: the ask, about ' + ask + ' minutes. Context, about ' + context + '. Their concerns, about ' + concerns +
+      '. Ask again, about ' + again + '. That leaves about ' + left + ' minutes for anything else.';
   }
   const askShort = a => bare(a.ask) || 'this';
   const defaultClose = a => 'Can I get your decision on ' + askShort(a) + ' today?';
@@ -165,8 +183,12 @@ const ExecutiveAskBuilder = (() => {
       'Answer concerns as they come up.',
       'Close by asking again: “' + (text(a.closeLine) || defaultClose(a)) + '”'
     ], 'ol'));
+    const split = timing(a);
+    if (split) room.append(el('p', null, split));
     room.append(el('h4', null, 'If the conversation drifts'),
       el('p', null, '“' + (text(a.redirect) || defaultRedirect(a)) + '”'));
+    room.append(el('h4', null, 'If they stall'),
+      el('p', null, '“Let’s come back to this” or “Can you send me more details?” usually means they aren’t ready to decide. Ask: “What would you need to make a decision, and by when?”'));
     brief.append(room);
 
     const next = [['If it’s a yes', a.yesNext], ['If it’s a yes with a condition', a.condNext], ['If it’s a no', a.noNext], ['Who needs to know afterward', a.tell]];
@@ -188,7 +210,7 @@ const ExecutiveAskBuilder = (() => {
     const foot = el('footer', 'brief-foot');
     foot.append(el('p', null, 'This brief is a starting point. Change what doesn’t fit the people and the moment.'));
     foot.append(el('p', null, 'Made with the Pivot Labs Executive Ask Builder · ' + new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }) +
-      ' · Adapted from Cicely Simpson’s “How to Present to Senior Leadership as a Leader.”'));
+      ' · Adapted from Cicely Simpson’s “How to Present to Senior Leadership as a Leader,” with the time split and stall line drawing on Alvin Huang’s “How To Walk Out Of Any Senior Meeting With A Decision.”'));
     brief.append(foot);
     container.append(brief);
   }
@@ -278,6 +300,9 @@ const ExecutiveAskBuilder = (() => {
       title: 'In the room',
       intro: 'Plan how you’ll close, and what you’ll do if the conversation goes off track.',
       fields: [
+        { id: 'timeSlot', type: 'choice', optional: true, label: 'How long is the conversation?',
+          hint: 'If you know the slot, your brief will suggest how to split the time.',
+          options: timeSlots.map(s => ({ value: s.value, label: s.label })) },
         { id: 'closeLine', type: 'textarea', maxlength: 300, label: 'How will you ask again at the end?',
           default: defaultClose, hint: 'Close by asking for the decision directly. Edit the line to sound like you.' },
         { id: 'redirect', type: 'textarea', maxlength: 300, label: 'What will you say if the conversation drifts?',
@@ -310,7 +335,7 @@ const ExecutiveAskBuilder = (() => {
       situation: '', know: '', alternatives: '',
       outcome: '', consequence: '',
       concerns: [], costAnswer: '', timingAnswer: '', capacityAnswer: '', riskAnswer: '', otherName: '', otherAnswer: '',
-      closeLine: '', redirect: '', yesNext: '', condNext: '', noNext: '', tell: '',
+      timeSlot: '', closeLine: '', redirect: '', yesNext: '', condNext: '', noNext: '', tell: '',
       checks: []
     };
   }
@@ -319,5 +344,5 @@ const ExecutiveAskBuilder = (() => {
 
   return { steps, initialAnswers, isDirty, renderResult, resultTitle: 'Your brief',
     // Exposed for testing.
-    statement, reminders, concernPairs, concerns, checks };
+    statement, reminders, concernPairs, concerns, checks, timing, timeSlots };
 })();
