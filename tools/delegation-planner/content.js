@@ -249,6 +249,265 @@ const DelegationPlanner = (() => {
     return groups;
   }
 
+  // The shareable image's version of the columns: built-in decision names only. The person's own
+  // decisions show as a count, and the spending limit shows without the amount, because both are typed.
+  function imageGroups(a) {
+    const groups = { decide: [], tell: [], check: [] };
+    const hasLimit = !!(a.spendLimit || '').trim();
+    decisions.forEach(d => {
+      const level = a.decisions[d.id];
+      if (!groups[level]) return;
+      if (d.limit && hasLimit && level !== 'check') {
+        groups[level].push('Spending up to a set limit');
+        groups.check.push('Spending over that limit');
+      } else groups[level].push(d.brief);
+    });
+    const own = { decide: 0, tell: 0, check: 0 };
+    a.custom.forEach(c => { if (groups[c.level] && c.text.trim()) own[c.level] += 1; });
+    Object.keys(own).forEach(k => {
+      if (own[k]) groups[k].push({ own: own[k] === 1 ? 'Plus 1 decision of your own' : 'Plus ' + own[k] + ' decisions of your own' });
+    });
+    return groups;
+  }
+  const itemText = item => (typeof item === 'string' ? item : item.own);
+  function imageSummary(a) {
+    const groups = imageGroups(a);
+    return levels.slice(0, 3).map(l => l.brief + ': ' +
+      (groups[l.value].length ? groups[l.value].map(itemText).join(', ') : 'none for now') + '.').join(' ');
+  }
+
+  // The shareable image: the columns drawn on a 1080 by 1080 canvas, made on the device. Nothing is sent
+  // or stored. The preview (#picture-dialog in the page) shows the exact image before it is saved: the
+  // share menu on phones, a download on computers. Same layout rules as the Managing or Leading Check's.
+  const IMG = 1080;
+  const imageName = 'pivot-labs-who-decides-what.png';
+  const ink = { navy: '#24395C', teal: '#4F7B8C', tealTint: '#D8E0DF', amber: '#BB895E', amberTint: '#F1E6D8',
+    ivory: '#FFFDF7', line: '#E0D7CE', espresso: '#4A3F3B', mocha: '#A79083', white: '#FFFFFF' };
+  const sans = '"Source Sans 3", system-ui, sans-serif';
+  const serif = '"Playfair Display", Georgia, serif';
+  function loadFonts() {
+    if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    const faces = ['400 30px ' + sans, '600 30px ' + sans, '700 30px ' + sans, '700 30px ' + serif,
+      'italic 400 30px ' + serif, 'italic 400 30px ' + sans];
+    return Promise.all(faces.map(f => document.fonts.load(f).catch(() => null)));
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function wrap(ctx, text, width) {
+    const lines = [];
+    let line = '';
+    text.split(' ').forEach(word => {
+      const next = line ? line + ' ' + word : word;
+      if (line && ctx.measureText(next).width > width) { lines.push(line); line = word; } else line = next;
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+  function drawDecideImage(canvas, a) {
+    const ctx = canvas.getContext('2d');
+    const M = 64;
+    const W = IMG - 2 * M;
+    const gap = 16;
+    const colW = (W - 2 * gap) / 3;
+    const pad = 18;
+    const spacing = value => { if ('letterSpacing' in ctx) ctx.letterSpacing = value; };
+    ctx.fillStyle = ink.ivory;
+    ctx.fillRect(0, 0, IMG, IMG);
+    ctx.fillStyle = ink.navy;
+    ctx.fillRect(0, 0, IMG, 14);
+    ctx.textBaseline = 'alphabetic';
+
+    ctx.fillStyle = ink.teal;
+    ctx.font = '700 26px ' + sans;
+    spacing('3px');
+    ctx.fillText('DELEGATION PLANNER', M, 112);
+    spacing('0px');
+    ctx.fillStyle = ink.navy;
+    ctx.font = '700 60px ' + serif;
+    ctx.fillText('Who decides what', M, 182);
+
+    // The scale: "More up to you" to "More with me", with an arrow between.
+    ctx.font = '700 26px ' + sans;
+    const leftWord = 'More up to you', rightWord = 'More with me';
+    ctx.fillText(leftWord, M, 248);
+    ctx.textAlign = 'right';
+    ctx.fillText(rightWord, M + W, 248);
+    ctx.textAlign = 'left';
+    const ax1 = M + ctx.measureText(leftWord).width + 20, ax2 = M + W - ctx.measureText(rightWord).width - 20;
+    ctx.strokeStyle = ink.navy;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(ax1, 239);
+    ctx.lineTo(ax2 - 12, 239);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(ax2, 239);
+    ctx.lineTo(ax2 - 16, 230);
+    ctx.lineTo(ax2 - 16, 248);
+    ctx.closePath();
+    ctx.fillStyle = ink.navy;
+    ctx.fill();
+
+    const groups = imageGroups(a);
+    const looks = {
+      decide: { band: ink.navy, text: ink.ivory, edge: ink.navy },
+      tell: { band: ink.tealTint, text: ink.navy, edge: ink.teal },
+      check: { band: ink.amberTint, text: ink.navy, edge: ink.amber }
+    };
+    const top = 276, bottom = 872, headH = 96;
+    const textW = colW - 2 * pad - 22;
+    // One text size for every column, as large as fits the fullest column (26 px down to 20 px).
+    let size = 26;
+    const heightAt = s => Math.max(...levels.slice(0, 3).map(l => {
+      ctx.font = '400 ' + s + 'px ' + sans;
+      const items = groups[l.value];
+      if (!items.length) return s * 1.3;
+      return items.reduce((h, item) => h + wrap(ctx, itemText(item), textW).length * s * 1.3 + 12, 0);
+    }));
+    while (size > 20 && heightAt(size) > bottom - top - headH - 2 * pad) size -= 1;
+    const lineH = size * 1.3;
+
+    levels.slice(0, 3).forEach((l, i) => {
+      const x = M + i * (colW + gap);
+      const look = looks[l.value];
+      ctx.fillStyle = ink.white;
+      roundRect(ctx, x, top, colW, bottom - top, 12);
+      ctx.fill();
+      ctx.save();
+      ctx.clip();
+      ctx.fillStyle = look.band;
+      ctx.fillRect(x, top, colW, headH);
+      ctx.restore();
+      roundRect(ctx, x, top, colW, bottom - top, 12);
+      ctx.strokeStyle = look.edge;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.fillStyle = look.text;
+      ctx.font = '700 28px ' + sans;
+      const head = wrap(ctx, l.brief, colW - 2 * pad);
+      const headTop = top + headH / 2 - (head.length * 34) / 2 + 26;
+      head.forEach((t, n) => ctx.fillText(t, x + pad, headTop + n * 34));
+
+      let y = top + headH + pad + size;
+      const items = groups[l.value];
+      if (!items.length) {
+        ctx.fillStyle = ink.espresso;
+        ctx.font = 'italic 400 ' + size + 'px ' + sans;
+        ctx.fillText('None for now.', x + pad, y);
+        return;
+      }
+      items.forEach(item => {
+        const own = typeof item !== 'string';
+        ctx.font = (own ? 'italic 400 ' : '400 ') + size + 'px ' + sans;
+        ctx.fillStyle = own ? ink.espresso : ink.navy;
+        if (!own) {
+          ctx.beginPath();
+          ctx.arc(x + pad + 5, y - size * 0.32, 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        wrap(ctx, itemText(item), textW).forEach(t => { ctx.fillText(t, x + pad + 22, y); y += lineH; });
+        y += 12;
+      });
+    });
+
+    ctx.fillStyle = ink.navy;
+    ctx.font = '400 26px ' + sans;
+    ctx.fillText('A starting point for a handoff, agreed together.', M, 920);
+
+    ctx.strokeStyle = ink.line;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(M, 954);
+    ctx.lineTo(M + W, 954);
+    ctx.stroke();
+    ctx.fillStyle = ink.navy;
+    ctx.font = '700 32px ' + serif;
+    ctx.fillText('Pivot Labs', M, 1008);
+    const brandEnd = M + ctx.measureText('Pivot Labs').width + 18;
+    ctx.strokeStyle = ink.mocha;
+    ctx.beginPath();
+    ctx.moveTo(brandEnd, 982);
+    ctx.lineTo(brandEnd, 1014);
+    ctx.stroke();
+    ctx.font = 'italic 400 26px ' + serif;
+    ctx.fillText('Navigating Everyday Leadership', brandEnd + 18, 1007);
+    ctx.font = '600 26px ' + sans;
+    ctx.textAlign = 'right';
+    ctx.fillText('pivotlabsleadership.com', M + W, 1007);
+    ctx.textAlign = 'left';
+  }
+
+  // The preview window. Wired once; each open makes a fresh image from the current answers.
+  const picture = { url: '', file: null, wired: false };
+  const $id = id => document.getElementById(id);
+  function wirePicture() {
+    if (picture.wired) return;
+    picture.wired = true;
+    $id('picture-close').addEventListener('click', () => $id('picture-dialog').close());
+    $id('picture-save').addEventListener('click', savePicture);
+    $id('picture-dialog').addEventListener('close', () => {
+      if (picture.url) URL.revokeObjectURL(picture.url);
+      picture.url = '';
+      picture.file = null;
+      $id('picture-preview').removeAttribute('src');
+    });
+  }
+  async function openPicture(a, opener, api) {
+    const dialog = $id('picture-dialog');
+    if (!dialog) return;
+    wirePicture();
+    opener.disabled = true;
+    try {
+      await loadFonts();
+      const canvas = document.createElement('canvas');
+      canvas.width = IMG;
+      canvas.height = IMG;
+      drawDecideImage(canvas, a);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      if (!blob) throw new Error('No image');
+      if (picture.url) URL.revokeObjectURL(picture.url);
+      picture.url = URL.createObjectURL(blob);
+      picture.file = typeof File === 'function' ? new File([blob], imageName, { type: 'image/png' }) : null;
+      const img = $id('picture-preview');
+      img.src = picture.url;
+      img.alt = 'The image to save. ' + imageSummary(a);
+      $id('picture-saved').textContent = '';
+      dialog.showModal();
+    } catch (err) {
+      api.announce('The picture couldn’t be made in this browser. You can print the brief or save it as a PDF instead.');
+    } finally {
+      opener.disabled = false;
+    }
+  }
+  function downloadPicture() {
+    const link = document.createElement('a');
+    link.href = picture.url;
+    link.download = imageName;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    $id('picture-saved').textContent = 'Saved. Check your downloads folder.';
+  }
+  // Phones and tablets get the share menu (Save Image, Messages and so on). Computers get a download.
+  function savePicture() {
+    if (!picture.url) return;
+    const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    const files = picture.file ? [picture.file] : null;
+    if (touch && files && navigator.canShare && navigator.canShare({ files })) {
+      navigator.share({ files }).catch(err => { if (!err || err.name !== 'AbortError') downloadPicture(); });
+      return;
+    }
+    downloadPicture();
+  }
+
   function section(title, step, api, label) {
     const s = el('section', 'brief-section');
     const head = el('div', 'brief-section-head');
@@ -368,6 +627,13 @@ const DelegationPlanner = (() => {
       groupWrap.append(g);
     });
     decide.append(scale, groupWrap);
+    // Save this picture: a square image of the columns, built-in decision names only, previewed first. Not printed.
+    const save = el('div', 'picture-save-row no-print');
+    const saveButton = el('button', 'btn', 'Save this picture');
+    saveButton.type = 'button';
+    saveButton.addEventListener('click', () => openPicture(a, saveButton, api));
+    save.append(saveButton, el('p', 'small', 'Makes an image of who decides what. Your task, names and your own words aren’t in it.'));
+    decide.append(save);
     brief.append(decide);
 
     const track = section('How we’ll know it’s on track', 4, api, 'how you’ll know it’s on track');
@@ -566,5 +832,5 @@ const DelegationPlanner = (() => {
 
   return { steps, initialAnswers, isDirty, renderResult, resultTitle: 'Your brief',
     // Exposed for testing the suggestion logic.
-    suggestFrequency, prepNotes, decisionGroups };
+    suggestFrequency, prepNotes, decisionGroups, imageGroups, imageSummary };
 })();
