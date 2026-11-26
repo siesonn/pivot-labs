@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Find a time method to try for a week with the Pivot Labs Time Method Picker. Answer a question or two about what's going on with your time, get one method and why it fits, and print a simple week plan."><title>Time Method Picker | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Time Method Picker | Pivot Labs"><meta property="og:description" content="Find a time method to try for a week with the Pivot Labs Time Method Picker. Answer a question or two about what's going on with your time, get one method and why it fits, and print a simple week plan."><meta property="og:url" content="https://pivotlabsleadership.com/tools/time-method-picker/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, the guided planner layout and the situation picker come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1320px}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* Step 2: the button on the Eisenhower handoff card */
+.picker-card .picker-actions{margin-top:12px}
+
+/* The week plan */
+.brief-habit{font-style:italic}
+.brief ol{margin:4px 0 0;padding-left:22px}
+.brief ol li+li{margin-top:4px}
+.about ul{margin:8px 0 0;padding-left:22px}
+.about li+li{margin-top:4px}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+}
+</style><noscript><style>.planner-page .share,.planner-page .about,.planner-page .tool-footer{display:block!important}</style></noscript></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html" aria-current="page">All Tools</a><a href="../../guides/index.html">Visual Guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Time Method Picker</p>
+      <h1>Where does your day get away from you?</h1>
+      <p>Most time methods are good at one thing. Answer a question or two about what’s going on, and you’ll get one method to try for a week, with a simple plan. Nothing is saved.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>Your entries clear when you refresh or close this page.</strong> To keep your plan, print it or save it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+      </form>
+      <div id="planner-result" hidden></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>The Time Method Picker matches what’s going on with your time to one method to try for a week. The methods are common practice. The questions, structure and wording here are our own.</p>
+    <p>The idea of matching each method to the situation it suits comes from Sean McPheat’s “13 Time Management Methods To Develop Your Managers.”</p>
+    <p>Where the methods come from:</p>
+    <ul>
+      <li><strong>Six things, in order:</strong> Ivy Lee, a management consultant, around 1918.</li>
+      <li><strong>Most important first:</strong> Leo Babauta, who popularized “Most Important Tasks.”</li>
+      <li><strong>One big, three medium, five small:</strong> Alex Cavoulacos, The Muse (2013).</li>
+      <li><strong>Hardest thing first:</strong> Brian Tracy, <cite>Eat That Frog!</cite> (2001).</li>
+      <li><strong>Short focus rounds:</strong> Francesco Cirillo, the Pomodoro® Technique (late 1980s).</li>
+      <li><strong>Put it on the calendar:</strong> timeboxing, a common practice with no single originator.</li>
+      <li><strong>Set a shorter deadline:</strong> C. Northcote Parkinson, “Parkinson’s Law,” <cite>The Economist</cite> (1955).</li>
+      <li><strong>Do it now if it takes two minutes</strong> and <strong>One trusted list:</strong> David Allen, <cite>Getting Things Done®</cite> (2001).</li>
+      <li><strong>Group them:</strong> task batching, a common practice.</li>
+      <li><strong>Big things in first:</strong> Jeremy Wright, “Time Management: The Pickle Jar Theory,” <cite>A List Apart</cite> (2002).</li>
+      <li><strong>The few that matter most:</strong> the Pareto principle, named by Joseph M. Juran after the economist Vilfredo Pareto.</li>
+      <li><strong>Sorting by urgent and important:</strong> the Eisenhower Matrix, which has <a href="../eisenhower-matrix/index.html">its own tool here</a>.</li>
+    </ul>
+    <p>None of these people or companies is connected to Pivot Labs, and none has reviewed or endorsed this tool.</p>
+    <p class="small">Pomodoro® and Pomodoro Technique® are registered trademarks of Francesco Cirillo. GTD® and Getting Things Done® are registered trademarks of the David Allen Company.</p>
+  </section>
+</main><footer class="tool-footer"><section class="related" aria-labelledby="related-title"><h2 id="related-title">Related tools</h2><ul><li><a href="../eisenhower-matrix/index.html">Eisenhower Matrix</a><span class="why">Sort your tasks by urgency and importance.</span></li><li><a href="../delegation-planner/index.html">Delegation Planner</a><span class="why">Hand off one piece of work and agree on who decides what.</span></li></ul></section><p class="feedback-line">Did this help? Tell us what worked and what didn’t. <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></p><p class="footer-links small">Pivot Labs · <em>Navigating Everyday Leadership</em> · <a href="../../">Home</a> · <a href="../index.html">All Tools</a> · <a href="../../guides/index.html">Visual Guides</a></p></footer>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears every answer and your plan. You can undo it until you start entering new answers.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Keep working</button><button class="btn primary" type="button" id="confirm-restart">Clear my answers</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="../../assets/js/situation-picker.js"></script><script src="content.js"></script><script>
+'use strict';
+GuidedPlanner.create(TimeMethodPicker);
+</script><!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>

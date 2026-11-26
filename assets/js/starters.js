@@ -64,6 +64,10 @@ window.PivotStarters = (() => {
       guide: { title: 'What others see, and what you share', href: 'guides/johari-window/index.html' },
       summary: 'Pick five or six words that describe you, then a few people pick words for you from the same list. See where you match, what others see that you didn’t name, and what you might share more.'
     },
+    timeMethod: {
+      title: 'Time Method Picker', href: 'tools/time-method-picker/index.html',
+      summary: 'Find one time method to try for a week. Answer a question or two about what’s going on with your time, get a method and why it fits, and print a simple week plan.'
+    },
     readiness: {
       title: 'Readiness Matrix Builder', href: 'tools/readiness-matrix-builder/index.html',
       summary: 'Map what ready looks like in one role. Describe four stages, what you’d see at each one and how you’d know, then print a matrix to use in development conversations.'
@@ -77,6 +81,7 @@ window.PivotStarters = (() => {
   const WHY = {
     matrix: 'Get everything in one place first. The Eisenhower Matrix helps you sort each task by urgency and importance, then decide what to do now, schedule, delegate, or reconsider.',
     handoff: 'You already know what to hand off. The Delegation Planner helps you agree on what done looks like, who decides what, and when you’ll check in.',
+    method: 'Most time methods are good at one thing. The Time Method Picker asks a question or two about what’s going on, then suggests one method to try for a week, with a simple plan.',
     busy: 'When the work keeps coming back to you, it helps to see where it runs through you and where it doesn’t. The Managing or Leading Check asks ten quick questions about your last two weeks and suggests one small thing to try.'
   };
 
@@ -87,18 +92,21 @@ window.PivotStarters = (() => {
           { value: 'list', label: 'I have a long list and don’t know where to start.' },
           { value: 'handoff', label: 'I know what I want to hand off. I need to plan how.' },
           { value: 'busy', label: 'I’m busy all the time, and the work keeps coming back to me.' },
+          { value: 'method', label: 'I’m not sure how to run my day or my week.' },
           { value: 'unsure', label: 'I’m not sure.' }
         ] }
       ],
       options: [
         tool('eisenhower', 'When you have a list to sort.'),
         tool('delegation', 'When you already know what you want to hand off.'),
-        tool('managingLeading', 'When the work keeps coming back to you.')
+        tool('managingLeading', 'When the work keeps coming back to you.'),
+        tool('timeMethod', 'When you want a new way to run your day or week.')
       ],
       suggest(a) {
         if (a.time === 'list') return pick('eisenhower', WHY.matrix);
         if (a.time === 'handoff') return pick('delegation', WHY.handoff);
         if (a.time === 'busy') return pick('managingLeading', WHY.busy);
+        if (a.time === 'method') return pick('timeMethod', WHY.method);
         if (a.time === 'unsure') return pick('eisenhower', WHY.matrix + ' If a task could go to someone else, the matrix links you to the Delegation Planner.');
         return null;
       }
