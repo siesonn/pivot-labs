@@ -81,7 +81,7 @@ const ReadinessMatrixBuilder = (() => {
       part('Have these handy', list([
         'The main responsibilities of the role (a job description works)',
         'How the job usually progresses, from new to fully up to speed',
-        'How long it usually takes to get up to speed. Some jobs take a year. Simpler ones might take three months.'
+        'How long it usually takes someone to get up to speed in this role. This varies by role and industry.'
       ]));
       part('Keep in mind', list([
         'Describe what people do, not who they are.',
