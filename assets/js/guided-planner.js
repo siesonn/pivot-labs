@@ -8,7 +8,9 @@
     GuidedPlanner.create(config)
 
   config
-    steps            [{ id, title, intro, fields }]
+    steps            [{ id, title, heading, intro, nextLabel, fields }]
+                     heading (optional) replaces the title above the step; the step list keeps the title.
+                     nextLabel (optional) replaces "Continue" on that step's button.
     initialAnswers() the starting answers object (a fresh copy each time)
     resultTitle      label for the last item in the step list, for example "Your brief"
     finishLabel      text of the last step's button (optional, default "Review my brief")
@@ -22,6 +24,7 @@
     hint      help text shown under the label (put examples here)
     optional  true to mark "(optional)" and skip the required check
     maxlength for text fields
+    placeholder (optional) example text shown inside an empty text field
     options   [{ value, label }] for choice and multi
     default(answers)  value set the first time the step opens, if the answer is still empty
     note(answers)     suggestion shown under the control; updates as answers change
@@ -174,6 +177,7 @@ const GuidedPlanner = (() => {
         input.id = id;
         input.dataset.answer = f.id;
         if (f.maxlength) input.maxLength = f.maxlength;
+        if (f.placeholder) input.placeholder = resolve(f.placeholder, answers);
         input.value = answers[f.id] || '';
         described.push(errId);
         input.setAttribute('aria-describedby', described.join(' '));
@@ -195,7 +199,7 @@ const GuidedPlanner = (() => {
         if (f.default && isEmpty(answers[f.id])) answers[f.id] = f.default(answers);
       });
       dom.count.textContent = 'Step ' + (current + 1) + ' of ' + total;
-      dom.title.textContent = resolve(step.title, answers);
+      dom.title.textContent = resolve(step.heading || step.title, answers);
       const intro = resolve(step.intro, answers);
       dom.intro.textContent = intro || '';
       dom.intro.hidden = !intro;
@@ -215,8 +219,13 @@ const GuidedPlanner = (() => {
         firstTyped.closest('.planner-field').after(tip);
       }
       dom.back.hidden = current === 0;
-      dom.next.textContent = current === total - 1 ? (cfg.finishLabel || 'Review my brief') : 'Continue';
       refresh();
+    }
+
+    function nextLabel() {
+      const step = cfg.steps[current];
+      if (step.nextLabel) return resolve(step.nextLabel, answers);
+      return current === total - 1 ? (cfg.finishLabel || 'Review my brief') : 'Continue';
     }
 
     // Show or hide conditional fields and update suggestion notes without rebuilding inputs.
@@ -224,6 +233,9 @@ const GuidedPlanner = (() => {
     function refresh() {
       if (titles().join('\n') !== stepTitles) renderSteps();
       if (current >= total) return;
+      // The button label can depend on answers (for example a stage name typed on this step).
+      const label = nextLabel();
+      if (dom.next.textContent !== label) dom.next.textContent = label;
       cfg.steps[current].fields.forEach(f => {
         const wrap = dom.fields.querySelector('[data-field="' + f.id + '"]');
         if (!wrap) return;

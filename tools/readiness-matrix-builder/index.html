@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Map what ready looks like in one role with the Pivot Labs Readiness Matrix Builder. Describe four stages, how you'd know someone is there, and what you'd expect. Print it for development conversations."><title>Readiness Matrix Builder | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Readiness Matrix Builder | Pivot Labs"><meta property="og:description" content="Map what ready looks like in one role with the Pivot Labs Readiness Matrix Builder. Describe four stages, how you'd know someone is there, and what you'd expect. Print it for development conversations."><meta property="og:url" content="https://pivotlabsleadership.com/tools/readiness-matrix-builder/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/css/pivot-labs.css"><style>
+/* Shared fonts, colors, header, buttons, form fields, and the guided planner layout come from assets/css/pivot-labs.css. Styles below are for this tool. */
+.topbar{max-width:1320px}
+main{max-width:1320px;margin:auto;padding:40px 48px 48px}
+.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+h1{margin:8px 0 16px}
+.intro p{margin:0;max-width:640px;font-size:18px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+
+/* Step 1: before you start */
+.prep{max-width:680px}
+.prep section{margin-top:24px}
+.prep h3{margin:0 0 4px;font-family:var(--body);font-size:18px;font-weight:700}
+.prep p{margin:0}
+.prep ul{margin:4px 0 0;padding-left:22px}
+.prep li+li{margin-top:4px}
+
+/* Step 2: the four stages, a table on wide screens and a card per stage on phones */
+.row-question{margin:0 0 8px;font-size:19px;font-weight:700}
+.stage-table{display:grid;gap:8px;margin-top:16px}
+.stage-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr);gap:12px 16px;align-items:center}
+.stage-head{font-size:14px;font-weight:700;letter-spacing:.4px}
+.stage-means{font-size:16px}
+.stage-label{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Stage steps */
+.stage-open{font-size:18px;margin:0;max-width:680px}
+.example{margin-top:24px;max-width:680px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--teal-tint)}
+.example summary{min-height:44px;padding:10px 16px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;list-style:none}
+.example summary::-webkit-details-marker{display:none}
+.example summary::before{content:"";flex:0 0 auto;width:0;height:0;border-style:solid;border-width:6px 0 6px 9px;border-color:transparent transparent transparent var(--navy)}
+.example[open] summary::before{border-width:9px 6px 0 6px;border-color:var(--navy) transparent transparent transparent}
+.example-body{padding:0 16px 16px}
+.example-body p{margin:0}
+.example dl{margin:8px 0 0}
+.example dt{margin-top:8px;font-weight:700}
+.example dd{margin:2px 0 0}
+.behavior-list{display:grid;gap:8px;margin-top:8px}
+.behavior-row{display:flex;gap:8px;align-items:center}
+.behavior-row input{flex:1 1 auto}
+.behavior-remove{flex:0 0 auto}
+.behavior-add{margin-top:12px}
+p.behavior-add{margin-top:12px}
+.partial-print{margin:16px 0 0}
+.link-button{min-height:44px;padding:0;border:0;background:none;color:var(--navy);font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.link-button:hover{text-decoration-thickness:2px}
+
+/* The matrix */
+.matrix-remind{margin:24px 0 0;font-size:17px}
+.matrix-intro{margin-top:12px}
+.matrix-stage .brief-meta{margin-top:4px}
+.matrix dl{margin-top:4px}
+.matrix dd ul{margin:2px 0 0}
+.matrix-question{padding:8px 12px;background:var(--selected-tint);border-left:4px solid var(--navy);border-radius:var(--radius)}
+.not-filled{color:var(--slate);font-style:italic}
+.print-blank{display:none}
+#partial-brief{display:none}
+
+/* Status and undo float at the bottom of the screen so they stay visible on a long page */
+#status,#undo-bar{position:fixed;left:50%;transform:translateX(-50%);z-index:5;margin:0;box-shadow:0 8px 24px rgba(36,57,92,.25)}
+#status{bottom:16px}
+#undo-bar{bottom:64px}
+#status:empty+#undo-bar{bottom:16px}
+
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html{background:#fff}
+  .screen-only{display:none!important}
+  .print-blank{display:inline-block;width:2in;border-bottom:1px solid #a8a8a8;vertical-align:baseline}
+  .matrix .brief-lines div{height:22pt}
+  .matrix-question{background:#fff;border:1px solid #a8a8a8;border-left:3pt solid var(--navy);padding:4pt 8pt}
+  .matrix dt{margin-top:5pt}
+  /* "Print what you have so far" prints the matrix in place of the step */
+  body.print-partial #planner-step-head,body.print-partial #planner-form,body.print-partial #planner-result{display:none!important}
+  body.print-partial #partial-brief{display:block}
+}
+
+@media(max-width:1000px){
+  .topbar{padding:16px 24px}
+  main{padding:32px 24px 40px}
+  .intro{flex-direction:column;align-items:flex-start}
+  h1{font-size:36px}
+}
+@media(max-width:740px){
+  .topbar{padding:12px 16px}
+  main{padding:24px 16px 32px}
+  h1{font-size:32px}
+  .intro{gap:16px}
+  .stage-head{display:none}
+  .stage-row{grid-template-columns:minmax(0,1fr);gap:8px;padding:16px;border:1px solid var(--card-line);border-radius:var(--radius)}
+  .stage-label{position:static!important;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal;display:block;font-size:15px;font-weight:700;margin-bottom:4px}
+  .stage-means span:last-child{display:block}
+}
+</style><noscript><style>.planner-page .share,.planner-page .about,.planner-page .tool-footer{display:block!important}</style></noscript></head><body class="planner-page">
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="../../tools/index.html" aria-current="page">All Tools</a><a href="../../guides/index.html">Visual Guides</a><a href="../../about/index.html">About</a></nav></div></header>
+<main>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Readiness Matrix Builder</p>
+      <h1>What does ready look like in this role?</h1>
+      <p>Map how someone grows in a role, from their first weeks to doing it at a high level. You’ll describe what each stage looks like and how you’d know someone is there. It’s for coaching and development conversations, not for grading anyone.</p>
+    </div>
+    <div class="actions"><button class="btn" type="button" id="restart">Start over</button></div>
+  </section>
+  <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>This one takes a while, about an hour.</strong> Nothing is saved, so keep this tab open until you’ve printed your matrix or saved it as a PDF.</div></div>
+  <div class="planner-layout">
+    <nav class="planner-progress" aria-label="Planner steps"><ol class="planner-steps" id="planner-steps"></ol></nav>
+    <section class="planner-panel" aria-labelledby="planner-title">
+      <div class="planner-step-head" id="planner-step-head">
+        <p class="eyebrow" id="planner-count"></p>
+        <h2 id="planner-title"></h2>
+        <p class="planner-intro" id="planner-intro"></p>
+      </div>
+      <form id="planner-form" novalidate>
+        <div id="planner-fields"></div>
+        <div class="planner-nav"><button class="btn" type="button" id="planner-back">Back</button><button class="btn primary" type="submit" id="planner-next">Continue</button></div>
+        <p class="partial-print no-print" id="partial-print" hidden><button class="link-button" type="button" id="partial-print-button">Print what you have so far</button></p>
+      </form>
+      <div id="planner-result" hidden></div>
+      <div id="partial-brief"></div>
+    </section>
+  </div>
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this tool</h2>
+    <p>This builder comes from Pivot Labs’ own readiness framework. It describes how someone grows in a role, from their first weeks to doing the work at a high level, based on behavior you can see.</p>
+    <p>It draws on the idea of Return on Expectations from Donald and Jim Kirkpatrick: judge development by whether it delivers what people expected, not only by a dollar figure. Return on Expectations is a service mark of Kirkpatrick Partners. This tool isn’t connected to or endorsed by them.</p>
+  </section>
+</main><footer class="tool-footer"><section class="related" aria-labelledby="related-title"><h2 id="related-title">Related tools</h2><ul><li><a href="../role-clarity-builder/index.html">Role Clarity Builder</a><span class="why">Make the role clear before you map how people grow in it.</span></li><li><a href="../team-development-map/index.html">Team Development Map</a><span class="why">Decide how much support someone needs on one task.</span></li></ul></section><p class="feedback-line">Did this help? Tell us what worked and what didn’t. <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></p><p class="footer-links small">Pivot Labs · <em>Navigating Everyday Leadership</em> · <a href="../../">Home</a> · <a href="../index.html">All Tools</a> · <a href="../../guides/index.html">Visual Guides</a></p></footer>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="undo-bar" hidden><span id="undo-label"></span><button class="btn" type="button" id="undo">Undo</button></div>
+<dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Start over?</h2><p>This clears everything you typed.</p><div class="dialog-actions"><button class="btn" type="button" id="cancel-restart" autofocus>Cancel</button><button class="btn primary" type="button" id="confirm-restart">Yes, start over</button></div></dialog>
+<script src="../../assets/js/guided-planner.js"></script><script src="content.js"></script><script>
+'use strict';
+const planner = GuidedPlanner.create(ReadinessMatrixBuilder);
+document.getElementById('partial-print-button').addEventListener('click', () => ReadinessMatrixBuilder.printSoFar(planner.answers));
+</script><!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>

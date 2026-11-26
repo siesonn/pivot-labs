@@ -63,6 +63,10 @@ window.PivotStarters = (() => {
       title: 'Johari Window', href: 'tools/johari-window/index.html',
       guide: { title: 'What others see, and what you share', href: 'guides/johari-window/index.html' },
       summary: 'Pick five or six words that describe you, then a few people pick words for you from the same list. See where you match, what others see that you didn’t name, and what you might share more.'
+    },
+    readiness: {
+      title: 'Readiness Matrix Builder', href: 'tools/readiness-matrix-builder/index.html',
+      summary: 'Map what ready looks like in one role. Describe four stages, what you’d see at each one and how you’d know, then print a matrix to use in development conversations.'
     }
   };
 
@@ -111,6 +115,7 @@ window.PivotStarters = (() => {
           { value: 'owns', label: 'People aren’t sure who owns what.' },
           { value: 'new', label: 'I’m new to this team, or the team is going through a change.' },
           { value: 'seeEachOther', label: 'We want to understand how we see each other.' },
+          { value: 'readiness', label: 'I want to set clear expectations for how people grow in a role.' },
           { value: 'unsure', label: 'I’m not sure.' }
         ] },
         { id: 'team', type: 'choice', label: 'What’s going on?', showIf: a => a.scope === 'person' || a.scope === 'unsure', options: [
@@ -135,13 +140,15 @@ window.PivotStarters = (() => {
         tool('coaching', 'When you want to help someone think something through.'),
         tool('roleClarity', 'When people aren’t sure who owns what.'),
         tool('ninetyDay', 'When you’re new to a team, or the team is going through a change.'),
-        tool('johari', 'When you want to see how others see you.')
+        tool('johari', 'When you want to see how others see you.'),
+        tool('readiness', 'When you want to map what ready looks like in a role.')
       ],
       suggest(a) {
         if (a.scope === 'team') {
           if (a.owners === 'owns') return pick('roleClarity', 'The Role Clarity Builder helps you make one role clear: what it runs, what it shares, what belongs to someone else, and who decides what. Then you go through the sheet together.');
           if (a.owners === 'new') return pick('ninetyDay', 'When you’re new, or things are changing, the first month is best spent listening. The 90-Day Leader Plan helps you decide who to meet and what to ask, plan how to work with your manager, and set check-ins at day 30, 60 and 90. You leave with a plan you can print.');
           if (a.owners === 'seeEachOther') return pick('johari', 'Seeing how others see you, and sharing how you see yourself, builds trust. Every word on the list is a strength, so it works well as a team activity, with each person making their own window.');
+          if (a.owners === 'readiness') return pick('readiness', 'The Readiness Matrix Builder helps you describe four stages in one role, what you’d see at each and how you’d know, then print a matrix for coaching and development conversations. Set aside about an hour.');
           if (a.owners === 'unsure') return pick('roleClarity', 'Start with one role. The Role Clarity Builder lists what the role runs, what it shares, and what belongs to someone else, and marks anything that isn’t settled yet.');
           return null;
         }
