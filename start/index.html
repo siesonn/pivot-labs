@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src https://cloudflareinsights.com; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Pick what’s going on, answer a question or two, and we’ll point you to a leadership tool that fits. Free, no account."><title>Start Here | Pivot Labs</title><meta property="og:type" content="website"><meta property="og:site_name" content="Pivot Labs"><meta property="og:title" content="Start Here | Pivot Labs"><meta property="og:description" content="Pick what’s going on, answer a question or two, and we’ll point you to a leadership tool that fits. Free, no account."><meta property="og:url" content="https://pivotlabsleadership.com/start/"><meta property="og:image" content="https://pivotlabsleadership.com/assets/img/pivot-labs-share-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pivot Labs: Navigating Everyday Leadership"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml"><link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/pivot-labs.css"><style>
+/* Start Here page: the six picture tiles that open the Find pages (moved from the home page). Shared fonts, colors, header, and buttons come from assets/css/pivot-labs.css. Tile wording and routing live in the Find pages and assets/js/starters.js. */
+body{display:flex;flex-direction:column;min-height:100vh}
+.topbar,.site-footer>div{max-width:1200px;margin:0 auto;padding-inline:48px}
+main{flex:1;width:100%;max-width:1200px;margin:0 auto;padding:40px 48px 64px}
+.site-footer{border-top:1px solid var(--line);font-size:15px}
+.site-footer>div{padding-block:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 32px}
+.site-footer em{font-family:var(--display)}.footer-about{max-width:560px}
+.art{display:block;width:100%;height:auto}
+.art .t{font:700 11px var(--body)}.art .t2{font:600 9px var(--body)}
+h1{margin:0 0 16px}
+.lead{font-size:19px;margin:0 0 12px;max-width:520px}
+.small{margin:0}
+.more-links{margin-top:32px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center}
+.more-links .btn{white-space:nowrap}
+.tag{display:inline-block}
+@media(max-width:740px){
+  .topbar,.site-footer>div{padding-inline:16px}
+  main{padding:24px 16px 48px}
+  h1{font-size:32px;margin-bottom:12px}
+  .lead{font-size:17px}
+}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:center}.hero-seal{padding:26px}.hero-seal img{display:block;width:266px;height:266px;margin:0 auto}
+.collage{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.collage figure{margin:0;padding:14px 14px 10px;border:1px solid var(--card-line);border-radius:var(--radius);background:var(--ivory)}
+.collage figure:nth-child(1){background:var(--navy-tint)}.collage figure:nth-child(2){background:var(--teal-tint)}
+.collage figure:nth-child(3){background:var(--terracotta-tint)}.collage figure:nth-child(4){background:var(--amber-tint)}
+.collage figcaption{font-size:14px;font-weight:700;margin-top:6px;text-align:center}
+.start{margin-top:56px}.start h2{margin:0 0 16px;font-size:28px}
+.tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.tile a{display:flex;flex-direction:column;height:100%;border:1px solid var(--control);border-radius:var(--radius);text-decoration:none;color:var(--navy);overflow:hidden;background:var(--ivory)}
+.tile a:hover{background:var(--hover-tint)}
+.tile .pic{padding:16px 24px;background:var(--navy-tint);border-bottom:1px solid var(--card-line)}
+.tile .pic .art{max-width:200px;margin:0 auto}
+.tile:nth-child(2) .pic{background:var(--teal-tint)}.tile:nth-child(3) .pic{background:var(--terracotta-tint)}
+.tile:nth-child(4) .pic{background:var(--amber-tint)}.tile:nth-child(5) .pic{background:var(--slate-tint)}.tile:nth-child(6) .pic{background:var(--mocha-tint)}
+.tile .txt{display:flex;flex-direction:column;gap:6px;padding:16px 20px 20px;flex:1}
+.tile h3{font-family:var(--display);font-size:21px;line-height:1.25;margin:0}
+.tile p{margin:0;font-size:15px}
+.tile .go{margin-top:auto;padding-top:8px;display:flex;align-items:center;gap:8px;color:var(--teal);font-weight:700;font-size:15px}
+.tile .go svg{width:20px;height:20px}
+.band{margin-top:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;align-items:center;padding:20px;border:1px solid var(--teal);border-top:6px solid var(--navy);border-radius:var(--radius);background:var(--teal-tint)}
+.band img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:var(--radius)}
+.band h3{margin:8px 0 6px;font-size:26px}.band p{margin:0 0 12px;max-width:620px}
+.band .acts{display:flex;flex-wrap:wrap;gap:12px}
+.tag{background:var(--navy);color:var(--ivory)}
+@media(max-width:1000px){.hero{grid-template-columns:minmax(0,1fr)}.hero-seal img{margin:0}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:740px){
+  .hero-seal{padding:0;order:-1}.hero-seal img{width:140px;height:140px;margin:0}
+  .collage{gap:10px}.collage figure{padding:8px 8px 6px}.collage figcaption{font-size:12px}
+  .start{margin-top:40px}
+  .tiles{grid-template-columns:minmax(0,1fr);gap:12px}
+  .tile a{flex-direction:row;align-items:stretch}
+  .tile .pic{flex:0 0 112px;padding:12px 8px;border-bottom:0;border-right:1px solid var(--card-line);display:flex;align-items:center}
+  .tile .txt{padding:14px 16px;gap:2px}
+  .tile h3{font-size:19px}.tile p{display:none}.tile .go{padding-top:4px}
+  .band{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:12px}
+  .band h3{font-size:21px}.band p{font-size:15px}.band .acts{flex-direction:column;grid-column:1/-1}.band .acts .btn{width:100%}
+  .more-links .btn{width:100%;text-align:center}
+}
+
+.start-lead{margin:0 0 10px;max-width:none}.latest{margin:0 0 20px;font-size:16px}.start h2{margin-bottom:8px}
+.new{margin-top:56px}.new>h2{margin:0 0 16px;font-size:28px}.new .band{margin-top:0}
+@media(max-width:740px){.new{margin-top:40px}.new>h2{font-size:26px}}
+@media print{.tile .go svg{display:none}}
+/* Navy hero band (since November 22, 2026), matching the page header band on All tools and Visual guides.
+   The hero stays inside <main>; the band runs edge to edge as one painted layer (border-image with an outset).
+   The negative top margin cancels main's top padding so the band starts right under the site header. */
+.hero{color:var(--ivory);margin-top:-40px;padding:40px 0;border-image:linear-gradient(var(--navy),var(--navy)) fill 0/0/0 100vmax}
+.hero h1,.hero .lead,.hero .small{color:var(--ivory)}
+@media(max-width:740px){.hero{margin-top:-24px;padding:24px 0}}
+@media print{
+  .hero{border-image:none;color:var(--navy);margin-top:0;padding:0}
+  .hero h1,.hero .lead,.hero .small{color:var(--navy)}
+}
+
+/* Start Here: the Navy band holds the heading and count line, then the tiles sit right under it. */
+.hero{grid-template-columns:minmax(0,1fr)}.hero .lead{max-width:none}
+.start{margin-top:40px}
+@media(max-width:740px){.start{margin-top:24px}}
+</style></head><body>
+<header class="site-header"><div class="topbar"><a class="brand-name" href="../">Pivot Labs</a><span class="brand-tagline">Navigating Everyday Leadership</span><nav class="site-nav" aria-label="Main"><a href="index.html" aria-current="page">Start Here</a><a href="../tools/index.html">All Tools</a><a href="../guides/index.html">Visual Guides</a><a href="../about/index.html">About</a></nav></div></header>
+<main>
+  <section class="hero" aria-labelledby="page-title">
+    <div>
+      <h1 id="page-title">What can we help you with?</h1>
+      <p class="lead">Pick the one that sounds closest. Most ask a question or two, then suggest a tool and tell you why it fits.</p>
+      <p class="small">These six are places to start, not everything we have. There are 15 tools and 8 guides so far, and the list keeps growing.</p>
+    </div>
+  </section>
+
+  <section class="start" aria-label="Places to start">
+    <ul class="tiles">
+      <li class="tile"><a href="../find/too-much-on-my-plate/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<rect x="22" y="6" width="62" height="46" rx="6" fill="var(--navy)" stroke="var(--navy)" stroke-width="1.5"/><text x="53" y="33" text-anchor="middle" fill="var(--ivory)" class="t">Do now</text>
+<rect x="88" y="6" width="62" height="46" rx="6" fill="var(--teal)" stroke="var(--navy)" stroke-width="1.5"/><text x="119" y="33" text-anchor="middle" fill="var(--ivory)" class="t">Plan</text>
+<rect x="22" y="56" width="62" height="46" rx="6" fill="var(--amber-tint)" stroke="var(--navy)" stroke-width="1.5"/><text x="53" y="83" text-anchor="middle" fill="var(--navy)" class="t">Delegate</text>
+<rect x="88" y="56" width="62" height="46" rx="6" fill="var(--mocha-tint)" stroke="var(--navy)" stroke-width="1.5"/><text x="119" y="83" text-anchor="middle" fill="var(--navy)" class="t">Drop</text>
+<text x="53" y="114" text-anchor="middle" fill="var(--navy)" class="t2">Urgent</text>
+<text x="119" y="114" text-anchor="middle" fill="var(--navy)" class="t2">Not urgent</text>
+<text x="12" y="54" text-anchor="middle" fill="var(--navy)" class="t2" transform="rotate(-90 12 54)">Important</text>
+</svg></div><div class="txt"><h3>I have too much on my plate</h3><p>Sort what needs you now, what can wait, and what someone else could take.</p><span class="go">4 tools · 2 guides<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></li>
+      <li class="tile"><a href="../find/help-with-my-team/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<rect x="22" y="6" width="62" height="48" rx="6" fill="var(--teal-tint)" stroke="var(--navy)" stroke-width="1.5"/><text x="53" y="34" text-anchor="middle" fill="var(--navy)" class="t">Guide</text>
+<rect x="88" y="6" width="62" height="48" rx="6" fill="var(--navy)"/><text x="119" y="34" text-anchor="middle" fill="var(--ivory)" class="t">Stretch</text>
+<rect x="22" y="58" width="62" height="48" rx="6" fill="var(--mocha-tint)" stroke="var(--navy)" stroke-width="1.5"/><text x="53" y="86" text-anchor="middle" fill="var(--navy)" class="t">Direct</text>
+<rect x="88" y="58" width="62" height="48" rx="6" fill="var(--slate-tint)" stroke="var(--navy)" stroke-width="1.5"/><text x="119" y="86" text-anchor="middle" fill="var(--navy)" class="t">Re-engage</text>
+<text x="86" y="116" text-anchor="middle" fill="var(--navy)" class="t2">Skill</text>
+<text x="12" y="58" text-anchor="middle" fill="var(--navy)" class="t2" transform="rotate(-90 12 58)">Will</text>
+</svg></div><div class="txt"><h3>I need help with my team</h3><p>Talk with someone, coach them, hand off work, decide how much support they need, or sort out who owns what.</p><span class="go">8 tools · 5 guides<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></li>
+      <li class="tile"><a href="../find/conversation-to-prepare-for/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<path d="M24 18h76a8 8 0 0 1 8 8v30a8 8 0 0 1-8 8H58l-16 14V64h-18a8 8 0 0 1-8-8V26a8 8 0 0 1 8-8z" fill="var(--navy)"/>
+<g stroke="var(--ivory)" stroke-width="3" stroke-linecap="round"><line x1="30" y1="32" x2="88" y2="32"/><line x1="30" y1="44" x2="70" y2="44"/></g>
+<path d="M62 58h72a8 8 0 0 1 8 8v26a8 8 0 0 1-8 8h-16v12l-14-12H62a8 8 0 0 1-8-8V66a8 8 0 0 1 8-8z" fill="var(--teal-tint)" stroke="var(--teal)" stroke-width="2"/>
+<g stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><line x1="66" y1="72" x2="124" y2="72"/><line x1="66" y1="84" x2="100" y2="84"/></g>
+</svg></div><div class="txt"><h3>I have a conversation to prepare for</h3><p>Prepare for a feedback conversation, or an ask to senior leaders.</p><span class="go">2 tools · 1 guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></li>
+      <li class="tile"><a href="../find/something-keeps-going-wrong/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<g stroke="var(--navy)" stroke-width="3" stroke-linecap="round" fill="none">
+<line x1="10" y1="60" x2="112" y2="60"/><line x1="40" y1="60" x2="26" y2="20"/><line x1="82" y1="60" x2="68" y2="20"/>
+<line x1="40" y1="60" x2="26" y2="100"/><line x1="82" y1="60" x2="68" y2="100"/></g>
+<rect x="110" y="40" width="42" height="40" rx="8" fill="var(--navy)"/>
+<circle cx="35" cy="38" r="4" fill="var(--teal)"/><circle cx="77" cy="38" r="6" fill="var(--terracotta)"/>
+<circle cx="35" cy="82" r="4" fill="var(--teal)"/><circle cx="77" cy="82" r="4" fill="var(--teal)"/>
+</svg></div><div class="txt"><h3>Something keeps going wrong</h3><p>Find what’s behind it so it stops coming back.</p><span class="go">2 tools · 2 guides<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></li>
+      <li class="tile"><a href="../tools/decision-approach-picker/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+<g fill="none" stroke="var(--navy)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M34 60h26c14 0 14-30 34-30h22"/><path d="M60 60c14 0 14 30 34 30h22"/>
+<path d="M128 22l10 8-10 8"/><path d="M128 82l10 8-10 8"/></g>
+<circle cx="26" cy="60" r="11" fill="var(--navy)"/>
+<rect x="104" y="18" width="40" height="24" rx="6" fill="var(--teal)" opacity="0"/>
+<circle cx="94" cy="30" r="5" fill="var(--teal)"/><circle cx="94" cy="90" r="5" fill="var(--terracotta)"/>
+</svg></div><div class="txt"><h3>I have a decision to make</h3><p>Find a way to decide that fits, and leave with a record of what you decided and why.</p><span class="go">Opens a tool<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></li>
+      <li class="tile"><a href="../tools/emotion-wheel/index.html"><div class="pic"><svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false"><path d="M80.0 2.0A58 58 0 0 1 130.2 31.0L126.8 33.0A54 54 0 0 0 80.0 6.0Z" fill="var(--navy)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M80.0 6.0A54 54 0 0 1 107.0 13.2L100.0 25.4A40 40 0 0 0 80.0 20.0Z" fill="var(--navy)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M107.0 13.2A54 54 0 0 1 126.8 33.0L114.6 40.0A40 40 0 0 0 100.0 25.4Z" fill="var(--navy)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M80.0 20.0A40 40 0 0 1 114.6 40.0L99.1 49.0A22 22 0 0 0 80.0 38.0Z" fill="var(--navy)" stroke="var(--ivory)" stroke-width="1.5"/><path d="M130.2 31.0A58 58 0 0 1 130.2 89.0L126.8 87.0A54 54 0 0 0 126.8 33.0Z" fill="var(--teal)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M126.8 33.0A54 54 0 0 1 134.0 60.0L120.0 60.0A40 40 0 0 0 114.6 40.0Z" fill="var(--teal)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M134.0 60.0A54 54 0 0 1 126.8 87.0L114.6 80.0A40 40 0 0 0 120.0 60.0Z" fill="var(--teal)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M114.6 40.0A40 40 0 0 1 114.6 80.0L99.1 71.0A22 22 0 0 0 99.1 49.0Z" fill="var(--teal)" stroke="var(--ivory)" stroke-width="1.5"/><path d="M130.2 89.0A58 58 0 0 1 80.0 118.0L80.0 114.0A54 54 0 0 0 126.8 87.0Z" fill="var(--terracotta)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M126.8 87.0A54 54 0 0 1 107.0 106.8L100.0 94.6A40 40 0 0 0 114.6 80.0Z" fill="var(--terracotta)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M107.0 106.8A54 54 0 0 1 80.0 114.0L80.0 100.0A40 40 0 0 0 100.0 94.6Z" fill="var(--terracotta)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M114.6 80.0A40 40 0 0 1 80.0 100.0L80.0 82.0A22 22 0 0 0 99.1 71.0Z" fill="var(--terracotta)" stroke="var(--ivory)" stroke-width="1.5"/><path d="M80.0 118.0A58 58 0 0 1 29.8 89.0L33.2 87.0A54 54 0 0 0 80.0 114.0Z" fill="var(--amber)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M80.0 114.0A54 54 0 0 1 53.0 106.8L60.0 94.6A40 40 0 0 0 80.0 100.0Z" fill="var(--amber)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M53.0 106.8A54 54 0 0 1 33.2 87.0L45.4 80.0A40 40 0 0 0 60.0 94.6Z" fill="var(--amber)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M80.0 100.0A40 40 0 0 1 45.4 80.0L60.9 71.0A22 22 0 0 0 80.0 82.0Z" fill="var(--amber)" stroke="var(--ivory)" stroke-width="1.5"/><path d="M29.8 89.0A58 58 0 0 1 29.8 31.0L33.2 33.0A54 54 0 0 0 33.2 87.0Z" fill="var(--slate)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M33.2 87.0A54 54 0 0 1 26.0 60.0L40.0 60.0A40 40 0 0 0 45.4 80.0Z" fill="var(--slate)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M26.0 60.0A54 54 0 0 1 33.2 33.0L45.4 40.0A40 40 0 0 0 40.0 60.0Z" fill="var(--slate)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M45.4 80.0A40 40 0 0 1 45.4 40.0L60.9 49.0A22 22 0 0 0 60.9 71.0Z" fill="var(--slate)" stroke="var(--ivory)" stroke-width="1.5"/><path d="M29.8 31.0A58 58 0 0 1 80.0 2.0L80.0 6.0A54 54 0 0 0 33.2 33.0Z" fill="var(--mocha)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M33.2 33.0A54 54 0 0 1 53.0 13.2L60.0 25.4A40 40 0 0 0 45.4 40.0Z" fill="var(--mocha)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M53.0 13.2A54 54 0 0 1 80.0 6.0L80.0 20.0A40 40 0 0 0 60.0 25.4Z" fill="var(--mocha)" fill-opacity=".5" stroke="var(--ivory)" stroke-width="1.5"/><path d="M45.4 40.0A40 40 0 0 1 80.0 20.0L80.0 38.0A22 22 0 0 0 60.9 49.0Z" fill="var(--mocha)" stroke="var(--ivory)" stroke-width="1.5"/><circle cx="80" cy="60" r="21" fill="var(--ivory)"/></svg></div><div class="txt"><h3>Something’s weighing on me</h3><p>Put a word to what you’re feeling, and decide what to do next.</p><span class="go">Opens a tool · 1 guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></li>
+    </ul>
+    <div class="more-links">
+      <a class="btn" href="../tools/index.html">Browse all tools</a>
+      <span class="small">Didn’t find it? No worries. New tools are on the way, because leadership problems aren’t going away. <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Tell us what’s missing<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><div><span>Pivot Labs · <em>Navigating Everyday Leadership</em></span><span class="footer-about">Free tools and guides for the everyday parts of leading.</span><span><a href="../">Home</a> · <a href="../guides/index.html">Visual Guides</a> · <a href="../about/index.html">About</a> · <a href="https://forms.gle/YhxYQqcAtavATULi6" target="_blank" rel="noopener">Send feedback<span aria-hidden="true">&nbsp;↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a></span></div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3528e41f7e154ef6afd02111297ce24b"}'></script><!-- End Cloudflare Web Analytics --></body></html>
